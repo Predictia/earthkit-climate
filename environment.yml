@@ -24,6 +24,7 @@ dependencies:
 - pip
 - geopandas
 - earthkit-data
+- xclim
 - pip:
   - ek-aggregate
   - git+https://github.com/ecmwf/multiurl

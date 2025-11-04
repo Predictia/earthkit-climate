@@ -22,4 +22,6 @@ except ImportError:  # pragma: no cover
 
 from earthkit import aggregate
 
-__all__ = [aggregate, __version__]
+from . import conversions, precipitation, temperature, wind
+
+__all__ = [aggregate, conversions, precipitation, temperature, wind, __version__]
