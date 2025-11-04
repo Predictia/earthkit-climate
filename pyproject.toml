@@ -59,11 +59,12 @@ select = [
   "D"
 ]
 
-[tool.setuptools]
-packages = ["earthkit.climate"]
+[tool.setuptools.packages.find]
+include = ["earthkit.climate"]
+where = ['src/']
 
 [tool.setuptools_scm]
-write_to = "earthkit/climate/version.py"
+write_to = "src/earthkit/climate/version.py"
 write_to_template = '''
 # Do not change! Do not track in version control!
 __version__ = "{version}"
