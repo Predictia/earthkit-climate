@@ -5,7 +5,9 @@ from __future__ import annotations
 from typing import Any, Dict, Mapping, Tuple
 
 import xarray as xr
-from earthkit.data import FieldList, Field
+
+from earthkit.data import Field, FieldList
+from earthkit.data.wrappers import get_wrapper
 
 EarthkitData = FieldList | Field
 MetadataDict = Dict[str, Any]
@@ -54,9 +56,7 @@ def to_xarray_dataset(
             dataset = dataset.to_dataset(name=variable_name)
             earthkit_internal["dataarray_name"] = variable_name
         elif not isinstance(dataset, xr.Dataset):
-            raise TypeError(
-                "The object returned by 'to_xarray' is not an xarray.Dataset instance."
-            )
+            raise TypeError("The object returned by 'to_xarray' is not an xarray.Dataset instance.")
     else:
         raise TypeError(
             "Unsupported input type for conversion to xarray. "
@@ -65,57 +65,6 @@ def to_xarray_dataset(
 
     meta["earthkit_internal"] = earthkit_internal
     return dataset, meta
-
-
-def to_earthkit_field(
-    output: xr.Dataset | xr.DataArray,
-    metadata: Mapping[str, Any] | None = None,
-) -> EarthkitData:
-    """
-    Convert a xarray result back into an Earthkit representation.
-
-    Parameters
-    ----------
-    output : xarray.Dataset or xarray.DataArray
-        Resulting data returned by an xclim indicator.
-    metadata : Mapping[str, Any], optional
-        Provenance metadata gathered during the conversion and call workflow.
-
-    Returns
-    -------
-    EarthkitData
-        The indicator output converted to the closest possible Earthkit type.
-    """
-    meta: MetadataDict = dict(metadata or {})
-    earthkit_internal = dict(meta.pop("earthkit_internal", {}))
-    dataset: xr.Dataset
-    if isinstance(output, xr.DataArray):
-        dataset = output.to_dataset(name=output.name or "variable")
-    else:
-        dataset = output
-
-    dataset = dataset.copy()
-    provenance = dict(meta)
-    if provenance:
-        dataset.attrs.setdefault("earthkit_provenance", provenance)
-
-    input_type = earthkit_internal.get("input_type")
-
-    if input_type == "xarray.Dataset":
-        return dataset
-    if input_type == "xarray.DataArray":
-        variable_name = earthkit_internal.get("dataarray_name")
-        if variable_name and variable_name in dataset:
-            return dataset[variable_name]
-        return dataset.to_array().squeeze(drop=True)
-
-    try:
-        earthkit_data = _xarray_to_earthkit(dataset)
-    except ModuleNotFoundError:
-        return dataset
-    except Exception:
-        return dataset
-    return earthkit_data
 
 
 def _describe_type(obj: Any) -> str:
@@ -140,40 +89,42 @@ def _describe_type(obj: Any) -> str:
     return f"{obj_type.__module__}.{obj_type.__qualname__}"
 
 
-def _xarray_to_earthkit(dataset: xr.Dataset) -> EarthkitData:
+def to_earthkit_field(
+    output: xr.Dataset | xr.DataArray,
+    metadata: Mapping[str, Any] | None = None,
+) -> EarthkitData:
     """
-    Convert an `xarray.Dataset` into an `EarthkitData` object using available Earthkit helpers.
-
-    The function attempts to use `earthkit.data.from_xarray` first, and if that fails or is
-    unavailable, it tries `earthkit.data.wrap_xarray`. If neither works, a `TypeError` is raised.
+    Convert an xarray result back into an Earthkit representation.
 
     Parameters
     ----------
-    dataset : xarray.Dataset
-        The xarray dataset to convert.
+    output : xarray.Dataset or xarray.DataArray
+        Resulting data returned by an xclim indicator.
+    metadata : Mapping[str, Any], optional
+        Provenance metadata gathered during the conversion and call workflow.
 
     Returns
     -------
     EarthkitData
-        The converted Earthkit data object.
+        The indicator output converted to the closest possible Earthkit type.
     """
-    try:
-        import earthkit.data  # type: ignore
-    except ModuleNotFoundError:
-        raise
 
-    conversion_candidates = (
-        getattr(earthkit.data, "from_xarray", None),
-        getattr(earthkit.data, "wrap_xarray", None),
-    )
+    meta: MetadataDict = dict(metadata or {})
 
-    for converter in conversion_candidates:
-        if callable(converter):
-            try:
-                return converter(dataset)
-            except Exception:
-                continue
+    # Ensure we always have a dataset
+    dataset: xr.Dataset
+    if isinstance(output, xr.DataArray):
+        dataset = output.to_dataset(name=output.name or "variable")
+    else:
+        dataset = output
 
-    raise TypeError(
-        "Unable to convert xarray.Dataset back to an Earthkit object using the available helpers."
-    )
+    dataset = dataset.copy()
+
+    # Attach provenance metadata
+    provenance = dict(meta)
+    if provenance:
+        dataset.attrs.setdefault("earthkit_provenance", provenance)
+
+    # --- Use Earthkit’s official wrapper system ---
+    ek_object = get_wrapper(dataset)
+    return ek_object

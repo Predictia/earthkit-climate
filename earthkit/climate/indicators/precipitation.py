@@ -7,10 +7,13 @@ from typing import Any
 import xarray as xr
 import xclim.indicators.atmos
 
-from .conversions import EarthkitData, MetadataDict, to_earthkit_field, to_xarray_dataset
-from .provenance import add_indicator_provenance
-
-
+from earthkit.climate.utils.conversions import (
+    EarthkitData,
+    MetadataDict,
+    to_earthkit_field,
+    to_xarray_dataset,
+)
+from earthkit.climate.utils.provenance import add_indicator_provenance
 
 __all__ = [
     "maximum_consecutive_wet_days",
@@ -57,7 +60,9 @@ def maximum_consecutive_wet_days(
     output_dataset: xr.Dataset = xclim.indicators.atmos.maximum_consecutive_wet_days(ds=dataset, **kwargs)
 
     # Add provenance
-    metadata = add_indicator_provenance(metadata, xclim.indicators.atmos.maximum_consecutive_wet_days, dataset, **kwargs)
+    metadata = add_indicator_provenance(
+        metadata, xclim.indicators.atmos.maximum_consecutive_wet_days, dataset, **kwargs
+    )
 
     return to_earthkit_field(output_dataset, metadata)
 
@@ -97,7 +102,7 @@ def daily_precipitation_intensity(
     dataset, metadata = to_xarray_dataset(earthkit_input, metadata)
 
     kwargs = dict(kwargs)
-    
+
     if wet_day_threshold is not None:
         kwargs.setdefault("thresh", _format_precipitation_threshold(wet_day_threshold))
     if frequency is not None:
@@ -107,7 +112,9 @@ def daily_precipitation_intensity(
     output_dataset: xr.Dataset = xclim.indicators.atmos.daily_pr_intensity(ds=dataset, **kwargs)
 
     # Add provenance
-    metadata = add_indicator_provenance(metadata, xclim.indicators.atmos.daily_pr_intensity, dataset, **kwargs)
+    metadata = add_indicator_provenance(
+        metadata, xclim.indicators.atmos.daily_pr_intensity, dataset, **kwargs
+    )
 
     return to_earthkit_field(output_dataset, metadata)
 

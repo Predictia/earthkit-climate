@@ -1,22 +1,25 @@
 """Temperature-based climate indices."""
 from __future__ import annotations
 
-from typing import Any, Tuple, Iterable
+from typing import Any
 
-import xarray as xr
-import xclim.indices
 import xclim.indicators.atmos
+from xclim.core.calendar import percentile_doy
 
-from .conversions import EarthkitData, MetadataDict, to_earthkit_field, to_xarray_dataset
-from .provenance import add_indicator_provenance
-
+from earthkit.climate.utils.conversions import (
+    EarthkitData,
+    MetadataDict,
+    to_earthkit_field,
+    to_xarray_dataset,
+)
+from earthkit.climate.utils.percentile import get_percentile
+from earthkit.climate.utils.provenance import add_indicator_provenance
 
 __all__ = [
     "daily_temperature_range",
     "warm_spell_duration_index",
     "heating_degree_days",
 ]
-
 
 
 def daily_temperature_range(
@@ -57,7 +60,7 @@ def daily_temperature_range(
     kwargs = dict(kwargs)
 
     # Compute the DTR index
-    result = xclim.indices.daily_temperature_range(tasmax_da, tasmin_da, **kwargs)
+    result = xclim.indices.daily_temperature_range(tasmax_da["tasmax"], tasmin_da["tasmin"], **kwargs)
     output_dataset = result.to_dataset(name=result.name or "dtr")
 
     # Add provenance metadata
@@ -69,65 +72,91 @@ def daily_temperature_range(
 
 def warm_spell_duration_index(
     tasmax: EarthkitData,
-    tasmax_per: EarthkitData,
+    tasmax_hist: EarthkitData,
+    freq: str = "YS",
+    window: int = 6,
     **kwargs: Any,
 ) -> EarthkitData:
     """
     Compute the Warm Spell Duration Index (WSDI) using the xclim indices module.
+    The 90th percentile threshold is computed internally from the historical period.
 
     Parameters
     ----------
     tasmax : EarthkitData
-        Daily maximum temperature data.
-    tasmax_per : EarthkitData
-        Reference daily maximum temperature percentiles (usually 90th percentile over a reference period).
+        Daily maximum temperature data for the target period.
+    tasmax_hist : EarthkitData
+        Historical daily maximum temperature data used to compute the 90th percentile threshold.
+    freq : str, optional, default "YS"
+        Frequency of resampling (e.g. yearly).
+    window : int, optional, default 6
+        Minimum number of consecutive days above the threshold.
     **kwargs : Any
-        Additional keyword arguments forwarded to :func:`xclim.indices.warm_spell_duration_index`.
-        Common arguments include:
-        - `freq` : str, optional, frequency of resampling (e.g. "YS" for yearly)
-        - `window` : int, optional, minimum spell length (default 6)
-        - `thresh` : float or xarray.DataArray, optional, threshold percentile (default 90)
+        Additional arguments forwarded to :func:`xclim.indicators.atmos.warm_spell_duration_index`.
 
     Returns
     -------
     EarthkitData
         The computed WSDI index as an Earthkit-compatible field.
     """
-    # Convert inputs to xarray DataArray
     metadata: MetadataDict = {}
-    tasmax_da, metadata = to_xarray_dataset(tasmax, metadata)
-    tasmax_per_da, metadata = to_xarray_dataset(tasmax_per, metadata)
+    tasmax_ds, metadata = to_xarray_dataset(tasmax, metadata)
+    hist_ds, _ = to_xarray_dataset(tasmax_hist, metadata)
 
-    kwargs = dict(kwargs)
+    # Get 90th percentile over time (regular type, not doy)
+    tasmax_per = percentile_doy(hist_ds, per=90)
 
-    # Compute WSDI
-    result = xclim.indicators.atmos.warm_spell_duration_index(tasmax_da, tasmax_per_da, **kwargs)
+    # Compute WSDI with xclim
+    result = xclim.indicators.atmos.warm_spell_duration_index(
+        tasmax=tasmax_ds["tasmax"],
+        tasmax_per=tasmax_per,
+        freq=freq,
+        window=window,
+        **kwargs,
+    )
+
     output_dataset = result.to_dataset(name=result.name or "wsdi")
 
     # Add provenance
-    add_indicator_provenance(metadata, xclim.indicators.atmos.warm_spell_duration_index, output_dataset, **kwargs)
+    add_indicator_provenance(
+        metadata,
+        xclim.indicators.atmos.warm_spell_duration_index,
+        output_dataset,
+        freq=freq,
+        window=window,
+        **kwargs,
+    )
 
-    # Convert back to EarthkitData
     return to_earthkit_field(output_dataset, metadata)
 
 
 def heating_degree_days(
+    tasmax: EarthkitData,
+    tasmin: EarthkitData,
     tas: EarthkitData,
     **kwargs: Any,
 ) -> EarthkitData:
     """
-    Compute the Heating Degree Days (HDD) using the xclim indicators module.
+    Compute the Heating Degree Days (HDD) using the approximation method
+    from the xclim indicators module.
+
+    This version uses both daily maximum and minimum temperatures, following
+    the approach used in :func:`xclim.indicators.atmos.heating_degree_days_approximation`.
 
     Parameters
     ----------
+    tasmax : EarthkitData
+        Daily maximum temperature data.
+    tasmin : EarthkitData
+        Daily minimum temperature data.
     tas : EarthkitData
         Daily mean temperature data.
     **kwargs : Any
         Additional keyword arguments forwarded to
-        :func:`xclim.indicators.atmos.heating_degree_days`.
+        :func:`xclim.indicators.atmos.heating_degree_days_approximation`.
 
         Common arguments include:
-        - `thresh` : str, default "17.0 degC"
+        - `thresh` : str, default "18.0 degC"
             Base temperature threshold for heating.
         - `freq` : str, default "YS"
             Frequency for accumulation (e.g., "YS" = yearly sum).
@@ -138,14 +167,30 @@ def heating_degree_days(
         The computed Heating Degree Days (HDD) converted back to an Earthkit-compatible type.
     """
     metadata: MetadataDict = {}
-    tas_da, metadata = to_xarray_dataset(tas, metadata)
+
+    # Convert inputs to xarray
+    tasmax_ds, metadata = to_xarray_dataset(tasmax, metadata)
+    tasmin_ds, _ = to_xarray_dataset(tasmin, metadata)
+    tas_ds, _ = to_xarray_dataset(tas, metadata)
+
     kwargs = dict(kwargs)
 
-    # Compute HDD index
-    result = xclim.indicators.atmos.heating_degree_days(tas=tas_da, **kwargs)
+    # Compute HDD index using approximation
+    result = xclim.indicators.atmos.heating_degree_days_approximation(
+        tasmax=tasmax_ds["tasmax"],
+        tasmin=tasmin_ds["tasmin"],
+        tas=tas_ds["tas"],
+        **kwargs,
+    )
+
     output_dataset = result.to_dataset(name=result.name or "hdd")
 
     # Add provenance
-    add_indicator_provenance(metadata, xclim.indicators.atmos.heating_degree_days, output_dataset, **kwargs)
+    add_indicator_provenance(
+        metadata,
+        xclim.indicators.atmos.heating_degree_days_approximation,
+        output_dataset,
+        **kwargs,
+    )
 
     return to_earthkit_field(output_dataset, metadata)
