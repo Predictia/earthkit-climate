@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import Any
 
+import xarray
 import xarray as xr
 import xclim.indicators.atmos
 
@@ -15,14 +16,9 @@ from earthkit.climate.utils.conversions import (
 )
 from earthkit.climate.utils.provenance import add_indicator_provenance
 
-__all__ = [
-    "maximum_consecutive_wet_days",
-    "daily_precipitation_intensity",
-]
-
 
 def maximum_consecutive_wet_days(
-    earthkit_input: EarthkitData,
+    earthkit_input: EarthkitData | xarray.Dataset,
     *,
     wet_day_threshold: float | str = 1.0,
     **kwargs: Any,
@@ -32,7 +28,7 @@ def maximum_consecutive_wet_days(
 
     Parameters
     ----------
-    earthkit_input : EarthkitData
+    earthkit_input : EarthkitData | xarray.Dataset
         Input precipitation data. Supported inputs include ``xarray.Dataset``,
         ``xarray.DataArray`` and, if ``earthkit-data`` is installed, any object
         exposing a ``to_xarray`` method (for example ``Field`` or ``FieldList``).
@@ -52,6 +48,7 @@ def maximum_consecutive_wet_days(
     """
     metadata: MetadataDict = {}
     dataset, metadata = to_xarray_dataset(earthkit_input, metadata)
+    dataset.pr.attrs["units"] = "mm/day"
 
     kwargs = dict(kwargs)
     kwargs.setdefault("thresh", _format_precipitation_threshold(wet_day_threshold))
@@ -68,7 +65,7 @@ def maximum_consecutive_wet_days(
 
 
 def daily_precipitation_intensity(
-    earthkit_input: EarthkitData,
+    earthkit_input: EarthkitData | xarray.Dataset,
     *,
     wet_day_threshold: float | str | None = None,
     frequency: str | None = None,
@@ -79,7 +76,7 @@ def daily_precipitation_intensity(
 
     Parameters
     ----------
-    earthkit_input : EarthkitData
+    earthkit_input : EarthkitData | xarray.Dataset
         Input precipitation data. Supported inputs include ``xarray.Dataset``,
         ``xarray.DataArray`` and, if ``earthkit-data`` is installed, any object
         exposing a ``to_xarray`` method (for example ``Field`` or ``FieldList``).
@@ -100,6 +97,7 @@ def daily_precipitation_intensity(
     """
     metadata: MetadataDict = {}
     dataset, metadata = to_xarray_dataset(earthkit_input, metadata)
+    dataset.pr.attrs["units"] = "mm/day"
 
     kwargs = dict(kwargs)
 

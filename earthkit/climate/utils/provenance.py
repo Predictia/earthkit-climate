@@ -7,7 +7,7 @@ from typing import Any
 
 import xarray as xr
 
-from .conversions import MetadataDict
+from earthkit.climate.utils.conversions import MetadataDict
 
 
 def add_indicator_provenance(
@@ -43,7 +43,7 @@ def add_indicator_provenance(
     bound_args.apply_defaults()
 
     metadata["call_info"] = {
-        "xclim_function": indicator.__name__,
+        "xclim_function": indicator.compute.__name__,
         "parameters": dict(bound_args.arguments),
     }
 

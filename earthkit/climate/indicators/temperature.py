@@ -3,6 +3,7 @@ from __future__ import annotations
 
 from typing import Any
 
+import xarray
 import xclim.indicators.atmos
 from xclim.core.calendar import percentile_doy
 
@@ -12,19 +13,12 @@ from earthkit.climate.utils.conversions import (
     to_earthkit_field,
     to_xarray_dataset,
 )
-from earthkit.climate.utils.percentile import get_percentile
 from earthkit.climate.utils.provenance import add_indicator_provenance
-
-__all__ = [
-    "daily_temperature_range",
-    "warm_spell_duration_index",
-    "heating_degree_days",
-]
 
 
 def daily_temperature_range(
-    tasmax: EarthkitData,
-    tasmin: EarthkitData,
+    tasmax: EarthkitData | xarray.Dataset,
+    tasmin: EarthkitData | xarray.Dataset,
     **kwargs: Any,
 ) -> EarthkitData:
     """
@@ -32,9 +26,9 @@ def daily_temperature_range(
 
     Parameters
     ----------
-    tasmax : EarthkitData
+    tasmax : EarthkitData | xarray.Dataset
         Input data containing maximum daily temperature values.
-    tasmin : EarthkitData
+    tasmin : EarthkitData | xarray.Dataset
         Input data containing minimum daily temperature values.
     **kwargs : Any
         Additional keyword arguments forwarded to
@@ -71,8 +65,8 @@ def daily_temperature_range(
 
 
 def warm_spell_duration_index(
-    tasmax: EarthkitData,
-    tasmax_hist: EarthkitData,
+    tasmax: EarthkitData | xarray.Dataset,
+    tasmax_hist: EarthkitData | xarray.Dataset,
     freq: str = "YS",
     window: int = 6,
     **kwargs: Any,
@@ -83,9 +77,9 @@ def warm_spell_duration_index(
 
     Parameters
     ----------
-    tasmax : EarthkitData
+    tasmax : EarthkitData | xarray.Dataset
         Daily maximum temperature data for the target period.
-    tasmax_hist : EarthkitData
+    tasmax_hist : EarthkitData | xarray.Dataset
         Historical daily maximum temperature data used to compute the 90th percentile threshold.
     freq : str, optional, default "YS"
         Frequency of resampling (e.g. yearly).
@@ -131,9 +125,9 @@ def warm_spell_duration_index(
 
 
 def heating_degree_days(
-    tasmax: EarthkitData,
-    tasmin: EarthkitData,
-    tas: EarthkitData,
+    tasmax: EarthkitData | xarray.Dataset,
+    tasmin: EarthkitData | xarray.Dataset,
+    tas: EarthkitData | xarray.Dataset,
     **kwargs: Any,
 ) -> EarthkitData:
     """
@@ -145,11 +139,11 @@ def heating_degree_days(
 
     Parameters
     ----------
-    tasmax : EarthkitData
+    tasmax : EarthkitData | xarray.Dataset
         Daily maximum temperature data.
-    tasmin : EarthkitData
+    tasmin : EarthkitData | xarray.Dataset
         Daily minimum temperature data.
-    tas : EarthkitData
+    tas : EarthkitData | xarray.Dataset
         Daily mean temperature data.
     **kwargs : Any
         Additional keyword arguments forwarded to

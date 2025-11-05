@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Any, Dict, Mapping, Tuple
 
-import xarray as xr
+import xarray
 
 from earthkit.data import Field, FieldList
 from earthkit.data.wrappers import get_wrapper
@@ -12,19 +12,17 @@ from earthkit.data.wrappers import get_wrapper
 EarthkitData = FieldList | Field
 MetadataDict = Dict[str, Any]
 
-__all__ = ["EarthkitData", "MetadataDict", "to_xarray_dataset", "to_earthkit_field"]
-
 
 def to_xarray_dataset(
-    earthkit_input: EarthkitData,
+    earthkit_input: EarthkitData | xarray.Dataset,
     metadata: Mapping[str, Any] | None = None,
-) -> Tuple[xr.Dataset, MetadataDict]:
+) -> Tuple[xarray.Dataset, MetadataDict]:
     """
     Convert Earthkit-like data to an ``xarray.Dataset`` and gather metadata.
 
     Parameters
     ----------
-    earthkit_input : EarthkitData
+    earthkit_input : EarthkitData | xarray.Dataset
         Input data in any supported Earthkit or xarray representation.
     metadata : Mapping[str, Any], optional
         Existing metadata to propagate and enrich during the conversion.
@@ -43,19 +41,19 @@ def to_xarray_dataset(
     earthkit_internal = dict(meta.get("earthkit_internal", {}))
     earthkit_internal["input_type"] = _describe_type(earthkit_input)
 
-    if isinstance(earthkit_input, xr.Dataset):
+    if isinstance(earthkit_input, xarray.Dataset):
         dataset = earthkit_input
-    elif isinstance(earthkit_input, xr.DataArray):
+    elif isinstance(earthkit_input, xarray.DataArray):
         variable_name = earthkit_input.name or "variable"
         dataset = earthkit_input.to_dataset(name=variable_name)
         earthkit_internal["dataarray_name"] = variable_name
     elif hasattr(earthkit_input, "to_xarray"):
         dataset = earthkit_input.to_xarray()
-        if isinstance(dataset, xr.DataArray):
+        if isinstance(dataset, xarray.DataArray):
             variable_name = dataset.name or "variable"
             dataset = dataset.to_dataset(name=variable_name)
             earthkit_internal["dataarray_name"] = variable_name
-        elif not isinstance(dataset, xr.Dataset):
+        elif not isinstance(dataset, xarray.Dataset):
             raise TypeError("The object returned by 'to_xarray' is not an xarray.Dataset instance.")
     else:
         raise TypeError(
@@ -81,16 +79,16 @@ def _describe_type(obj: Any) -> str:
     str
         A string describing the object type.
     """
-    if isinstance(obj, xr.Dataset):
+    if isinstance(obj, xarray.Dataset):
         return "xarray.Dataset"
-    if isinstance(obj, xr.DataArray):
+    if isinstance(obj, xarray.DataArray):
         return "xarray.DataArray"
     obj_type = type(obj)
     return f"{obj_type.__module__}.{obj_type.__qualname__}"
 
 
 def to_earthkit_field(
-    output: xr.Dataset | xr.DataArray,
+    output: xarray.Dataset | xarray.DataArray,
     metadata: Mapping[str, Any] | None = None,
 ) -> EarthkitData:
     """
@@ -112,8 +110,8 @@ def to_earthkit_field(
     meta: MetadataDict = dict(metadata or {})
 
     # Ensure we always have a dataset
-    dataset: xr.Dataset
-    if isinstance(output, xr.DataArray):
+    dataset: xarray.Dataset
+    if isinstance(output, xarray.DataArray):
         dataset = output.to_dataset(name=output.name or "variable")
     else:
         dataset = output

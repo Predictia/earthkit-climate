@@ -1,7 +1,7 @@
 import xarray as xr
 import numpy as np
-from numpy import quantile
 from xarray import DataArray
+from xsdba.nbutils import quantile
 
 
 def get_percentile(
