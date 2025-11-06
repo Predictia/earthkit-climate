@@ -56,16 +56,35 @@ ignore = [
   "D416",
   "D417"
 ]
+# Black line length is 88, but black does not format comments.
 line-length = 110
-select = ["F", "E", "W", "I", "D"]
+select = [
+  # pyflakes
+  "F",
+  # pycodestyle
+  "E",
+  "W",
+  # isort
+  "I",
+  # pydocstyle
+  "D"
+]
 
-# ─────────────────────────────
+[tool.setuptools.packages.find]
+include = ["earthkit.climate"]
+where = ['src/']
+
+[tool.setuptools_scm]
+write_to = "src/earthkit/climate/version.py"
+write_to_template = '''
+# Do not change! Do not track in version control!
+__version__ = "{version}"
+'''
+
 # PIXI CONFIGURATION
-# ─────────────────────────────
 [tool.pixi.workspace]
 channels = ["conda-forge"]
 platforms = ["win-64", "linux-64", "osx-64", "osx-arm64"]
-
 [tool.pixi.dependencies]
 python = "3.10"
 make = "*"
