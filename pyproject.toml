@@ -2,6 +2,12 @@
 requires = ["setuptools>=45", "setuptools_scm[toml]>=6.2"]
 
 [project]
+name = "earthkit-climate"
+description = "Aggregation tools for meteorological and climate data."
+readme = "README.md"
+license = { file = "LICENSE" }
+dynamic = ["version"]
+requires-python = ">=3.10"
 classifiers = [
   "Development Status :: 2 - Pre-Alpha",
   "Intended Audience :: Science/Research",
@@ -19,11 +25,16 @@ dependencies = [
   "ek-aggregate",
   "geopandas"
 ]
-description = "Aggregation tools for meteorological and climate data."
-dynamic = ["version"]
-license = {file = "LICENSE"}
-name = "earthkit-climate"
-readme = "README.md"
+
+[tool.setuptools]
+packages = ["earthkit.climate"]
+
+[tool.setuptools_scm]
+write_to = "earthkit/climate/version.py"
+write_to_template = '''
+# Do not change! Do not track in version control!
+__version__ = "{version}"
+'''
 
 [tool.coverage.run]
 branch = true
@@ -45,26 +56,35 @@ ignore = [
   "D416",
   "D417"
 ]
-# Black line length is 88, but black does not format comments.
 line-length = 110
-select = [
-  # pyflakes
-  "F",
-  # pycodestyle
-  "E",
-  "W",
-  # isort
-  "I",
-  # pydocstyle
-  "D"
-]
+select = ["F", "E", "W", "I", "D"]
 
-[tool.setuptools]
-packages = ["earthkit.climate"]
+# ─────────────────────────────
+# PIXI CONFIGURATION
+# ─────────────────────────────
+[tool.pixi.workspace]
+channels = ["conda-forge"]
+platforms = ["win-64", "linux-64", "osx-64", "osx-arm64"]
 
-[tool.setuptools_scm]
-write_to = "earthkit/climate/version.py"
-write_to_template = '''
-# Do not change! Do not track in version control!
-__version__ = "{version}"
-'''
+[tool.pixi.dependencies]
+python = "3.10"
+make = "*"
+mypy = "*"
+myst-parser = "*"
+pre-commit = "*"
+sphinx = "*"
+sphinx-rtd-theme = "*"
+sphinx-autoapi = "*"
+pytest = "*"
+pytest-cov = "*"
+nbsphinx = "*"
+numpy = "*"
+xarray = "*"
+geopandas = "*"
+earthkit-data = "*"
+xclim = "*"
+pip = "*"
+xsdba = ">=0.5.0,<0.6"
+
+[tool.pixi.pypi-dependencies]
+ek-aggregate = "*"
