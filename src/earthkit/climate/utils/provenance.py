@@ -7,7 +7,7 @@ from typing import Any
 
 import xarray as xr
 
-from src.earthkit.climate.utils.conversions import MetadataDict
+from earthkit.climate.utils.conversions import MetadataDict
 
 
 def add_indicator_provenance(

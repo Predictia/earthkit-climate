@@ -7,13 +7,13 @@ import xarray
 import xclim.indicators.atmos
 from xclim.core.calendar import percentile_doy
 
-from src.earthkit.climate.utils.conversions import (
+from earthkit.climate.utils.conversions import (
     EarthkitData,
     MetadataDict,
     to_earthkit_field,
     to_xarray_dataset,
 )
-from src.earthkit.climate.utils.provenance import add_indicator_provenance
+from earthkit.climate.utils.provenance import add_indicator_provenance
 
 
 def daily_temperature_range(
