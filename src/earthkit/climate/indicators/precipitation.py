@@ -14,7 +14,7 @@ from earthkit.climate.utils.conversions import (
     to_earthkit_field,
     to_xarray_dataset,
 )
-from src.earthkit.climate.utils.provenance import add_indicator_provenance
+from earthkit.climate.utils.provenance import add_indicator_provenance
 
 
 def maximum_consecutive_wet_days(
