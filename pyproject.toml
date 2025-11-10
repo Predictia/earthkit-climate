@@ -7,7 +7,7 @@ description = "Aggregation tools for meteorological and climate data."
 readme = "README.md"
 license = { file = "LICENSE" }
 dynamic = ["version"]
-requires-python = ">=3.10"
+requires-python = ">=3.12"
 classifiers = [
   "Development Status :: 2 - Pre-Alpha",
   "Intended Audience :: Science/Research",
@@ -21,20 +21,21 @@ classifiers = [
 dependencies = [
   "xarray>=2022.3.0",
   "numpy>=1.18",
-  "earthkit-data>=0.3.0",
-  "ek-aggregate",
   "geopandas"
 ]
+
+[project.optional-dependencies]
+test = ["pytest", "pytest-cov"]
+docs = ["sphinx", "sphinx-rtd-theme", "sphinx-autoapi", "nbsphinx"]
+development = ["black", "ruff", "mypy", "pre-commit", "make", "ipython"]
 
 [tool.coverage.run]
 branch = true
 
 [tool.ruff]
 ignore = [
-  # pydocstyle: Missing Docstrings
-  "D1",
-  # pydocstyle: numpy convention
-  "D107",
+  "D1",      # pydocstyle: Missing Docstrings
+  "D107",    # pydocstyle: numpy convention
   "D203",
   "D205",
   "D212",
@@ -46,23 +47,19 @@ ignore = [
   "D416",
   "D417"
 ]
-# Black line length is 88, but black does not format comments.
 line-length = 110
 select = [
-  # pyflakes
-  "F",
-  # pycodestyle
-  "E",
-  "W",
-  # isort
-  "I",
-  # pydocstyle
-  "D"
+  "F",  # pyflakes
+  "E",  # pycodestyle
+  "W",  # pycodestyle warnings
+  "I",  # isort
+  "D"   # pydocstyle
 ]
 
+# ---- Namespace package configuration ----
 [tool.setuptools.packages.find]
-include = ["earthkit.climate"]
-where = ['src/']
+where = ["src"]
+namespaces = true
 
 [tool.setuptools_scm]
 write_to = "src/earthkit/climate/version.py"
@@ -71,30 +68,34 @@ write_to_template = '''
 __version__ = "{version}"
 '''
 
-# PIXI CONFIGURATION
+# ---- PIXI CONFIGURATION ----
 [tool.pixi.workspace]
 channels = ["conda-forge"]
 platforms = ["win-64", "linux-64", "osx-64", "osx-arm64"]
+
 [tool.pixi.dependencies]
-python = "3.10"
-make = "*"
-mypy = "*"
-myst-parser = "*"
-pre-commit = "*"
-sphinx = "*"
-sphinx-rtd-theme = "*"
-sphinx-autoapi = "*"
-pytest = "*"
-pytest-cov = "*"
-nbsphinx = "*"
+python = "3.12.*"
 numpy = "*"
 xarray = "*"
 geopandas = "*"
-earthkit-data = "*"
 xclim = "*"
 pip = "*"
 xsdba = ">=0.5.0,<0.6"
 pixi-pycharm = ">=0.0.9,<0.0.10"
 
 [tool.pixi.pypi-dependencies]
-ek-aggregate = "*"
+earthkit-data = ">=0.17.0"
+
+# ---- Pixi environments ----
+[tool.pixi.environments]
+default = {features = [], solve-group = "default"}
+test = {features = ["test"], solve-group = "default"}
+docs = {features = ["docs"], solve-group = "default"}
+development = {features = ["development"], solve-group = "default"}
+
+# ---- Optional post-install cleanup ----
+[tool.pixi.tasks]
+remove-init = { cmd = "rm -f $(python -c 'import site; print(site.getsitepackages()[0])')/earthkit/__init__.py || true" }
+
+[tool.pixi.tasks.post-install]
+depends-on = ["remove-init"]
