@@ -12,7 +12,7 @@ from earthkit.climate.utils.conversions import (
     EarthkitData,
     MetadataDict,
     to_earthkit_field,
-    to_xarray_dataset,
+    to_xarray_dataset, ensure_units,
 )
 from earthkit.climate.utils.provenance import add_indicator_provenance
 
@@ -48,7 +48,9 @@ def maximum_consecutive_wet_days(
     """
     metadata: MetadataDict = {}
     dataset, metadata = to_xarray_dataset(earthkit_input, metadata)
-    dataset.pr.attrs["units"] = "mm/day"
+
+    # Ensure correct units for precipitation
+    dataset = ensure_units(dataset, "pr", "mm/day", strict=False)
 
     kwargs = dict(kwargs)
     kwargs.setdefault("thresh", _format_precipitation_threshold(wet_day_threshold))
@@ -99,7 +101,8 @@ def daily_precipitation_intensity(
     dataset, metadata = to_xarray_dataset(earthkit_input, metadata)
     dataset.pr.attrs["units"] = "mm/day"
 
-    kwargs = dict(kwargs)
+    # Ensure correct units for precipitation
+    dataset = ensure_units(dataset, "pr", "mm/day", strict=False)
 
     if wet_day_threshold is not None:
         kwargs.setdefault("thresh", _format_precipitation_threshold(wet_day_threshold))
