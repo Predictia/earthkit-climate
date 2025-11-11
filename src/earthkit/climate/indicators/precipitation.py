@@ -52,7 +52,6 @@ def maximum_consecutive_wet_days(
     # Ensure correct units for precipitation
     dataset = ensure_units(dataset, "pr", "mm/day", strict=False)
 
-    kwargs = dict(kwargs)
     kwargs.setdefault("thresh", _format_precipitation_threshold(wet_day_threshold))
 
     # Call the xclim indicator
