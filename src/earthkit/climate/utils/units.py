@@ -1,7 +1,12 @@
 import warnings
 
 import xarray
-from xclim.core.units import convert_units_to
+
+try:  # optional dependency during tests
+    from xclim.core.units import convert_units_to  # type: ignore
+except Exception:  # pragma: no cover
+    def convert_units_to(*args, **kwargs):  # type: ignore
+        raise RuntimeError("xclim is required for unit conversion. This import is optional during tests.")
 
 
 def ensure_units(

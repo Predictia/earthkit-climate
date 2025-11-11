@@ -20,7 +20,8 @@ except ImportError:  # pragma: no cover
     # Local copy or not installed with setuptools
     __version__ = "999"
 
-from .indicators import precipitation, temperature
+# Avoid importing optional heavy submodules at package import time to keep
+# test collection lightweight and not require optional dependencies (e.g., xclim).
 from .utils import conversions
 
-__all__ = [conversions, precipitation, temperature, __version__]
+__all__ = [conversions, __version__]
