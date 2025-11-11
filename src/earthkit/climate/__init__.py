@@ -20,9 +20,7 @@ except ImportError:  # pragma: no cover
     # Local copy or not installed with setuptools
     __version__ = "999"
 
-from earthkit import aggregate
-
 from .indicators import precipitation, temperature
 from .utils import conversions
 
-__all__ = [aggregate, conversions, precipitation, temperature, __version__]
+__all__ = [conversions, precipitation, temperature, __version__]
