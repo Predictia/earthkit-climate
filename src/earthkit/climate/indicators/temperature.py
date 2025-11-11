@@ -11,9 +11,10 @@ from earthkit.climate.utils.conversions import (
     EarthkitData,
     MetadataDict,
     to_earthkit_field,
-    to_xarray_dataset, ensure_units,
+    to_xarray_dataset
 )
 from earthkit.climate.utils.provenance import add_indicator_provenance
+from earthkit.climate.utils.units import ensure_units
 
 
 def daily_temperature_range(
