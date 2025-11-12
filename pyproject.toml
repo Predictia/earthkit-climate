@@ -16,7 +16,7 @@ dependencies = [
   "xarray>=2022.3.0",
   "numpy>=1.18",
   "geopandas"
-]
+, "earthkit-plots>=0.5.2,<0.6"]
 description = "Aggregation tools for meteorological and climate data."
 dynamic = ["version"]
 license = {file = "LICENSE"}
