@@ -38,7 +38,7 @@ pr = precipitation.simple_daily_intensity(precip_data, freq="monthly")
 ## Documentation
 
 For full documentation, including API reference and example notebooks, visit the  
-👉 [earthkit-climate ReadTheDocs page](https://earthkit-climate.readthedocs.io)
+[earthkit-climate ReadTheDocs page](https://earthkit-climate.readthedocs.io)
 
 ---
 
