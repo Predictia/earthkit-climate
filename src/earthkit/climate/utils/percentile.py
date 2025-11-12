@@ -54,14 +54,21 @@ def get_percentile(
     ds_percentile = ds_percentile.squeeze().drop_vars("quantiles", errors="ignore")
 
     # --- Expand to daily resolution: assign same percentile to all days of the same period
-    expanded = (
-        da.groupby(f"time.{time_component}")
-        .map(
-            lambda group: xr.full_like(
-                group, ds_percentile[varname].sel({time_component: group[time_component][0]})
+    if time_component == "year":
+        expanded = xr.full_like(da, ds_percentile[varname].item())
+    else:
+        expanded = (
+            da.groupby(f"time.{time_component}")
+            .map(
+                lambda group: xr.full_like(
+                    group,
+                    ds_percentile[varname].sel(
+                        {time_component: getattr(group.time.dt, time_component)[
+                            0].item()}
+                    ),
+                )
             )
         )
-    )
 
     # Add dayofyear coordinate and drop time
     expanded_ds = expanded.to_dataset(name=varname)
