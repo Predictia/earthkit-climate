@@ -5,31 +5,26 @@ from __future__ import annotations
 from typing import Any
 
 import xarray
-import xarray as xr
 import xclim.indicators.atmos
 
-from earthkit.climate.utils.conversions import (
-    EarthkitData,
-    MetadataDict,
-    to_earthkit_field,
-    to_xarray_dataset,
-)
-from earthkit.climate.utils.provenance import add_indicator_provenance
-from earthkit.climate.utils.units import ensure_units
+import earthkit.climate.utils.conversions as conversions
+import earthkit.climate.utils.provenance as provenance
+import earthkit.climate.utils.units as units
+
 
 
 def maximum_consecutive_wet_days(
-    earthkit_input: EarthkitData | xarray.Dataset,
+    earthkit_input: conversions.EarthkitData | xarray.Dataset,
     *,
     wet_day_threshold: float | str = 1.0,
     **kwargs: Any,
-) -> EarthkitData:
+) -> conversions.EarthkitData:
     """
     Compute the maximum number of consecutive wet days (CWD).
 
     Parameters
     ----------
-    earthkit_input : EarthkitData | xarray.Dataset
+    earthkit_input : conversions.EarthkitData | xarray.Dataset
         Input precipitation data. Supported inputs include ``xarray.Dataset``,
         ``xarray.DataArray`` and, if ``earthkit-data`` is installed, any object
         exposing a ``to_xarray`` method (for example ``Field`` or ``FieldList``).
@@ -47,38 +42,38 @@ def maximum_consecutive_wet_days(
         Indicator results converted back to the closest possible Earthkit
         representation (same type as the input when feasible).
     """
-    metadata: MetadataDict = {}
-    dataset, metadata = to_xarray_dataset(earthkit_input, metadata)
+    metadata: conversions.MetadataDict = {}
+    dataset, metadata = conversions.to_xarray_dataset(earthkit_input, metadata)
 
     # Ensure correct units for precipitation
-    dataset = ensure_units(dataset, "pr", "mm/day", strict=False)
+    dataset = units.ensure_units(dataset, "pr", "mm/day", strict=False)
 
     kwargs.setdefault("thresh", _format_precipitation_threshold(wet_day_threshold))
 
     # Call the xclim indicator
-    output_dataset: xr.Dataset = xclim.indicators.atmos.maximum_consecutive_wet_days(ds=dataset, **kwargs)
+    output_dataset: xarray.Dataset = xclim.indicators.atmos.maximum_consecutive_wet_days(ds=dataset, **kwargs)
 
     # Add provenance
-    metadata = add_indicator_provenance(
+    metadata = provenance.add_indicator_provenance(
         metadata, xclim.indicators.atmos.maximum_consecutive_wet_days, dataset, **kwargs
     )
 
-    return to_earthkit_field(output_dataset, metadata)
+    return conversions.to_earthkit_field(output_dataset, metadata)
 
 
 def daily_precipitation_intensity(
-    earthkit_input: EarthkitData | xarray.Dataset,
+    earthkit_input: conversions.EarthkitData | xarray.Dataset,
     *,
     wet_day_threshold: float | str | None = None,
     frequency: str | None = None,
     **kwargs: Any,
-) -> EarthkitData:
+) -> conversions.EarthkitData:
     """
     Compute the Simple Daily Intensity Index (SDII).
 
     Parameters
     ----------
-    earthkit_input : EarthkitData | xarray.Dataset
+    earthkit_input : conversions.EarthkitData | xarray.Dataset
         Input precipitation data. Supported inputs include ``xarray.Dataset``,
         ``xarray.DataArray`` and, if ``earthkit-data`` is installed, any object
         exposing a ``to_xarray`` method (for example ``Field`` or ``FieldList``).
@@ -97,12 +92,12 @@ def daily_precipitation_intensity(
         Indicator results converted back to the closest possible Earthkit
         representation (same type as the input when feasible).
     """
-    metadata: MetadataDict = {}
-    dataset, metadata = to_xarray_dataset(earthkit_input, metadata)
+    metadata: conversions.MetadataDict = {}
+    dataset, metadata = conversions.to_xarray_dataset(earthkit_input, metadata)
     dataset.pr.attrs["units"] = "mm/day"
 
     # Ensure correct units for precipitation
-    dataset = ensure_units(dataset, "pr", "mm/day", strict=False)
+    dataset = units.ensure_units(dataset, "pr", "mm/day", strict=False)
 
     if wet_day_threshold is not None:
         kwargs.setdefault("thresh", _format_precipitation_threshold(wet_day_threshold))
@@ -110,14 +105,14 @@ def daily_precipitation_intensity(
         kwargs.setdefault("freq", frequency)
 
     # Call the xclim indicator
-    output_dataset: xr.Dataset = xclim.indicators.atmos.daily_pr_intensity(ds=dataset, **kwargs)
+    output_dataset: xarray.Dataset = xclim.indicators.atmos.daily_pr_intensity(ds=dataset, **kwargs)
 
     # Add provenance
-    metadata = add_indicator_provenance(
+    metadata = provenance.add_indicator_provenance(
         metadata, xclim.indicators.atmos.daily_pr_intensity, dataset, **kwargs
     )
 
-    return to_earthkit_field(output_dataset, metadata)
+    return conversions.to_earthkit_field(output_dataset, metadata)
 
 
 def _format_precipitation_threshold(threshold: float | str) -> float | str:

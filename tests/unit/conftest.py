@@ -1,6 +1,7 @@
 import numpy as np
 import pytest
 import xarray as xr
+from pytest_mock import MockerFixture
 
 
 @pytest.fixture
@@ -27,3 +28,43 @@ def daily_temperature_ds() -> xr.Dataset:
     data = rng.normal(loc=10.0, scale=2.0, size=time.size)
     ds = xr.Dataset({"tas": ("time", data)}, coords={"time": time})
     return ds
+
+
+@pytest.fixture
+def common_mocks(mocker: MockerFixture, dummy_precip_ds: xr.Dataset):
+    """
+    Fixture that sets up common mocks used across precipitation indicator tests.
+
+    Parameters
+    ----------
+    mocker : MockerFixture
+        Pytest-mock fixture used to create and manage mocks.
+    dummy_precip_ds : xr.Dataset
+        The dummy precipitation dataset fixture.
+
+    Returns
+    -------
+    dict[str, any]
+        Dictionary with references to key mock objects for assertions.
+    """
+    mock_to_xr = mocker.patch(
+        "earthkit.climate.utils.conversions.to_xarray_dataset",
+        return_value=(dummy_precip_ds, {"earthkit_internal": {}}),
+    )
+    mock_add_prov = mocker.patch(
+        "earthkit.climate.utils.provenance.add_indicator_provenance",
+        side_effect=lambda md, *a, **k: {**md, "prov": True},
+    )
+    sentinel_ek = object()
+    mock_to_ek = mocker.patch(
+        "earthkit.climate.utils.conversions.to_earthkit_field",
+        return_value=sentinel_ek,
+    )
+
+    return {
+        "mock_to_xr": mock_to_xr,
+        "mock_add_prov": mock_add_prov,
+        "mock_to_ek": mock_to_ek,
+        "sentinel_ek": sentinel_ek,
+    }
+
