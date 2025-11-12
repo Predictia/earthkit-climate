@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 import pytest
 import xarray as xr
 from pytest_mock import MockerFixture
@@ -16,6 +17,23 @@ def dummy_precip_ds() -> xr.Dataset:
     )
     ds["pr"].attrs["units"] = "kg m-2 s-1"
     return ds
+
+@pytest.fixture
+def dummy_temp_ds() -> xr.Dataset:
+    """Return a simple temperature dataset with time coordinate and degC units."""
+    time = pd.date_range("2000-01-01", periods=3)
+    ds = xr.Dataset(
+        {
+            "tasmax": ("time", [20.0, 21.0, 19.0]),
+            "tasmin": ("time", [10.0, 9.0, 11.0]),
+            "tas": ("time", [15.0, 15.0, 15.0]),
+        },
+        coords={"time": time},
+    )
+    for var in ds.data_vars:
+        ds[var].attrs["units"] = "degC"
+    return ds
+
 
 
 @pytest.fixture
