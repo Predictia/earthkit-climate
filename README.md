@@ -7,7 +7,7 @@ It is part of the **Earthkit ecosystem** and designed for reproducible, modular 
 
 ---
 
-## ⚠Disclaimer
+## Disclaimer
 
 This project is currently in **BETA** and **experimental**.  
 Interfaces, structure, and functionality are subject to change without notice.  
