@@ -78,6 +78,9 @@ cmake-build-*/
 # IntelliJ
 out/
 
+# PyCharm
+.qodo
+
 # mpeltonen/sbt-idea plugin
 .idea_modules/
 

@@ -54,18 +54,28 @@ def get_percentile(
     ds_percentile = ds_percentile.squeeze().drop_vars("quantiles", errors="ignore")
 
     # --- Expand to daily resolution: assign same percentile to all days of the same period
+    # Use a single reference year (e.g. the first one in the dataset)
+    ref_year = int(da.time.dt.year[0])
+
+    ref_time = xr.cftime_range(
+        start=f"{ref_year}-01-01", end=f"{ref_year}-12-31", freq="D", calendar="noleap"
+    ).to_datetimeindex()
+
+    ref_da = xr.DataArray(ref_time, dims="time", name="time")
+
+    # --- Expand to daily resolution: assign same percentile to all days of the same period
     if time_component == "year":
-        expanded = xr.full_like(da, ds_percentile[varname].item())
+        expanded = xr.full_like(ref_da, ds_percentile[varname].item(), dtype=float)
     else:
         expanded = (
-            da.groupby(f"time.{time_component}")
+            ref_da.groupby(f"time.{time_component}")
             .map(
                 lambda group: xr.full_like(
                     group,
                     ds_percentile[varname].sel(
-                        {time_component: getattr(group.time.dt, time_component)[
-                            0].item()}
+                        {time_component: getattr(group.time.dt, time_component)[0].item()}
                     ),
+                    float
                 )
             )
         )

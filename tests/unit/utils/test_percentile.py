@@ -1,43 +1,8 @@
 import numpy as np
-import xarray as xr
 import pytest
 
 from earthkit.climate.utils.percentile import get_percentile, \
     pandas_offset2time_component
-
-
-def _make_daily_series(
-    start: str = "2000-01-01",
-    end: str = "2002-12-31",
-    seed: int = 0,
-) -> xr.Dataset:
-    """
-    Generate a synthetic daily temperature dataset.
-
-    This helper function creates a daily time series of random temperature data
-    for testing percentile and grouping functions. The data are normally distributed
-    with mean 10°C and standard deviation 2°C.
-
-    Parameters
-    ----------
-    start : str, optional
-        Start date of the time series (default: "2000-01-01").
-    end : str, optional
-        End date of the time series (default: "2002-12-31").
-    seed : int, optional
-        Random seed for reproducibility (default: 0).
-
-    Returns
-    -------
-    xr.Dataset
-        A dataset with one variable, `"tas"`, representing daily temperatures
-        over the specified time range, with a `time` coordinate of daily resolution.
-    """
-    rng = np.random.default_rng(seed)
-    time = xr.cftime_range(start=start, end=end, freq="D", calendar="standard").to_datetimeindex()
-    data = rng.normal(loc=10.0, scale=2.0, size=time.size)
-    ds = xr.Dataset({"tas": ("time", data)}, coords={"time": time})
-    return ds
 
 
 @pytest.mark.parametrize(
@@ -55,7 +20,7 @@ def test_pandas_offset2time_component_supported(alias: str, component: str) -> N
     assert pandas_offset2time_component(alias) == component
 
 
-def test_get_percentile_yearly_expands_to_dayofyear() -> None:
+def test_get_percentile_yearly_expands_to_dayofyear(daily_temperature_ds) -> None:
     """
     Test that yearly percentile calculation expands to a daily (dayofyear) climatology.
 
@@ -63,8 +28,7 @@ def test_get_percentile_yearly_expands_to_dayofyear() -> None:
     the resulting array should have one value per day of the year that is constant
     within that year.
     """
-    ds = _make_daily_series("2001-01-01", "2001-12-31", seed=1)
-    out = get_percentile(ds, "tas", percentile=90, freq="YS")
+    out = get_percentile(daily_temperature_ds, "tas", percentile=90, freq="YS")
 
     # Expect only dayofyear dimension (1..365 for non-leap year 2001)
     assert set(out.dims) == {"dayofyear"}
@@ -72,21 +36,20 @@ def test_get_percentile_yearly_expands_to_dayofyear() -> None:
     assert "tas" in out
 
     # Values should be constant per year since YS groups whole time
-    q = np.quantile(ds["tas"].values, 0.9)
+    q = np.quantile(daily_temperature_ds["tas"].values, 0.9)
     sample_days = [1, 100, 200, 365]
     vals = out["tas"].sel(dayofyear=sample_days).values
     assert np.allclose(vals, q)
 
 
-def test_get_percentile_monthly_constant_within_months() -> None:
+def test_get_percentile_monthly_constant_within_months(daily_temperature_ds) -> None:
     """
     Test that monthly percentile results are constant within each month.
 
     The output keeps a daily dayofyear coordinate, but percentile values are
     constant for all days belonging to the same calendar month.
     """
-    ds = _make_daily_series("2001-01-01", "2001-12-31", seed=2)
-    out = get_percentile(ds, "tas", percentile=50, freq="MS")
+    out = get_percentile(daily_temperature_ds, "tas", percentile=50, freq="MS")
 
     # Still daily resolution with dayofyear coordinate
     assert set(out.dims) == {"dayofyear"}
@@ -101,15 +64,14 @@ def test_get_percentile_monthly_constant_within_months() -> None:
     assert not np.isclose(out["tas"].sel(dayofyear=1).item(), out["tas"].sel(dayofyear=feb_day).item())
 
 
-def test_get_percentile_seasonal_qs_dec() -> None:
+def test_get_percentile_seasonal_qs_dec(daily_temperature_ds) -> None:
     """
     Test that seasonal percentile (QS-DEC) is constant within a season.
 
     For example, January and February belong to DJF, so their percentile
     values should be identical, while other seasons (e.g., April) differ.
     """
-    ds = _make_daily_series("2001-01-01", "2001-12-31", seed=3)
-    out = get_percentile(ds, "tas", percentile=75, freq="QS-DEC")
+    out = get_percentile(daily_temperature_ds, "tas", percentile=75, freq="QS-DEC")
 
     assert set(out.dims) == {"dayofyear"}
 

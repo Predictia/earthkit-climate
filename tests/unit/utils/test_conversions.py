@@ -10,16 +10,6 @@ from earthkit.climate.utils.conversions import (
 )
 
 
-class DummyWrapper:
-    """Simple wrapper stand-in to validate get_wrapper usage without importing earthkit.data."""
-
-    def __init__(self, obj: Any):
-        self.obj = obj
-
-    def __eq__(self, other: object) -> bool:
-        return isinstance(other, DummyWrapper) and other.obj.equals(self.obj)
-
-
 @pytest.mark.parametrize(
     "xr_input",
     [
