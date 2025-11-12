@@ -7,7 +7,7 @@ It is part of the **Earthkit ecosystem** and designed for reproducible, modular 
 
 ---
 
-## ⚠Disclaimer
+## Disclaimer
 
 This project is currently in **BETA** and **experimental**.  
 Interfaces, structure, and functionality are subject to change without notice.  
@@ -38,7 +38,7 @@ pr = precipitation.simple_daily_intensity(precip_data, freq="monthly")
 ## Documentation
 
 For full documentation, including API reference and example notebooks, visit the  
-👉 [earthkit-climate ReadTheDocs page](https://earthkit-climate.readthedocs.io)
+[earthkit-climate ReadTheDocs page](https://earthkit-climate.readthedocs.io)
 
 ---
 
