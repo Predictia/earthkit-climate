@@ -4,7 +4,6 @@ import inspect
 from typing import Any, Dict
 
 import xarray as xr
-import pytest
 
 from earthkit.climate.utils.provenance import add_indicator_provenance
 

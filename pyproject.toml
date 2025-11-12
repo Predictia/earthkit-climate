@@ -2,12 +2,6 @@
 requires = ["setuptools>=45", "setuptools_scm[toml]>=6.2"]
 
 [project]
-name = "earthkit-climate"
-description = "Aggregation tools for meteorological and climate data."
-readme = "README.md"
-license = { file = "LICENSE" }
-dynamic = ["version"]
-requires-python = ">=3.12"
 classifiers = [
   "Development Status :: 2 - Pre-Alpha",
   "Intended Audience :: Science/Research",
@@ -23,19 +17,58 @@ dependencies = [
   "numpy>=1.18",
   "geopandas"
 ]
+description = "Aggregation tools for meteorological and climate data."
+dynamic = ["version"]
+license = {file = "LICENSE"}
+name = "earthkit-climate"
+readme = "README.md"
+requires-python = ">=3.12"
 
 [project.optional-dependencies]
-test = ["pytest", "pytest-cov"]
-docs = ["sphinx", "sphinx-rtd-theme", "sphinx-autoapi", "nbsphinx"]
 development = ["black", "ruff", "mypy", "pre-commit", "make", "ipython"]
+docs = ["sphinx", "sphinx-rtd-theme", "sphinx-autoapi", "nbsphinx"]
+test = ["pytest", "pytest-cov"]
 
 [tool.coverage.run]
 branch = true
 
+[tool.pixi.dependencies]
+geopandas = "*"
+numpy = "*"
+pip = "*"
+pixi-pycharm = ">=0.0.9,<0.0.10"
+pytest-mock = ">=3.15.1,<4"
+python = "3.12.*"
+xarray = "*"
+xclim = "*"
+xsdba = ">=0.5.0,<0.6"
+
+# ---- Pixi environments ----
+[tool.pixi.environments]
+default = {features = [], solve-group = "default"}
+development = {features = ["development"], solve-group = "default"}
+docs = {features = ["docs"], solve-group = "default"}
+test = {features = ["test"], solve-group = "default"}
+
+[tool.pixi.pypi-dependencies]
+earthkit-data = ">=0.17.0"
+
+# ---- Optional post-install cleanup ----
+[tool.pixi.tasks]
+remove-init = {cmd = "rm -f $(python -c 'import site; print(site.getsitepackages()[0])')/earthkit/__init__.py || true"}
+
+[tool.pixi.tasks.post-install]
+depends-on = ["remove-init"]
+
+# ---- PIXI CONFIGURATION ----
+[tool.pixi.workspace]
+channels = ["conda-forge"]
+platforms = ["win-64", "linux-64", "osx-64", "osx-arm64"]
+
 [tool.ruff]
 ignore = [
-  "D1",      # pydocstyle: Missing Docstrings
-  "D107",    # pydocstyle: numpy convention
+  "D1",  # pydocstyle: Missing Docstrings
+  "D107",  # pydocstyle: numpy convention
   "D203",
   "D205",
   "D212",
@@ -53,13 +86,13 @@ select = [
   "E",  # pycodestyle
   "W",  # pycodestyle warnings
   "I",  # isort
-  "D"   # pydocstyle
+  "D"  # pydocstyle
 ]
 
 # ---- Namespace package configuration ----
 [tool.setuptools.packages.find]
-where = ["src"]
 namespaces = true
+where = ["src"]
 
 [tool.setuptools_scm]
 write_to = "src/earthkit/climate/version.py"
@@ -67,35 +100,3 @@ write_to_template = '''
 # Do not change! Do not track in version control!
 __version__ = "{version}"
 '''
-
-# ---- PIXI CONFIGURATION ----
-[tool.pixi.workspace]
-channels = ["conda-forge"]
-platforms = ["win-64", "linux-64", "osx-64", "osx-arm64"]
-
-[tool.pixi.dependencies]
-python = "3.12.*"
-numpy = "*"
-xarray = "*"
-geopandas = "*"
-xclim = "*"
-pip = "*"
-xsdba = ">=0.5.0,<0.6"
-pixi-pycharm = ">=0.0.9,<0.0.10"
-
-[tool.pixi.pypi-dependencies]
-earthkit-data = ">=0.17.0"
-
-# ---- Pixi environments ----
-[tool.pixi.environments]
-default = {features = [], solve-group = "default"}
-test = {features = ["test"], solve-group = "default"}
-docs = {features = ["docs"], solve-group = "default"}
-development = {features = ["development"], solve-group = "default"}
-
-# ---- Optional post-install cleanup ----
-[tool.pixi.tasks]
-remove-init = { cmd = "rm -f $(python -c 'import site; print(site.getsitepackages()[0])')/earthkit/__init__.py || true" }
-
-[tool.pixi.tasks.post-install]
-depends-on = ["remove-init"]

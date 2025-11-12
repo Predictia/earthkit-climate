@@ -1,4 +1,5 @@
 """Temperature-based climate indices."""
+
 from __future__ import annotations
 
 from typing import Any
@@ -11,7 +12,7 @@ from earthkit.climate.utils.conversions import (
     EarthkitData,
     MetadataDict,
     to_earthkit_field,
-    to_xarray_dataset
+    to_xarray_dataset,
 )
 from earthkit.climate.utils.provenance import add_indicator_provenance
 from earthkit.climate.utils.units import ensure_units
@@ -103,7 +104,6 @@ def warm_spell_duration_index(
     # Ensure correct units for precipitation
     tasmax_ds = ensure_units(tasmax_ds, "tasmax", "degC", strict=False)
     hist_ds = ensure_units(hist_ds, "tasmax", "degC", strict=False)
-
 
     # Get 90th percentile over time
     tasmax_per = percentile_doy(hist_ds, per=90)

@@ -5,13 +5,14 @@ from __future__ import annotations
 from typing import Any, Dict, Mapping, Tuple
 
 import xarray
-import warnings
 
 try:  # optional during tests
     from xclim.core.units import convert_units_to  # type: ignore
 except Exception:  # pragma: no cover
+
     def convert_units_to(*args, **kwargs):  # type: ignore
         raise RuntimeError("xclim is required for unit conversion. This import is optional during tests.")
+
 
 from earthkit.data import Field, FieldList
 from earthkit.data.wrappers import get_wrapper
@@ -113,7 +114,6 @@ def to_earthkit_field(
     EarthkitData
         The indicator output converted to the closest possible Earthkit type.
     """
-
     meta: MetadataDict = dict(metadata or {})
 
     # Ensure we always have a dataset

@@ -1,5 +1,5 @@
-import xarray as xr
 import numpy as np
+import xarray as xr
 from xarray import DataArray
 from xsdba.nbutils import quantile
 
@@ -45,11 +45,7 @@ def get_percentile(
     if time_component == "year":
         ds_percentile = custom_percentile(da).to_dataset(name=varname)
     else:
-        ds_percentile = (
-            da.groupby(f"time.{time_component}")
-            .map(custom_percentile)
-            .to_dataset(name=varname)
-        )
+        ds_percentile = da.groupby(f"time.{time_component}").map(custom_percentile).to_dataset(name=varname)
 
     ds_percentile = ds_percentile.squeeze().drop_vars("quantiles", errors="ignore")
 
@@ -67,16 +63,13 @@ def get_percentile(
     if time_component == "year":
         expanded = xr.full_like(ref_da, ds_percentile[varname].item(), dtype=float)
     else:
-        expanded = (
-            ref_da.groupby(f"time.{time_component}")
-            .map(
-                lambda group: xr.full_like(
-                    group,
-                    ds_percentile[varname].sel(
-                        {time_component: getattr(group.time.dt, time_component)[0].item()}
-                    ),
-                    float
-                )
+        expanded = ref_da.groupby(f"time.{time_component}").map(
+            lambda group: xr.full_like(
+                group,
+                ds_percentile[varname].sel(
+                    {time_component: getattr(group.time.dt, time_component)[0].item()}
+                ),
+                float,
             )
         )
 
@@ -86,6 +79,7 @@ def get_percentile(
     expanded_ds = expanded_ds.swap_dims({"time": "dayofyear"}).drop_vars("time")
 
     return expanded_ds
+
 
 def pandas_offset2time_component(aggregation: str) -> str:
     """

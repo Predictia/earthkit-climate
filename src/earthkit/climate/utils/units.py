@@ -5,13 +5,12 @@ import xarray
 try:  # optional dependency during tests
     from xclim.core.units import convert_units_to  # type: ignore
 except Exception:  # pragma: no cover
+
     def convert_units_to(*args, **kwargs):  # type: ignore
         raise RuntimeError("xclim is required for unit conversion. This import is optional during tests.")
 
 
-def ensure_units(
-        ds: xarray.Dataset, var: str, expected_units: str, strict: bool = False
-) -> xarray.Dataset:
+def ensure_units(ds: xarray.Dataset, var: str, expected_units: str, strict: bool = False) -> xarray.Dataset:
     """
     Ensure that a variable in the dataset has the expected units for xclim indicators.
 
@@ -44,9 +43,7 @@ def ensure_units(
                     UserWarning,
                 )
             except Exception as e:
-                raise ValueError(
-                    f"Failed to convert {var} from {current_units} to {expected_units}: {e}"
-                )
+                raise ValueError(f"Failed to convert {var} from {current_units} to {expected_units}: {e}")
         else:
             warnings.warn(
                 f"Variable '{var}' has units '{current_units}', expected '{expected_units}'. "

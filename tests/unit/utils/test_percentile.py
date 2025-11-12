@@ -1,8 +1,7 @@
 import numpy as np
 import pytest
 
-from earthkit.climate.utils.percentile import get_percentile, \
-    pandas_offset2time_component
+from earthkit.climate.utils.percentile import get_percentile, pandas_offset2time_component
 
 
 @pytest.mark.parametrize(

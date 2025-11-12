@@ -2,12 +2,12 @@ from typing import Any
 
 import pytest
 import xarray as xr
-from earthkit.data.wrappers.xarray import XArrayDatasetWrapper
 
 from earthkit.climate.utils.conversions import (
-    to_xarray_dataset,
     to_earthkit_field,
+    to_xarray_dataset,
 )
+from earthkit.data.wrappers.xarray import XArrayDatasetWrapper
 
 
 @pytest.mark.parametrize(
@@ -32,6 +32,7 @@ def test_to_xarray_dataset_uses_to_xarray_on_wrapped_object() -> None:
     Test that `to_xarray_dataset` calls `to_xarray()` method when provided with an object
     implementing that method, and correctly extracts the Dataset and metadata.
     """
+
     class HasToXarray:
         def to_xarray(self) -> xr.Dataset:
             return xr.Dataset({"pr": ("time", [0.1, 0.2])}, coords={"time": [0, 1]})
@@ -46,6 +47,7 @@ def test_to_xarray_dataset_rejects_invalid_to_xarray_return() -> None:
     Test that `to_xarray_dataset` raises a TypeError when an object's `to_xarray()` method
     does not return a valid xarray object.
     """
+
     class BadToXarray:
         def to_xarray(self) -> int:
             return 123
