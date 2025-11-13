@@ -1,7 +1,15 @@
 [build-system]
-requires = ["setuptools>=45", "setuptools_scm[toml]>=6.2"]
+build-backend = "hatchling.build"
+requires = ["hatchling"]
 
 [project]
+description = "Aggregation tools for meteorological and climate data."
+dynamic = ["version"]
+license = {file = "LICENSE"}
+name = "earthkit-climate"
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+
 classifiers = [
   "Development Status :: 2 - Pre-Alpha",
   "Intended Audience :: Science/Research",
@@ -13,57 +21,40 @@ classifiers = [
   "Topic :: Scientific/Engineering"
 ]
 dependencies = [
-  "xarray>=2022.3.0",
-  "numpy>=1.18",
-  "geopandas"
-, "earthkit-plots>=0.5.2,<0.6"]
-description = "Aggregation tools for meteorological and climate data."
-dynamic = ["version"]
-license = {file = "LICENSE"}
-name = "earthkit-climate"
-readme = "README.md"
-requires-python = ">=3.12"
+  "numpy>=1.22",
+  "xarray>=2023.1",
+  "xclim>=0.50",
+  "xsdba>=0.5,<0.6",
+  "earthkit-data>=0.17.0"
+]
 
 [project.optional-dependencies]
-development = ["black", "ruff", "mypy", "pre-commit", "make", "ipython"]
+dev = ["black", "ruff", "mypy", "pre-commit", "make", "ipython"]
 docs = ["sphinx", "sphinx-rtd-theme", "sphinx-autoapi", "nbsphinx"]
-test = ["pytest", "pytest-cov"]
 
 [tool.coverage.run]
 branch = true
 
-[tool.pixi.dependencies]
-geopandas = "*"
-numpy = "*"
-pip = "*"
-pixi-pycharm = ">=0.0.9,<0.0.10"
-pytest-mock = ">=3.15.1,<4"
-python = "3.12.*"
-xarray = "*"
-xclim = "*"
-xsdba = ">=0.5.0,<0.6"
-
-# ---- Pixi environments ----
-[tool.pixi.environments]
-default = {features = [], solve-group = "default"}
-development = {features = ["development"], solve-group = "default"}
-docs = {features = ["docs"], solve-group = "default"}
-test = {features = ["test"], solve-group = "default"}
-
-[tool.pixi.pypi-dependencies]
-earthkit-data = ">=0.17.0"
-
-# ---- Optional post-install cleanup ----
-[tool.pixi.tasks]
-remove-init = {cmd = "rm -f $(python -c 'import site; print(site.getsitepackages()[0])')/earthkit/__init__.py || true"}
-
-[tool.pixi.tasks.post-install]
-depends-on = ["remove-init"]
-
-# ---- PIXI CONFIGURATION ----
+# ---- Pixi CONFIGURATION ----
 [tool.pixi.workspace]
 channels = ["conda-forge"]
 platforms = ["win-64", "linux-64", "osx-64", "osx-arm64"]
+
+[tool.pixi.dependencies]
+pixi-pycharm = ">=0.0.9,<0.0.10"
+pytest-mock = ">=3.15.1,<4"
+pytest = "*"
+pytest-cov = "*"
+python = "3.12.*"
+
+[tool.pixi.pypi-dependencies]
+earthkit-plots = ">=0.5.0"
+
+# ---- Pixi environments ----
+[tool.pixi.environments]
+dev = {features = ["dev"]}
+docs = {features = ["docs"]}
+
 
 [tool.ruff]
 ignore = [
