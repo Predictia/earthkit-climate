@@ -51,9 +51,7 @@ def test_ensure_units_strict_uses_xclim_convert_units_to(monkeypatch: Any) -> No
 
 
 def test_ensure_units_strict_raises_on_conversion_error(monkeypatch: Any) -> None:
-    """
-    Test that `ensure_units` raises a ValueError when conversion fails in strict mode.
-    """
+    """Test that `ensure_units` raises a ValueError when conversion fails in strict mode."""
     ds = xarray.Dataset({"tas": ("time", [1.0, 2.0])})
     ds["tas"].attrs["units"] = "unknown"
 

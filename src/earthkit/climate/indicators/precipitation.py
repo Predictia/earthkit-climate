@@ -12,7 +12,6 @@ import earthkit.climate.utils.provenance as provenance
 import earthkit.climate.utils.units as units
 
 
-
 def maximum_consecutive_wet_days(
     earthkit_input: conversions.EarthkitData | xarray.Dataset,
     *,

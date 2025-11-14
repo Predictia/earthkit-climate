@@ -1,10 +1,9 @@
-import pytest
 import xarray as xr
 from pytest_mock import MockerFixture
 
 from earthkit.climate.indicators.precipitation import (
-    maximum_consecutive_wet_days,
     daily_precipitation_intensity,
+    maximum_consecutive_wet_days,
 )
 
 
@@ -72,9 +71,7 @@ def test_threshold_numeric_formats_with_units(
     dummy_precip_ds: xr.Dataset,
     common_mocks: dict,
 ) -> None:
-    """
-    Test that numeric thresholds are automatically formatted with units (mm/day).
-    """
+    """Test that numeric thresholds are automatically formatted with units (mm/day)."""
     mock_xclim = mocker.patch(
         "xclim.indicators.atmos.maximum_consecutive_wet_days",
         return_value=xr.Dataset(),
@@ -89,9 +86,7 @@ def test_threshold_string_forwarded_unchanged(
     dummy_precip_ds: xr.Dataset,
     common_mocks: dict,
 ) -> None:
-    """
-    Test that string thresholds (e.g., '1 mm/day') are passed unchanged to xclim.
-    """
+    """Test that string thresholds (e.g., '1 mm/day') are passed unchanged to xclim."""
     mock_xclim = mocker.patch(
         "xclim.indicators.atmos.maximum_consecutive_wet_days",
         return_value=xr.Dataset(),
@@ -106,9 +101,8 @@ def test_ensure_units_non_strict_warns_and_overwrites(
     dummy_precip_ds: xr.Dataset,
     common_mocks: dict,
 ) -> None:
-    """
-    Test that ensure_units is called with strict=False and overwrites units as expected.
-    """
+    """Test that ensure_units is called with strict=False and overwrites units as expected."""
+
     def _ensure_units_side_effect(ds, var, units, strict=False):
         ds[var].attrs["units"] = units
         return ds

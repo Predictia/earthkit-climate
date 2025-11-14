@@ -18,6 +18,7 @@ def dummy_precip_ds() -> xr.Dataset:
     ds["pr"].attrs["units"] = "kg m-2 s-1"
     return ds
 
+
 @pytest.fixture
 def dummy_temp_ds() -> xr.Dataset:
     """Return a simple temperature dataset with time coordinate and degC units."""
@@ -33,7 +34,6 @@ def dummy_temp_ds() -> xr.Dataset:
     for var in ds.data_vars:
         ds[var].attrs["units"] = "degC"
     return ds
-
 
 
 @pytest.fixture

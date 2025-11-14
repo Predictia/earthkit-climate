@@ -1,17 +1,17 @@
-import pytest
 import xarray as xr
 from pytest_mock import MockerFixture
 
-from earthkit.climate.indicators.temperature import daily_temperature_range, \
-    warm_spell_duration_index, heating_degree_days
+from earthkit.climate.indicators.temperature import (
+    daily_temperature_range,
+    heating_degree_days,
+    warm_spell_duration_index,
+)
 
 
 def test_dtr_end_to_end_returns_earthkit_object(
     mocker: MockerFixture, dummy_temp_ds: xr.Dataset, common_mocks: dict
 ) -> None:
-    """
-    Ensure daily_temperature_range computes successfully and returns an Earthkit object.
-    """
+    """Ensure daily_temperature_range computes successfully and returns an Earthkit object."""
     mock_to_xr = common_mocks["mock_to_xr"]
     mock_ensure = common_mocks["mock_ensure_units"]
     mock_add_prov = common_mocks["mock_add_prov"]
@@ -39,9 +39,7 @@ def test_dtr_end_to_end_returns_earthkit_object(
 def test_wsdi_end_to_end_computes_correctly(
     mocker: MockerFixture, dummy_temp_ds: xr.Dataset, common_mocks: dict
 ) -> None:
-    """
-    Ensure warm_spell_duration_index orchestrates correctly and metadata flows as expected.
-    """
+    """Ensure warm_spell_duration_index orchestrates correctly and metadata flows as expected."""
     mock_to_xr = common_mocks["mock_to_xr"]
     mock_ensure = common_mocks["mock_ensure_units"]
     mock_add_prov = common_mocks["mock_add_prov"]
@@ -68,15 +66,15 @@ def test_wsdi_end_to_end_computes_correctly(
     assert mock_ensure.call_count == 2
     mock_xclim.assert_called_once()
     mock_add_prov.assert_called_once()
-    mock_to_ek.assert_called_once_with(wsdi_da.to_dataset(name="wsdi"), {"earthkit_internal": {}, "prov": True})
+    mock_to_ek.assert_called_once_with(
+        wsdi_da.to_dataset(name="wsdi"), {"earthkit_internal": {}, "prov": True}
+    )
 
 
 def test_hdd_end_to_end_returns_earthkit_object(
     mocker: MockerFixture, dummy_temp_ds: xr.Dataset, common_mocks: dict
 ) -> None:
-    """
-    Ensure heating_degree_days computes correctly and returns the proper Earthkit object.
-    """
+    """Ensure heating_degree_days computes correctly and returns the proper Earthkit object."""
     mock_to_xr = common_mocks["mock_to_xr"]
     mock_ensure = common_mocks["mock_ensure_units"]
     mock_add_prov = common_mocks["mock_add_prov"]

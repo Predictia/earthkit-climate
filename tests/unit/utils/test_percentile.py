@@ -13,9 +13,7 @@ from earthkit.climate.utils.percentile import get_percentile, pandas_offset2time
     ],
 )
 def test_pandas_offset2time_component_supported(alias: str, component: str) -> None:
-    """
-    Test that supported pandas offset aliases map to the expected time components.
-    """
+    """Test that supported pandas offset aliases map to the expected time components."""
     assert pandas_offset2time_component(alias) == component
 
 

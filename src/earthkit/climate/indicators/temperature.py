@@ -47,7 +47,9 @@ def daily_temperature_range(
     tasmin_ds = units.ensure_units(tasmin_ds, "tasmin", "degC", strict=False)
 
     # Compute the DTR index
-    result = xclim.indicators.atmos.daily_temperature_range(tasmax_ds["tasmax"], tasmin_ds["tasmin"], **kwargs)
+    result = xclim.indicators.atmos.daily_temperature_range(
+        tasmax_ds["tasmax"], tasmin_ds["tasmin"], **kwargs
+    )
     output_dataset = result.to_dataset(name=result.name or "dtr")
 
     # Add provenance metadata

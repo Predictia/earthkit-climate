@@ -2,18 +2,18 @@
 
 **A toolkit for statistical analysis and processing of climate and geospatial data.**
 
-`earthkit-climate` provides tools to compute and analyze **climate indicators** (e.g., precipitation, temperature) and perform **unit conversions, percentiles, and provenance tracking**.  
+`earthkit-climate` provides tools to compute and analyze **climate indicators** (e.g., precipitation, temperature) and perform **unit conversions, percentiles, and provenance tracking**.
 It is part of the **Earthkit ecosystem** and designed for reproducible, modular workflows.
 
----
+______________________________________________________________________
 
 ## Disclaimer
 
-This project is currently in **BETA** and **experimental**.  
-Interfaces, structure, and functionality are subject to change without notice.  
+This project is currently in **BETA** and **experimental**.
+Interfaces, structure, and functionality are subject to change without notice.
 Do **not** use this software in any operational or production system.
 
----
+______________________________________________________________________
 
 ## Quick Start
 
@@ -33,20 +33,20 @@ from earthkit.climate.utils import conversions
 pr = precipitation.simple_daily_intensity(precip_data, freq="monthly")
 ```
 
----
+______________________________________________________________________
 
 ## Documentation
 
-For full documentation, including API reference and example notebooks, visit the  
+For full documentation, including API reference and example notebooks, visit the
 [earthkit-climate ReadTheDocs page](https://earthkit-climate.readthedocs.io)
 
----
+______________________________________________________________________
 
 ## Development & Contribution Workflow
 
 ### 1. Setup environment (with Pixi)
 
-This project uses [**Pixi**](https://pixi.sh) for dependency and environment management.  
+This project uses [**Pixi**](https://pixi.sh) for dependency and environment management.
 It provides fast, reproducible environments and replaces Conda-based workflows.
 
 Install Pixi following the [official instructions](https://pixi.sh/latest/#installation), then run:
@@ -96,7 +96,7 @@ make docs-build
 make template-update
 ```
 
----
+______________________________________________________________________
 
 ## Project Structure
 
@@ -121,7 +121,7 @@ earthkit-climate/
 └── README.md
 ```
 
----
+______________________________________________________________________
 
 ## License
 
