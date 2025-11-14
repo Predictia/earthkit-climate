@@ -4,9 +4,11 @@ on:
   push:
     branches:
     - develop
+    - main
   pull_request:
     branches:
     - develop
+    - main
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -15,7 +17,6 @@ concurrency:
 defaults:
   run:
     shell: bash -l {0}
-
 
 jobs:
   pre-commit:
@@ -27,12 +28,11 @@ jobs:
         python-version: 3.x
     - uses: pre-commit/action@v3.0.0
 
-
   combine-environments:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Install conda-merge
       run: |
         $CONDA/bin/python -m pip install conda-merge
@@ -42,7 +42,7 @@ jobs:
         $CONDA/bin/conda-merge ci/environment-$SUFFIX.yml environment.yml > ci/combined-environment-$SUFFIX.yml || exit
         done
     - name: Archive combined environments
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: combined-environments
         path: ci/combined-environment-*.yml
@@ -53,9 +53,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Download combined environments
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: combined-environments
         path: ci
@@ -80,9 +80,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Download combined environments
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: combined-environments
         path: ci
@@ -114,9 +114,9 @@ jobs:
           extra: -integration
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Download combined environments
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: combined-environments
         path: ci
