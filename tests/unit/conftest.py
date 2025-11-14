@@ -51,7 +51,7 @@ def daily_temperature_ds() -> xr.Dataset:
 @pytest.fixture
 def common_mocks(mocker: MockerFixture, dummy_precip_ds: xr.Dataset) -> dict:
     """
-    Fixture that sets up common mocks used across precipitation indicator tests.
+    Fixture that sets up common mocks used across indicators tests.
 
     Parameters
     ----------
@@ -65,7 +65,7 @@ def common_mocks(mocker: MockerFixture, dummy_precip_ds: xr.Dataset) -> dict:
     dict[str, Any]
         Dictionary with references to key mock objects for assertions.
     """
-    sentinel_ek = object()
+    object_ek = object()
 
     mock_to_xr = mocker.patch(
         "earthkit.climate.utils.conversions.to_xarray_dataset",
@@ -84,7 +84,7 @@ def common_mocks(mocker: MockerFixture, dummy_precip_ds: xr.Dataset) -> dict:
 
     mock_to_ek = mocker.patch(
         "earthkit.climate.utils.conversions.to_earthkit_field",
-        return_value=sentinel_ek,
+        return_value=object_ek,
     )
 
     return {
@@ -92,5 +92,5 @@ def common_mocks(mocker: MockerFixture, dummy_precip_ds: xr.Dataset) -> dict:
         "mock_ensure_units": mock_ensure_units,
         "mock_add_prov": mock_add_prov,
         "mock_to_ek": mock_to_ek,
-        "sentinel_ek": sentinel_ek,
+        "object_ek": object_ek,
     }

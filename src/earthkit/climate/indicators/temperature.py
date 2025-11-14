@@ -47,11 +47,13 @@ def daily_temperature_range(
     tasmin_ds = units.ensure_units(tasmin_ds, "tasmin", "degC", strict=False)
 
     # Compute the DTR index
-    result = xclim.indices.daily_temperature_range(tasmax_ds["tasmax"], tasmin_ds["tasmin"], **kwargs)
+    result = xclim.indicators.atmos.daily_temperature_range(tasmax_ds["tasmax"], tasmin_ds["tasmin"], **kwargs)
     output_dataset = result.to_dataset(name=result.name or "dtr")
 
     # Add provenance metadata
-    metadata = provenance.add_indicator_provenance(metadata, xclim.indices.daily_temperature_range, output_dataset, **kwargs)
+    metadata = provenance.add_indicator_provenance(
+        metadata, xclim.indicators.atmos.daily_temperature_range, output_dataset, **kwargs
+    )
 
     # Convert back to Earthkit format
     return conversions.to_earthkit_field(output_dataset, metadata)
@@ -95,7 +97,7 @@ def warm_spell_duration_index(
     hist_ds = units.ensure_units(hist_ds, "tasmax", "degC", strict=False)
 
     # Get 90th percentile over time
-    tasmax_per = percentile_doy(hist_ds, per=90)
+    tasmax_per = percentile_doy(hist_ds["tasmax"], per=90)
 
     # Compute WSDI with xclim
     result = xclim.indicators.atmos.warm_spell_duration_index(

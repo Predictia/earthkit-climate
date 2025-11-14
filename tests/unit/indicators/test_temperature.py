@@ -16,7 +16,7 @@ def test_dtr_end_to_end_returns_earthkit_object(
     mock_ensure = common_mocks["mock_ensure_units"]
     mock_add_prov = common_mocks["mock_add_prov"]
     mock_to_ek = common_mocks["mock_to_ek"]
-    sentinel_ek = common_mocks["sentinel_ek"]
+    object_ek = common_mocks["object_ek"]
 
     mock_to_xr.side_effect = [
         (dummy_temp_ds[["tasmax"]], {"earthkit_internal": {}}),
@@ -24,11 +24,11 @@ def test_dtr_end_to_end_returns_earthkit_object(
     ]
 
     dtr_da = xr.DataArray([10.0], name="dtr")
-    mock_xclim = mocker.patch("xclim.indices.daily_temperature_range", return_value=dtr_da)
+    mock_xclim = mocker.patch("xclim.indicators.atmos.daily_temperature_range", return_value=dtr_da)
 
     res = daily_temperature_range(dummy_temp_ds[["tasmax"]], dummy_temp_ds[["tasmin"]])
 
-    assert res is sentinel_ek
+    assert res is object_ek
     assert mock_to_xr.call_count == 2
     assert mock_ensure.call_count == 2
     mock_xclim.assert_called_once()
@@ -46,7 +46,7 @@ def test_wsdi_end_to_end_computes_correctly(
     mock_ensure = common_mocks["mock_ensure_units"]
     mock_add_prov = common_mocks["mock_add_prov"]
     mock_to_ek = common_mocks["mock_to_ek"]
-    sentinel_ek = common_mocks["sentinel_ek"]
+    object_ek = common_mocks["object_ek"]
 
     mock_to_xr.side_effect = [
         (dummy_temp_ds[["tasmax"]], {"earthkit_internal": {}}),
@@ -63,7 +63,7 @@ def test_wsdi_end_to_end_computes_correctly(
 
     res = warm_spell_duration_index(dummy_temp_ds[["tasmax"]], dummy_temp_ds[["tasmax"]], freq="YS", window=6)
 
-    assert res is sentinel_ek
+    assert res is object_ek
     assert mock_to_xr.call_count == 2
     assert mock_ensure.call_count == 2
     mock_xclim.assert_called_once()
@@ -81,7 +81,7 @@ def test_hdd_end_to_end_returns_earthkit_object(
     mock_ensure = common_mocks["mock_ensure_units"]
     mock_add_prov = common_mocks["mock_add_prov"]
     mock_to_ek = common_mocks["mock_to_ek"]
-    sentinel_ek = common_mocks["sentinel_ek"]
+    object_ek = common_mocks["object_ek"]
 
     mock_to_xr.side_effect = [
         (dummy_temp_ds[["tasmax"]], {"earthkit_internal": {}}),
@@ -97,7 +97,7 @@ def test_hdd_end_to_end_returns_earthkit_object(
 
     res = heating_degree_days(dummy_temp_ds[["tasmax"]], dummy_temp_ds[["tasmin"]], dummy_temp_ds[["tas"]])
 
-    assert res is sentinel_ek
+    assert res is object_ek
     assert mock_to_xr.call_count == 3
     assert mock_ensure.call_count == 3
     mock_xclim.assert_called_once()

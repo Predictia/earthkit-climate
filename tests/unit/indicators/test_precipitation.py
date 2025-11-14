@@ -20,7 +20,7 @@ def test_cwd_end_to_end_returns_earthkit_object(
     mock_to_xr = common_mocks["mock_to_xr"]
     mock_add_prov = common_mocks["mock_add_prov"]
     mock_to_ek = common_mocks["mock_to_ek"]
-    sentinel_ek = common_mocks["sentinel_ek"]
+    object_ek = common_mocks["object_ek"]
 
     dummy_out = xr.Dataset({"cwd": ("time", [5])})
     mock_xclim = mocker.patch(
@@ -30,7 +30,7 @@ def test_cwd_end_to_end_returns_earthkit_object(
 
     result = maximum_consecutive_wet_days(dummy_precip_ds, wet_day_threshold=2.0)
 
-    assert result is sentinel_ek
+    assert result is object_ek
     mock_to_xr.assert_called_once()
     mock_xclim.assert_called_once()
     mock_add_prov.assert_called_once()
@@ -49,7 +49,7 @@ def test_sdii_with_frequency_end_to_end(
     mock_to_xr = common_mocks["mock_to_xr"]
     mock_add_prov = common_mocks["mock_add_prov"]
     mock_to_ek = common_mocks["mock_to_ek"]
-    sentinel_ek = common_mocks["sentinel_ek"]
+    object_ek = common_mocks["object_ek"]
 
     dummy_out = xr.Dataset({"sdii": ("time", [1.23])})
     mock_xclim = mocker.patch(
@@ -59,7 +59,7 @@ def test_sdii_with_frequency_end_to_end(
 
     res = daily_precipitation_intensity(dummy_precip_ds, frequency="MS")
 
-    assert res is sentinel_ek
+    assert res is object_ek
     mock_to_xr.assert_called_once()
     assert mock_xclim.call_args.kwargs["freq"] == "MS"
     assert mock_xclim.call_args.kwargs["ds"].attrs.get("ensured") is True
