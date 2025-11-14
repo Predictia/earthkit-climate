@@ -60,7 +60,7 @@ jobs:
         name: combined-environments
         path: ci
     - name: Install Conda environment with Micromamba
-      uses: mamba-org/provision-with-micromamba@v15
+      uses: mamba-org/provision-with-micromamba@v14
       with:
         environment-file: ci/combined-environment-ci.yml
         environment-name: DEVELOP
