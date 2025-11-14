@@ -1,6 +1,10 @@
 [build-system]
-build-backend = "hatchling.build"
-requires = ["hatchling"]
+requires = [
+  "setuptools>=61",
+  "wheel",
+  "setuptools-scm>=8"
+]
+build-backend = "setuptools.build_meta"
 
 [project]
 classifiers = [
