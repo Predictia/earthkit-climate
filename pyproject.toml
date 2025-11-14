@@ -25,7 +25,7 @@ dynamic = ["version"]
 license = {file = "LICENSE"}
 name = "earthkit-climate"
 readme = "README.md"
-requires-python = ">=3.12,<3.13"
+requires-python = ">=3.10,<3.13"
 
 [project.optional-dependencies]
 dev = ["black", "ruff", "mypy", "pre-commit", "make", "ipython"]
