@@ -99,7 +99,7 @@ jobs:
         with:
           environment-file: ci/combined-environment-ci.yml
           environment-name: DEVELOP
-          micromamba-version: "1.5.8"
+          micromamba-version: "latest"
           cache-environment: true
           create-args: >-
             python=3.10
@@ -138,7 +138,7 @@ jobs:
         with:
           environment-file: ci/combined-environment${{ matrix.extra }}.yml
           environment-name: DEVELOP${{ matrix.extra }}
-          micromamba-version: "1.5.8"
+          micromamba-version: "latest"
           cache-environment: true
           create-args: >-
             python=${{ matrix.python-version }}
