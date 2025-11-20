@@ -45,7 +45,7 @@ extensions = [
 autodoc_typehints = "none"
 
 # autoapi configuration
-autoapi_dirs = ["../earthkit/climate"]
+autoapi_dirs = ["../src/earthkit/climate"]
 autoapi_ignore = ["*/version.py"]
 autoapi_options = [
     "members",

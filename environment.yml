@@ -10,6 +10,7 @@ dependencies:
 - sphinx-rtd-theme
 - pytest
 - pytest-cov
+- pytest-mock
 - sphinx
 - sphinx-autoapi
 - nbsphinx
@@ -24,6 +25,5 @@ dependencies:
 - pip
 - geopandas
 - earthkit-data
-- pip:
-  - ek-aggregate
-  - git+https://github.com/ecmwf/multiurl
+- xclim
+- xsdba

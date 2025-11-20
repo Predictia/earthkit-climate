@@ -1,5 +1,10 @@
 [build-system]
-requires = ["setuptools>=45", "setuptools_scm[toml]>=6.2"]
+build-backend = "setuptools.build_meta"
+requires = [
+  "setuptools>=61",
+  "wheel",
+  "setuptools-scm>=8"
+]
 
 [project]
 classifiers = [
@@ -13,27 +18,50 @@ classifiers = [
   "Topic :: Scientific/Engineering"
 ]
 dependencies = [
-  "xarray>=2022.3.0",
-  "numpy>=1.18",
-  "earthkit-data>=0.3.0",
-  "ek-aggregate",
-  "geopandas"
+  "numpy>=1.22",
+  "xarray>=2023.1",
+  "xclim>=0.50",
+  "xsdba>=0.5,<0.6",
+  "earthkit-data>=0.17.0"
 ]
 description = "Aggregation tools for meteorological and climate data."
 dynamic = ["version"]
 license = {file = "LICENSE"}
 name = "earthkit-climate"
 readme = "README.md"
+requires-python = ">=3.10,<3.13"
+
+[project.optional-dependencies]
+dev = ["black", "ruff", "mypy", "pre-commit", "make", "ipython"]
+docs = ["sphinx", "sphinx-rtd-theme", "sphinx-autoapi", "nbsphinx"]
 
 [tool.coverage.run]
 branch = true
 
+[tool.pixi.dependencies]
+pixi-pycharm = ">=0.0.9,<0.0.10"
+pytest = "*"
+pytest-cov = "*"
+pytest-mock = ">=3.15.1,<4"
+python = "3.12.*"
+
+# ---- Pixi environments ----
+[tool.pixi.environments]
+dev = {features = ["dev"]}
+docs = {features = ["docs"]}
+
+[tool.pixi.pypi-dependencies]
+earthkit-plots = ">=0.5.0"
+
+# ---- Pixi CONFIGURATION ----
+[tool.pixi.workspace]
+channels = ["conda-forge"]
+platforms = ["win-64", "linux-64", "osx-64", "osx-arm64"]
+
 [tool.ruff]
 ignore = [
-  # pydocstyle: Missing Docstrings
-  "D1",
-  # pydocstyle: numpy convention
-  "D107",
+  "D1",  # pydocstyle: Missing Docstrings
+  "D107",  # pydocstyle: numpy convention
   "D203",
   "D205",
   "D212",
@@ -45,25 +73,22 @@ ignore = [
   "D416",
   "D417"
 ]
-# Black line length is 88, but black does not format comments.
 line-length = 110
 select = [
-  # pyflakes
-  "F",
-  # pycodestyle
-  "E",
-  "W",
-  # isort
-  "I",
-  # pydocstyle
-  "D"
+  "F",  # pyflakes
+  "E",  # pycodestyle
+  "W",  # pycodestyle warnings
+  "I",  # isort
+  "D"  # pydocstyle
 ]
 
-[tool.setuptools]
-packages = ["earthkit.climate"]
+# ---- Namespace package configuration ----
+[tool.setuptools.packages.find]
+namespaces = true
+where = ["src"]
 
 [tool.setuptools_scm]
-write_to = "earthkit/climate/version.py"
+write_to = "src/earthkit/climate/version.py"
 write_to_template = '''
 # Do not change! Do not track in version control!
 __version__ = "{version}"

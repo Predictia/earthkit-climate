@@ -1,55 +1,137 @@
 # earthkit-climate
 
-A toolkit for statistical analysis of temporal-geospatial data.
+**A toolkit for statistical analysis and processing of climate and geospatial data.**
 
-**DISCLAIMER**
-This project is **BETA** and will be **Experimental** for the foreseeable future.
-Interfaces and functionality are likely to change, and the project itself may be scrapped.
-**DO NOT** use this software in any project/software that is operational.
+`earthkit-climate` provides tools to compute and analyze **climate indicators** (e.g., precipitation, temperature) and perform **unit conversions, percentiles, and provenance tracking**.
+It is part of the **Earthkit ecosystem** and designed for reproducible, modular workflows.
+
+______________________________________________________________________
+
+## Disclaimer
+
+This project is currently in **BETA** and **experimental**.
+Interfaces, structure, and functionality are subject to change without notice.
+Do **not** use this software in any operational or production system.
+
+______________________________________________________________________
 
 ## Quick Start
 
+Install the package in editable mode:
+
+```bash
+pip install -e .
+```
+
+Example usage:
+
 ```python
->>> from earthkit.climate import aggregate
+from earthkit.climate.indicators import precipitation, temperature
+from earthkit.climate.utils import conversions
 
+# Example: compute a precipitation index
+pr = precipitation.simple_daily_intensity(precip_data, freq="monthly")
 ```
 
-## Detailed documentation
+______________________________________________________________________
 
-Please refer the [earthkit-climate readthedocs page](https://earthkit-climate.readthedocs.io) for more detailed documentation, example notebooks and the API reference guide.
+## Documentation
 
-## Workflow for developers/contributors
+For full documentation, including API reference and example notebooks, visit the
+[earthkit-climate ReadTheDocs page](https://earthkit-climate.readthedocs.io)
 
-For best experience create a new conda environment (e.g. DEVELOP) with Python 3.10:
+______________________________________________________________________
+
+## Development & Contribution Workflow
+
+### 1. Setup environment (with Pixi)
+
+This project uses [**Pixi**](https://pixi.sh) for dependency and environment management.
+It provides fast, reproducible environments and replaces Conda-based workflows.
+
+Install Pixi following the [official instructions](https://pixi.sh/latest/#installation), then run:
+
+```bash
+pixi install --locked
+pixi shell
+```
+
+This command installs all dependencies as defined in `pyproject.toml` and `pixi.lock`.
+
+### 2. Install the package
+
+Inside the Pixi environment:
+
+```bash
+pip install -e .
+```
+
+### 3. Quality checks and tests
+
+Before pushing to GitHub, run:
+
+```bash
+make qa
+make unit-tests
+```
+
+You can also perform type checking and integration tests:
+
+```bash
+make type-check
+make integration-tests
+```
+
+### 4. Documentation
+
+To build the documentation locally (using Sphinx):
+
+```bash
+make docs-build
+```
+
+### 5. Optional: Sync with ECMWF template
+
+```bash
+make template-update
+```
+
+______________________________________________________________________
+
+## Project Structure
 
 ```
-conda create -n DEVELOP -c conda-forge python=3.10
-conda activate DEVELOP
+earthkit-climate/
+├── src/earthkit/
+│   ├── climate/
+│   │   ├── indicators/        # Climate indices (precipitation, temperature, etc.)
+│   │   └── utils/             # Type conversions, percentiles, provenance
+│   └── __init__.py
+├── tests/
+│   ├── integration/           # Integration tests
+│   └── unit/                  # Unit tests for indicators and utils
+├── docs/                      # Sphinx documentation
+├── ci/                        # Continuous integration configs
+├── .github/workflows/         # GitHub Actions (push/release)
+├── .pixi/                     # Pixi configuration
+├── pixi.lock                  # Locked dependency versions
+├── Dockerfile                 # Pixi-based container
+├── pyproject.toml             # Project configuration
+├── Makefile                   # Developer utilities (Pixi integrated)
+└── README.md
 ```
 
-Before pushing to GitHub, run the following commands:
-
-1. Update conda environment: `make conda-env-update`
-1. Install this package: `pip install -e .`
-1. Sync with the latest [template](https://github.com/ecmwf-projects/cookiecutter-conda-package) (optional): `make template-update`
-1. Run quality assurance checks: `make qa`
-1. Run tests: `make unit-tests`
-1. Build the documentation (see [Sphinx tutorial](https://www.sphinx-doc.org/en/master/tutorial/)): `make docs-build`
+______________________________________________________________________
 
 ## License
 
 ```
-Copyright 2022, European Centre for Medium Range Weather Forecasts.
+Copyright 2022,
+European Centre for Medium Range Weather Forecasts (ECMWF)
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
+You may obtain a copy of the License at:
 
     http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
 ```
