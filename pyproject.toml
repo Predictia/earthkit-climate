@@ -3,7 +3,11 @@ build-backend = "setuptools.build_meta"
 requires = [
   "setuptools>=61",
   "wheel",
-  "setuptools-scm>=8"
+  "setuptools-scm>=8",
+    "numpy>=1.22",
+    "xarray>=2023.1",
+    "xclim>=0.50",
+    "earthkit-data>=0.17.0"
 ]
 
 [project]
@@ -26,6 +30,7 @@ dependencies = [
 ]
 description = "Aggregation tools for meteorological and climate data."
 dynamic = ["version"]
+keywords = ["climate", "meteorology", "geospatial", "analysis", "earthkit"]
 license = {file = "LICENSE"}
 name = "earthkit-climate"
 readme = "README.md"
@@ -35,8 +40,15 @@ requires-python = ">=3.10,<3.13"
 dev = ["black", "ruff", "mypy", "pre-commit", "make", "ipython"]
 docs = ["sphinx", "sphinx-rtd-theme", "sphinx-autoapi", "nbsphinx"]
 
+[tool.black]
+line-length = 110
+
 [tool.coverage.run]
 branch = true
+
+[tool.isort]
+profile = "black"
+line_length = 110
 
 [tool.pixi.dependencies]
 pixi-pycharm = ">=0.0.9,<0.0.10"
@@ -57,6 +69,9 @@ earthkit-plots = ">=0.5.0"
 [tool.pixi.workspace]
 channels = ["conda-forge"]
 platforms = ["win-64", "linux-64", "osx-64", "osx-arm64"]
+
+[tool.pytest.ini_options]
+addopts = "-vv --cov=. --cov-report=html --doctest-glob='*.md' --doctest-glob='*.rst'"
 
 [tool.ruff]
 ignore = [
@@ -82,9 +97,12 @@ select = [
   "D"  # pydocstyle
 ]
 
+
+[tool.setuptools]
+cmdclass = { build_py = "earthkit.climate.build.GenerateIndicators" }
+
 # ---- Namespace package configuration ----
 [tool.setuptools.packages.find]
-namespaces = true
 where = ["src"]
 
 [tool.setuptools_scm]
