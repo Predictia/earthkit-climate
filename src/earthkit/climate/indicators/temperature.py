@@ -1,6 +1,6 @@
 """Temperature-based climate indices."""
 
-from typing import Any, Optional, Tuple
+from typing import Any
 
 import xarray
 import xclim.indicators.atmos
@@ -30,7 +30,6 @@ def daily_temperature_range(
         The computed daily temperature range converted back to an Earthkit-compatible type.
 
     """
-
     # Create wrapper inside the function
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.daily_temperature_range)
     return wrapper(ds, **kwargs)
@@ -66,7 +65,6 @@ def heating_degree_days(
     conversions.EarthkitData
         The computed Heating Degree Days (HDD) converted back to an Earthkit-compatible type.
     """
-
     # Create wrapper inside the function
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.heating_degree_days)
     return wrapper(ds, **kwargs)
@@ -74,25 +72,17 @@ def heating_degree_days(
 
 def warm_spell_duration_index(
     ds: conversions.EarthkitData | xarray.Dataset,
-    ds_hist: Optional[conversions.EarthkitData | xarray.Dataset],
-    reference_period: Optional[Tuple[str, str]] = None,
-    window: int = 6,
     **kwargs: Any,
 ) -> conversions.EarthkitData:
     """
     Compute the Warm Spell Duration Index (WSDI) using the xclim indices module.
-    The 90th percentile threshold is computed internally from the historical period.
+    The 90th percentile threshold must be pre-calculated and included in the input dataset `ds`
+    as a variable named `{variable}_per` (e.g., `tasmax_per`).
 
     Parameters
     ----------
     ds : conversions.EarthkitData | xarray.Dataset
-        Daily maximum temperature data for the target period.
-    ds_hist : conversions.EarthkitData | xarray.Dataset, default None
-        Historical daily maximum temperature data used to compute the 90th percentile threshold.
-    reference_period : tuple, optional, default None
-        The time period to use as a reference (start, end), by default None.
-    window : int, optional, default 6
-        Minimum number of consecutive days above the threshold.
+        Daily maximum temperature data for the target period, including the pre-calculated percentile.
     **kwargs : Any
         Additional arguments forwarded to :func:`xclim.indicators.atmos.warm_spell_duration_index`.
 
@@ -104,13 +94,4 @@ def warm_spell_duration_index(
     # Create wrapper inside the function
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.warm_spell_duration_index)
 
-    # The wrapper handles reference_data for percentile calculation.
-    # We map tasmax_hist to reference_data.
-    return wrapper(
-        earthkit_input=ds,
-        reference_data=ds_hist,
-        reference_period=reference_period,
-        percentile_val=90,
-        window=window,
-        **kwargs
-    )
+    return wrapper(earthkit_input=ds, **kwargs)
