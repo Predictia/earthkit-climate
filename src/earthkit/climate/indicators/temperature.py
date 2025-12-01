@@ -1,104 +1,144 @@
-"""
-Wrapper module for xclim.indicators.atmos.
+"""Temperature-based climate indices."""
 
-This module is auto-generated. Do not edit directly.
-"""
+from typing import Any
+
+import xarray
 import xclim
+
+import earthkit.climate.utils.conversions as conversions
+import earthkit.climate.utils.units as units
 from earthkit.climate.api.wrapper import wrap_xclim_indicator
 
-cffwis_indices = wrap_xclim_indicator(xclim.indicators.atmos.cffwis_indices)
-duff_moisture_code = wrap_xclim_indicator(xclim.indicators.atmos.duff_moisture_code)
-mcarthur_forest_fire_danger_index = wrap_xclim_indicator(xclim.indicators.atmos.mcarthur_forest_fire_danger_index)
-rprctot = wrap_xclim_indicator(xclim.indicators.atmos.rprctot)
-water_cycle_intensity = wrap_xclim_indicator(xclim.indicators.atmos.water_cycle_intensity)
-jetstream_metric_woollings = wrap_xclim_indicator(xclim.indicators.atmos.jetstream_metric_woollings)
-australian_hardiness_zones = wrap_xclim_indicator(xclim.indicators.atmos.australian_hardiness_zones)
-biologically_effective_degree_days = wrap_xclim_indicator(xclim.indicators.atmos.biologically_effective_degree_days)
-chill_portions = wrap_xclim_indicator(xclim.indicators.atmos.chill_portions)
-chill_units = wrap_xclim_indicator(xclim.indicators.atmos.chill_units)
-cold_spell_days = wrap_xclim_indicator(xclim.indicators.atmos.cold_spell_days)
-cold_spell_duration_index = wrap_xclim_indicator(xclim.indicators.atmos.cold_spell_duration_index)
-cold_spell_frequency = wrap_xclim_indicator(xclim.indicators.atmos.cold_spell_frequency)
-cold_spell_max_length = wrap_xclim_indicator(xclim.indicators.atmos.cold_spell_max_length)
-cold_spell_total_length = wrap_xclim_indicator(xclim.indicators.atmos.cold_spell_total_length)
-consecutive_frost_days = wrap_xclim_indicator(xclim.indicators.atmos.consecutive_frost_days)
-cool_night_index = wrap_xclim_indicator(xclim.indicators.atmos.cool_night_index)
-cooling_degree_days = wrap_xclim_indicator(xclim.indicators.atmos.cooling_degree_days)
-cooling_degree_days_approximation = wrap_xclim_indicator(xclim.indicators.atmos.cooling_degree_days_approximation)
-corn_heat_units = wrap_xclim_indicator(xclim.indicators.atmos.corn_heat_units)
-daily_freezethaw_cycles = wrap_xclim_indicator(xclim.indicators.atmos.daily_freezethaw_cycles)
-daily_temperature_range = wrap_xclim_indicator(xclim.indicators.atmos.daily_temperature_range)
-daily_temperature_range_variability = wrap_xclim_indicator(xclim.indicators.atmos.daily_temperature_range_variability)
-degree_days_exceedance_date = wrap_xclim_indicator(xclim.indicators.atmos.degree_days_exceedance_date)
-extreme_temperature_range = wrap_xclim_indicator(xclim.indicators.atmos.extreme_temperature_range)
-fire_season = wrap_xclim_indicator(xclim.indicators.atmos.fire_season)
-first_day_tg_above = wrap_xclim_indicator(xclim.indicators.atmos.first_day_tg_above)
-first_day_tg_below = wrap_xclim_indicator(xclim.indicators.atmos.first_day_tg_below)
-first_day_tn_above = wrap_xclim_indicator(xclim.indicators.atmos.first_day_tn_above)
-first_day_tn_below = wrap_xclim_indicator(xclim.indicators.atmos.first_day_tn_below)
-first_day_tx_above = wrap_xclim_indicator(xclim.indicators.atmos.first_day_tx_above)
-first_day_tx_below = wrap_xclim_indicator(xclim.indicators.atmos.first_day_tx_below)
-freezethaw_spell_frequency = wrap_xclim_indicator(xclim.indicators.atmos.freezethaw_spell_frequency)
-freezethaw_spell_max_length = wrap_xclim_indicator(xclim.indicators.atmos.freezethaw_spell_max_length)
-freezethaw_spell_mean_length = wrap_xclim_indicator(xclim.indicators.atmos.freezethaw_spell_mean_length)
-freezing_degree_days = wrap_xclim_indicator(xclim.indicators.atmos.freezing_degree_days)
-freshet_start = wrap_xclim_indicator(xclim.indicators.atmos.freshet_start)
-frost_days = wrap_xclim_indicator(xclim.indicators.atmos.frost_days)
-frost_free_season_end = wrap_xclim_indicator(xclim.indicators.atmos.frost_free_season_end)
-frost_free_season_length = wrap_xclim_indicator(xclim.indicators.atmos.frost_free_season_length)
-frost_free_season_start = wrap_xclim_indicator(xclim.indicators.atmos.frost_free_season_start)
-frost_free_spell_max_length = wrap_xclim_indicator(xclim.indicators.atmos.frost_free_spell_max_length)
-frost_season_length = wrap_xclim_indicator(xclim.indicators.atmos.frost_season_length)
-growing_degree_days = wrap_xclim_indicator(xclim.indicators.atmos.growing_degree_days)
-growing_season_end = wrap_xclim_indicator(xclim.indicators.atmos.growing_season_end)
-growing_season_length = wrap_xclim_indicator(xclim.indicators.atmos.growing_season_length)
-growing_season_start = wrap_xclim_indicator(xclim.indicators.atmos.growing_season_start)
-heat_spell_frequency = wrap_xclim_indicator(xclim.indicators.atmos.heat_spell_frequency)
-heat_spell_max_length = wrap_xclim_indicator(xclim.indicators.atmos.heat_spell_max_length)
-heat_spell_total_length = wrap_xclim_indicator(xclim.indicators.atmos.heat_spell_total_length)
-heat_wave_frequency = wrap_xclim_indicator(xclim.indicators.atmos.heat_wave_frequency)
-heat_wave_index = wrap_xclim_indicator(xclim.indicators.atmos.heat_wave_index)
-heat_wave_max_length = wrap_xclim_indicator(xclim.indicators.atmos.heat_wave_max_length)
-heat_wave_total_length = wrap_xclim_indicator(xclim.indicators.atmos.heat_wave_total_length)
-heating_degree_days = wrap_xclim_indicator(xclim.indicators.atmos.heating_degree_days)
-heating_degree_days_approximation = wrap_xclim_indicator(xclim.indicators.atmos.heating_degree_days_approximation)
-hot_days = wrap_xclim_indicator(xclim.indicators.atmos.hot_days)
-hot_spell_frequency = wrap_xclim_indicator(xclim.indicators.atmos.hot_spell_frequency)
-hot_spell_max_length = wrap_xclim_indicator(xclim.indicators.atmos.hot_spell_max_length)
-hot_spell_max_magnitude = wrap_xclim_indicator(xclim.indicators.atmos.hot_spell_max_magnitude)
-hot_spell_total_length = wrap_xclim_indicator(xclim.indicators.atmos.hot_spell_total_length)
-huglin_index = wrap_xclim_indicator(xclim.indicators.atmos.huglin_index)
-ice_days = wrap_xclim_indicator(xclim.indicators.atmos.ice_days)
-last_spring_frost = wrap_xclim_indicator(xclim.indicators.atmos.last_spring_frost)
-late_frost_days = wrap_xclim_indicator(xclim.indicators.atmos.late_frost_days)
-latitude_temperature_index = wrap_xclim_indicator(xclim.indicators.atmos.latitude_temperature_index)
-max_daily_temperature_range = wrap_xclim_indicator(xclim.indicators.atmos.max_daily_temperature_range)
-maximum_consecutive_frost_free_days = wrap_xclim_indicator(xclim.indicators.atmos.maximum_consecutive_frost_free_days)
-maximum_consecutive_warm_days = wrap_xclim_indicator(xclim.indicators.atmos.maximum_consecutive_warm_days)
-tg10p = wrap_xclim_indicator(xclim.indicators.atmos.tg10p)
-tg90p = wrap_xclim_indicator(xclim.indicators.atmos.tg90p)
-tg_days_above = wrap_xclim_indicator(xclim.indicators.atmos.tg_days_above)
-tg_days_below = wrap_xclim_indicator(xclim.indicators.atmos.tg_days_below)
-tg_max = wrap_xclim_indicator(xclim.indicators.atmos.tg_max)
-tg_mean = wrap_xclim_indicator(xclim.indicators.atmos.tg_mean)
-tg_min = wrap_xclim_indicator(xclim.indicators.atmos.tg_min)
-thawing_degree_days = wrap_xclim_indicator(xclim.indicators.atmos.thawing_degree_days)
-tn10p = wrap_xclim_indicator(xclim.indicators.atmos.tn10p)
-tn90p = wrap_xclim_indicator(xclim.indicators.atmos.tn90p)
-tn_days_above = wrap_xclim_indicator(xclim.indicators.atmos.tn_days_above)
-tn_days_below = wrap_xclim_indicator(xclim.indicators.atmos.tn_days_below)
-tn_max = wrap_xclim_indicator(xclim.indicators.atmos.tn_max)
-tn_mean = wrap_xclim_indicator(xclim.indicators.atmos.tn_mean)
-tn_min = wrap_xclim_indicator(xclim.indicators.atmos.tn_min)
-tropical_nights = wrap_xclim_indicator(xclim.indicators.atmos.tropical_nights)
-tx10p = wrap_xclim_indicator(xclim.indicators.atmos.tx10p)
-tx90p = wrap_xclim_indicator(xclim.indicators.atmos.tx90p)
-tx_days_above = wrap_xclim_indicator(xclim.indicators.atmos.tx_days_above)
-tx_days_below = wrap_xclim_indicator(xclim.indicators.atmos.tx_days_below)
-tx_max = wrap_xclim_indicator(xclim.indicators.atmos.tx_max)
-tx_mean = wrap_xclim_indicator(xclim.indicators.atmos.tx_mean)
-tx_min = wrap_xclim_indicator(xclim.indicators.atmos.tx_min)
-tx_tn_days_above = wrap_xclim_indicator(xclim.indicators.atmos.tx_tn_days_above)
-usda_hardiness_zones = wrap_xclim_indicator(xclim.indicators.atmos.usda_hardiness_zones)
-warm_spell_duration_index = wrap_xclim_indicator(xclim.indicators.atmos.warm_spell_duration_index)
-calm_days = wrap_xclim_indicator(xclim.indicators.atmos.calm_days)
+
+def daily_temperature_range(
+    tasmax: conversions.EarthkitData | xarray.Dataset,
+    tasmin: conversions.EarthkitData | xarray.Dataset,
+    **kwargs: Any,
+) -> conversions.EarthkitData:
+    """
+    Compute the daily temperature range (DTR) using the xclim indices module.
+
+    Parameters
+    ----------
+    tasmax : conversions.EarthkitData | xarray.Dataset
+        Input data containing maximum daily temperature values.
+    tasmin : conversions.EarthkitData | xarray.Dataset
+        Input data containing minimum daily temperature values.
+    **kwargs : Any
+        Additional keyword arguments forwarded to
+        :func:`xclim.indices.daily_temperature_range`.
+
+    Returns
+    -------
+    conversions.EarthkitData
+        The computed daily temperature range converted back to an Earthkit-compatible type.
+
+    """
+    # Convert both inputs to xarray objects
+    metadata: conversions.MetadataDict = {}
+    tasmax_ds, metadata = conversions.to_xarray_dataset(tasmax, metadata)
+    tasmin_ds, metadata = conversions.to_xarray_dataset(tasmin, metadata)
+
+    # Ensure correct units
+    tasmax_ds = units.ensure_units(tasmax_ds, "tasmax", "degC", strict=False)
+    tasmin_ds = units.ensure_units(tasmin_ds, "tasmin", "degC", strict=False)
+
+    # Merge into a single dataset for the wrapper
+    ds = xarray.merge([tasmax_ds, tasmin_ds])
+
+    # Create wrapper inside the function
+    wrapper = wrap_xclim_indicator(xclim.indicators.atmos.daily_temperature_range)
+    return wrapper(ds, **kwargs)
+
+
+def heating_degree_days(
+    tasmax: conversions.EarthkitData | xarray.Dataset,
+    tasmin: conversions.EarthkitData | xarray.Dataset,
+    tas: conversions.EarthkitData | xarray.Dataset,
+    **kwargs: Any,
+) -> conversions.EarthkitData:
+    """
+    Compute the Heating Degree Days (HDD) using the approximation method
+    from the xclim indicators module.
+
+    This version uses both daily maximum and minimum temperatures, following
+    the approach used in :func:`xclim.indicators.atmos.heating_degree_days_approximation`.
+
+    Parameters
+    ----------
+    tasmax : conversions.EarthkitData | xarray.Dataset
+        Daily maximum temperature data.
+    tasmin : conversions.EarthkitData | xarray.Dataset
+        Daily minimum temperature data.
+    tas : conversions.EarthkitData | xarray.Dataset
+        Daily mean temperature data.
+    **kwargs : Any
+        Additional keyword arguments forwarded to
+        :func:`xclim.indicators.atmos.heating_degree_days_approximation`.
+
+        Common arguments include:
+        - `thresh` : str, default "18.0 degC"
+            Base temperature threshold for heating.
+        - `freq` : str, default "YS"
+            Frequency for accumulation (e.g., "YS" = yearly sum).
+
+    Returns
+    -------
+    conversions.EarthkitData
+        The computed Heating Degree Days (HDD) converted back to an Earthkit-compatible type.
+    """
+    metadata: conversions.MetadataDict = {}
+
+    # Convert inputs to xarray
+    tasmax_ds, metadata = conversions.to_xarray_dataset(tasmax, metadata)
+    tasmin_ds, _ = conversions.to_xarray_dataset(tasmin, metadata)
+    tas_ds, _ = conversions.to_xarray_dataset(tas, metadata)
+
+    # Ensure correct units
+    tasmax_ds = units.ensure_units(tasmax_ds, "tasmax", "degC", strict=False)
+    tasmin_ds = units.ensure_units(tasmin_ds, "tasmin", "degC", strict=False)
+    tas_ds = units.ensure_units(tas_ds, "tas", "degC", strict=False)
+
+    # Merge
+    ds = xarray.merge([tasmax_ds, tasmin_ds, tas_ds])
+
+    # Create wrapper inside the function
+    wrapper = wrap_xclim_indicator(xclim.indicators.atmos.heating_degree_days)
+    return wrapper(ds, **kwargs)
+
+
+def warm_spell_duration_index(
+    tasmax: conversions.EarthkitData | xarray.Dataset,
+    tasmax_hist: conversions.EarthkitData | xarray.Dataset,
+    freq: str = "YS",
+    window: int = 6,
+    **kwargs: Any,
+) -> conversions.EarthkitData:
+    """
+    Compute the Warm Spell Duration Index (WSDI) using the xclim indices module.
+    The 90th percentile threshold is computed internally from the historical period.
+
+    Parameters
+    ----------
+    tasmax : conversions.EarthkitData | xarray.Dataset
+        Daily maximum temperature data for the target period.
+    tasmax_hist : conversions.EarthkitData | xarray.Dataset
+        Historical daily maximum temperature data used to compute the 90th percentile threshold.
+    freq : str, optional, default "YS"
+        Frequency of resampling (e.g. yearly).
+    window : int, optional, default 6
+        Minimum number of consecutive days above the threshold.
+    **kwargs : Any
+        Additional arguments forwarded to :func:`xclim.indicators.atmos.warm_spell_duration_index`.
+
+    Returns
+    -------
+    conversions.EarthkitData
+        The computed WSDI index as an Earthkit-compatible field.
+    """
+    # Create wrapper inside the function
+    wrapper = wrap_xclim_indicator(xclim.indicators.atmos.warm_spell_duration_index)
+
+    # The wrapper handles reference_data for percentile calculation.
+    # We map tasmax_hist to reference_data.
+    return wrapper(earthkit_input=tasmax, reference_data=tasmax_hist, freq=freq, window=window, **kwargs)

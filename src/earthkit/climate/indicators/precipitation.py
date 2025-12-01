@@ -1,54 +1,86 @@
-"""
-Wrapper module for xclim.indicators.atmos.
+"""Precipitation-based climate indices."""
 
-This module is auto-generated. Do not edit directly.
-"""
+from typing import Any
+
+import xarray
 import xclim
+
+import earthkit.climate.utils.conversions as conversions
+import earthkit.climate.utils.units as units
 from earthkit.climate.api.wrapper import wrap_xclim_indicator
 
-antecedent_precipitation_index = wrap_xclim_indicator(xclim.indicators.atmos.antecedent_precipitation_index)
-cold_and_dry_days = wrap_xclim_indicator(xclim.indicators.atmos.cold_and_dry_days)
-cold_and_wet_days = wrap_xclim_indicator(xclim.indicators.atmos.cold_and_wet_days)
-daily_pr_intensity = wrap_xclim_indicator(xclim.indicators.atmos.daily_pr_intensity)
-days_over_precip_doy_thresh = wrap_xclim_indicator(xclim.indicators.atmos.days_over_precip_doy_thresh)
-days_over_precip_thresh = wrap_xclim_indicator(xclim.indicators.atmos.days_over_precip_thresh)
-days_with_snow = wrap_xclim_indicator(xclim.indicators.atmos.days_with_snow)
-drought_code = wrap_xclim_indicator(xclim.indicators.atmos.drought_code)
-dry_days = wrap_xclim_indicator(xclim.indicators.atmos.dry_days)
-dry_spell_frequency = wrap_xclim_indicator(xclim.indicators.atmos.dry_spell_frequency)
-dry_spell_max_length = wrap_xclim_indicator(xclim.indicators.atmos.dry_spell_max_length)
-dry_spell_total_length = wrap_xclim_indicator(xclim.indicators.atmos.dry_spell_total_length)
-dryness_index = wrap_xclim_indicator(xclim.indicators.atmos.dryness_index)
-first_snowfall = wrap_xclim_indicator(xclim.indicators.atmos.first_snowfall)
-fraction_over_precip_doy_thresh = wrap_xclim_indicator(xclim.indicators.atmos.fraction_over_precip_doy_thresh)
-fraction_over_precip_thresh = wrap_xclim_indicator(xclim.indicators.atmos.fraction_over_precip_thresh)
-griffiths_drought_factor = wrap_xclim_indicator(xclim.indicators.atmos.griffiths_drought_factor)
-high_precip_low_temp = wrap_xclim_indicator(xclim.indicators.atmos.high_precip_low_temp)
-keetch_byram_drought_index = wrap_xclim_indicator(xclim.indicators.atmos.keetch_byram_drought_index)
-last_snowfall = wrap_xclim_indicator(xclim.indicators.atmos.last_snowfall)
-liquid_precip_accumulation = wrap_xclim_indicator(xclim.indicators.atmos.liquid_precip_accumulation)
-liquid_precip_average = wrap_xclim_indicator(xclim.indicators.atmos.liquid_precip_average)
-liquid_precip_ratio = wrap_xclim_indicator(xclim.indicators.atmos.liquid_precip_ratio)
-max_1day_precipitation_amount = wrap_xclim_indicator(xclim.indicators.atmos.max_1day_precipitation_amount)
-max_n_day_precipitation_amount = wrap_xclim_indicator(xclim.indicators.atmos.max_n_day_precipitation_amount)
-max_pr_intensity = wrap_xclim_indicator(xclim.indicators.atmos.max_pr_intensity)
-maximum_consecutive_dry_days = wrap_xclim_indicator(xclim.indicators.atmos.maximum_consecutive_dry_days)
-maximum_consecutive_wet_days = wrap_xclim_indicator(xclim.indicators.atmos.maximum_consecutive_wet_days)
-precip_accumulation = wrap_xclim_indicator(xclim.indicators.atmos.precip_accumulation)
-precip_average = wrap_xclim_indicator(xclim.indicators.atmos.precip_average)
-rain_on_frozen_ground_days = wrap_xclim_indicator(xclim.indicators.atmos.rain_on_frozen_ground_days)
-rain_season = wrap_xclim_indicator(xclim.indicators.atmos.rain_season)
-snowfall_frequency = wrap_xclim_indicator(xclim.indicators.atmos.snowfall_frequency)
-snowfall_intensity = wrap_xclim_indicator(xclim.indicators.atmos.snowfall_intensity)
-solid_precip_accumulation = wrap_xclim_indicator(xclim.indicators.atmos.solid_precip_accumulation)
-solid_precip_average = wrap_xclim_indicator(xclim.indicators.atmos.solid_precip_average)
-standardized_precipitation_evapotranspiration_index = wrap_xclim_indicator(xclim.indicators.atmos.standardized_precipitation_evapotranspiration_index)
-standardized_precipitation_index = wrap_xclim_indicator(xclim.indicators.atmos.standardized_precipitation_index)
-warm_and_dry_days = wrap_xclim_indicator(xclim.indicators.atmos.warm_and_dry_days)
-warm_and_wet_days = wrap_xclim_indicator(xclim.indicators.atmos.warm_and_wet_days)
-wet_precip_accumulation = wrap_xclim_indicator(xclim.indicators.atmos.wet_precip_accumulation)
-wet_spell_frequency = wrap_xclim_indicator(xclim.indicators.atmos.wet_spell_frequency)
-wet_spell_max_length = wrap_xclim_indicator(xclim.indicators.atmos.wet_spell_max_length)
-wet_spell_total_length = wrap_xclim_indicator(xclim.indicators.atmos.wet_spell_total_length)
-wetdays = wrap_xclim_indicator(xclim.indicators.atmos.wetdays)
-wetdays_prop = wrap_xclim_indicator(xclim.indicators.atmos.wetdays_prop)
+
+def daily_precipitation_intensity(
+    pr: conversions.EarthkitData | xarray.Dataset,
+    thresh: str = "1 mm/day",
+    freq: str = "YS",
+    **kwargs: Any,
+) -> conversions.EarthkitData:
+    """
+    Compute the Daily Precipitation Intensity (SDII) using the xclim indices module.
+
+    Parameters
+    ----------
+    pr : conversions.EarthkitData | xarray.Dataset
+        Daily precipitation flux.
+    thresh : str, optional, default "1 mm/day"
+        Threshold for wet days.
+    freq : str, optional, default "YS"
+        Frequency of resampling (e.g. yearly).
+    **kwargs : Any
+        Additional keyword arguments forwarded to
+        :func:`xclim.indices.daily_pr_intensity`.
+
+    Returns
+    -------
+    conversions.EarthkitData
+        The computed Daily Precipitation Intensity as an Earthkit-compatible field.
+    """
+    # Convert input to xarray
+    metadata: conversions.MetadataDict = {}
+    pr_ds, metadata = conversions.to_xarray_dataset(pr, metadata)
+
+    # Ensure correct units
+    pr_ds = units.ensure_units(pr_ds, "pr", "mm/day", strict=False)
+
+    # Create wrapper inside the function
+    wrapper = wrap_xclim_indicator(xclim.indicators.atmos.daily_pr_intensity)
+    return wrapper(pr_ds, thresh=thresh, freq=freq, **kwargs)
+
+
+def maximum_consecutive_wet_days(
+    pr: conversions.EarthkitData | xarray.Dataset,
+    thresh: str = "1 mm/day",
+    freq: str = "YS",
+    **kwargs: Any,
+) -> conversions.EarthkitData:
+    """
+    Compute the Maximum Consecutive Wet Days (CWD) using the xclim indices module.
+
+    Parameters
+    ----------
+    pr : conversions.EarthkitData | xarray.Dataset
+        Daily precipitation flux.
+    thresh : str, optional, default "1 mm/day"
+        Threshold for wet days.
+    freq : str, optional, default "YS"
+        Frequency of resampling (e.g. yearly).
+    **kwargs : Any
+        Additional keyword arguments forwarded to
+        :func:`xclim.indices.maximum_consecutive_wet_days`.
+
+    Returns
+    -------
+    conversions.EarthkitData
+        The computed Maximum Consecutive Wet Days as an Earthkit-compatible field.
+    """
+    # Convert input to xarray
+    metadata: conversions.MetadataDict = {}
+    pr_ds, metadata = conversions.to_xarray_dataset(pr, metadata)
+
+    # Ensure correct units
+    pr_ds = units.ensure_units(pr_ds, "pr", "mm/day", strict=False)
+
+    # Create wrapper inside the function
+    wrapper = wrap_xclim_indicator(xclim.indicators.atmos.maximum_consecutive_wet_days)
+    return wrapper(pr_ds, thresh=thresh, freq=freq, **kwargs)
