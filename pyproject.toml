@@ -56,6 +56,7 @@ pytest = "*"
 pytest-cov = "*"
 pytest-mock = ">=3.15.1,<4"
 python = "3.12.*"
+ipykernel = ">=7.1.0,<8"
 
 # ---- Pixi environments ----
 [tool.pixi.environments]
@@ -96,10 +97,6 @@ select = [
   "I",  # isort
   "D"  # pydocstyle
 ]
-
-
-[tool.setuptools]
-cmdclass = { build_py = "earthkit.climate.build.GenerateIndicators" }
 
 # ---- Namespace package configuration ----
 [tool.setuptools.packages.find]
