@@ -21,8 +21,6 @@ def wrap_xclim_indicator(xclim_fn: Callable) -> Callable:
         The wrapped function which accepts Earthkit inputs.
     """
 
-    # @wraps preserves the original docstring and name of the xclim function
-    # allowing help() and IDEs to see the original documentation.
     @wraps(xclim_fn)
     def wrapper(
         earthkit_input: Union[conversions.EarthkitData, xr.Dataset],
@@ -55,7 +53,7 @@ def wrap_xclim_indicator(xclim_fn: Callable) -> Callable:
         # Standardize units for common variables to Kelvin
         for var in ["tas", "tasmin", "tasmax"]:
             if var in dataset:
-                dataset = units.ensure_units(dataset, var, "K", strict=False)
+                dataset = units.ensure_units(dataset, var, "degC", strict=False)
         if "pr" in dataset:
             dataset = units.ensure_units(dataset, "pr", "mm/day", strict=False)
 
