@@ -31,7 +31,7 @@ def daily_precipitation_intensity(
     """
     # Create wrapper inside the function
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.daily_pr_intensity)
-    return wrapper(pr, **kwargs)
+    return wrapper(ds, **kwargs)
 
 
 def maximum_consecutive_wet_days(
@@ -56,4 +56,4 @@ def maximum_consecutive_wet_days(
     """
     # Create wrapper inside the function
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.maximum_consecutive_wet_days)
-    return wrapper(pr, **kwargs)
+    return wrapper(ds, **kwargs)
