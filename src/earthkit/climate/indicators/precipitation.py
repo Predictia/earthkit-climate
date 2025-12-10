@@ -10,7 +10,7 @@ from earthkit.climate.api.wrapper import wrap_xclim_indicator
 
 
 def daily_precipitation_intensity(
-    pr: conversions.EarthkitData | xarray.Dataset,
+    ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
 ) -> conversions.EarthkitData:
     """
@@ -18,7 +18,7 @@ def daily_precipitation_intensity(
 
     Parameters
     ----------
-    pr : conversions.EarthkitData | xarray.Dataset
+    ds : conversions.EarthkitData | xarray.Dataset
         Daily precipitation flux.
     **kwargs : Any
         Additional keyword arguments forwarded to
@@ -35,7 +35,7 @@ def daily_precipitation_intensity(
 
 
 def maximum_consecutive_wet_days(
-    pr: conversions.EarthkitData | xarray.Dataset,
+    ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
 ) -> conversions.EarthkitData:
     """
@@ -43,7 +43,7 @@ def maximum_consecutive_wet_days(
 
     Parameters
     ----------
-    pr : conversions.EarthkitData | xarray.Dataset
+    ds : conversions.EarthkitData | xarray.Dataset
         Daily precipitation flux.
     **kwargs : Any
         Additional keyword arguments forwarded to
