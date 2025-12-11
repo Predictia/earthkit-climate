@@ -38,7 +38,7 @@ requires-python = ">=3.10,<3.13"
 
 [project.optional-dependencies]
 dev = ["black", "ruff", "mypy", "pre-commit", "make", "ipython"]
-docs = ["sphinx", "sphinx-rtd-theme", "sphinx-autoapi", "nbsphinx"]
+docs = ["sphinx", "sphinx-rtd-theme", "sphinx-autoapi", "nbsphinx", "myst-parser"]
 
 [tool.black]
 line-length = 110
@@ -57,6 +57,9 @@ pytest-cov = "*"
 pytest-mock = ">=3.15.1,<4"
 python = "3.12.*"
 ipykernel = ">=7.1.0,<8"
+
+[tool.pixi.feature.docs.dependencies]
+pandoc = "*"
 
 # ---- Pixi environments ----
 [tool.pixi.environments]

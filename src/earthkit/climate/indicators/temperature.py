@@ -55,6 +55,7 @@ def heating_degree_days(
         :func:`xclim.indicators.atmos.heating_degree_days_approximation`.
 
         Common arguments include:
+
         - `thresh` : str, default "18.0 degC"
             Base temperature threshold for heating.
         - `freq` : str, default "YS"
