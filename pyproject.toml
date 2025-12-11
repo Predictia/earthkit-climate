@@ -57,9 +57,11 @@ pytest-cov = "*"
 pytest-mock = ">=3.15.1,<4"
 python = "3.12.*"
 ipykernel = ">=7.1.0,<8"
+pre-commit = "*"
 
 [tool.pixi.feature.docs.dependencies]
 pandoc = "*"
+sphinx = "*"
 
 # ---- Pixi environments ----
 [tool.pixi.environments]
@@ -73,6 +75,17 @@ earthkit-plots = ">=0.5.0"
 [tool.pixi.workspace]
 channels = ["conda-forge"]
 platforms = ["win-64", "linux-64", "osx-64", "osx-arm64"]
+
+[tool.pixi.tasks]
+qa = "pre-commit run --all-files"
+unit-tests = "python -m pytest -vv --cov=. --cov-report=html --doctest-glob='*.md' --doctest-glob='*.rst'"
+type-check = "python -m mypy . --no-namespace-packages"
+template-update = "pre-commit run --all-files cruft -c .pre-commit-config-cruft.yaml"
+docker-build = "docker build -t earthkit-climate ."
+docker-run = "docker run --rm -ti -v $(pwd):/srv earthkit-climate"
+
+[tool.pixi.feature.docs.tasks]
+docs-build = "rm -rf docs/_api docs/_build && sphinx-build -M html docs docs/_build"
 
 [tool.pytest.ini_options]
 addopts = "-vv --cov=. --cov-report=html --doctest-glob='*.md' --doctest-glob='*.rst'"
