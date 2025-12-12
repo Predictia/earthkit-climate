@@ -80,7 +80,8 @@ def test_warm_spell_duration_index(mocker: MockerFixture, common_mocks):
     if mock_wrapped_fn.call_args.args:
         assert mock_wrapped_fn.call_args.args[0] is ds_merged_in
     else:
-        # Fallback if passed as keyword (though wrapper signature might not support it yet, test logic verifies call)
+        # Fallback if passed as keyword
+        # (though wrapper signature might not support it yet, test logic verifies call)
         # In this test we called it positionally.
         pass
 

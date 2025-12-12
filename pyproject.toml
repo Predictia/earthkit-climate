@@ -98,6 +98,9 @@ platforms = ["win-64", "linux-64", "osx-64", "osx-arm64"]
 addopts = "-vv --cov=. --cov-report=html --doctest-glob='*.md' --doctest-glob='*.rst'"
 
 [tool.ruff]
+line-length = 110
+
+[tool.ruff.lint]
 ignore = [
   "D1",  # pydocstyle: Missing Docstrings
   "D107",  # pydocstyle: numpy convention
@@ -112,7 +115,6 @@ ignore = [
   "D416",
   "D417"
 ]
-line-length = 110
 select = [
   "F",  # pyflakes
   "E",  # pycodestyle
