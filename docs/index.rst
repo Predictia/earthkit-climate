@@ -37,10 +37,3 @@ Welcome to Earthkit-climate's documentation!
    :maxdepth: 2
 
    earthkit <https://earthkit.readthedocs.io/en/latest/>
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
