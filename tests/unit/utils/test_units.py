@@ -31,7 +31,7 @@ def test_ensure_units_strict_uses_xclim_convert_units_to(monkeypatch: Any) -> No
     ds["tas"].attrs["units"] = "K"
 
     # Mock convert_units_to to avoid requiring pint configuration
-    from earthkit.climate.utils import conversions as conv_mod
+    from earthkit.climate.utils import units as units_mod
 
     def fake_convert(var: xarray.DataArray, units: str) -> xarray.DataArray:
         # fake conversion K -> degC
@@ -40,7 +40,7 @@ def test_ensure_units_strict_uses_xclim_convert_units_to(monkeypatch: Any) -> No
         data.attrs["units"] = units
         return data
 
-    monkeypatch.setattr(conv_mod, "convert_units_to", fake_convert)
+    monkeypatch.setattr(units_mod, "convert_units_to", fake_convert)
 
     with warnings.catch_warnings(record=True) as w:
         warnings.simplefilter("always")
@@ -55,12 +55,12 @@ def test_ensure_units_strict_raises_on_conversion_error(monkeypatch: Any) -> Non
     ds = xarray.Dataset({"tas": ("time", [1.0, 2.0])})
     ds["tas"].attrs["units"] = "unknown"
 
-    from earthkit.climate.utils import conversions as conv_mod
+    from earthkit.climate.utils import units as units_mod
 
     def failing_convert(*args: Any, **kwargs: Any) -> None:
         raise RuntimeError("no conversion")
 
-    monkeypatch.setattr(conv_mod, "convert_units_to", failing_convert)
+    monkeypatch.setattr(units_mod, "convert_units_to", failing_convert)
 
     with pytest.raises(ValueError) as exc:
         ensure_units(ds, "tas", "degC", strict=True)

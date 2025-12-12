@@ -1,6 +1,7 @@
 import numpy as np
 import xarray as xr
 from xarray import DataArray
+from xclim.core.calendar import percentile_doy
 from xsdba.nbutils import quantile
 
 
@@ -112,3 +113,42 @@ def pandas_offset2time_component(aggregation: str) -> str:
     else:
         raise NotImplementedError(f"Unsupported aggregation: {aggregation}")
     return resolution
+
+
+def calculate_percentile_doy(
+    reference_dataset: xr.Dataset,
+    variable: str,
+    percentile: float,
+    window: int = 5,
+) -> xr.Dataset:
+    """
+    Calculate the daily percentile (doy) for a given variable in a reference dataset.
+    Wraps xclim.core.calendar.percentile_doy.
+
+    Parameters
+    ----------
+    reference_dataset : xr.Dataset
+        The reference dataset containing the variable.
+    variable : str
+        The name of the variable to calculate the percentile for.
+    percentile : float
+        The percentile value (e.g., 90 for 90th percentile).
+    window : int, optional
+        The window size for the rolling percentile calculation, by default 5.
+
+    Returns
+    -------
+    xr.Dataset
+        A dataset containing the calculated percentile, renamed to '{variable}_per'.
+    """
+    if variable not in reference_dataset:
+        raise ValueError(f"Variable '{variable}' not found in reference dataset.")
+
+    # Calculate percentile
+    per = percentile_doy(reference_dataset[variable], window=window, per=percentile)
+
+    # Rename variable
+    per_name = f"{variable}_per"
+    per = per.rename(per_name)
+
+    return per.to_dataset()

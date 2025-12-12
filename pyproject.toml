@@ -17,14 +17,14 @@ classifiers = [
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",
-  "Topic :: Scientific/Engineering"
+  "Topic :: Scientific/Engineering",
 ]
 dependencies = [
+  "earthkit-data>=0.17.0",
   "numpy>=1.22",
   "xarray>=2023.1",
-  "xclim>=0.50",
+  "xclim>=0.59.1",
   "xsdba>=0.5,<0.6",
-  "earthkit-data>=0.17.0"
 ]
 description = "Tools for calculating climate indicies, climate change analysis and attribution."
 dynamic = ["version", "readme"]
@@ -33,24 +33,42 @@ name = "earthkit-climate"
 requires-python = ">=3.10"
 
 [project.optional-dependencies]
-dev = ["black", "ruff", "mypy", "pre-commit", "make", "ipython"]
-docs = ["sphinx", "sphinx-rtd-theme", "sphinx-autoapi", "nbsphinx"]
-tests = ["pytest", "pytest-cov", "pytest-mock >=3.15.1,<4"]
-
-[project.urls]
-documentation = "https://earthkit-climate.readthedocs.io/"
-issues = "https://github.com/ecmwf/earthkit-climate/issues"
-repository = "https://github.com/ecmwf/earthkit-climate"
+dev = [
+  "black", 
+  "ruff", 
+  "mypy", 
+  "pre-commit", 
+  "ipython",
+  "pytest",       
+  "pytest-cov",    
+  "pytest-mock",   
+  "ipykernel",
+  ]
+docs = [
+  "nbsphinx",
+  "roman-numerals-py>=3.1.0,<4",
+  "sphinx",
+  "sphinx-autoapi",
+  "sphinx-rtd-theme",
+]
 
 [tool.coverage.run]
 branch = true
 
 [tool.pixi.dependencies]
-pixi-pycharm = ">=0.0.9,<0.0.10"
 pytest = "*"
 pytest-cov = "*"
 pytest-mock = ">=3.15.1,<4"
 python = "3.12.*"
+ipykernel = ">=7.1.0,<8"
+pre-commit = "*"
+
+[tool.pixi.feature.docs.dependencies]
+pandoc = "*"
+sphinx = "*"
+sphinx-autoapi = ">=3.6.1,<4"
+nbsphinx = ">=0.9.8,<0.10"
+sphinx-rtd-theme = ">=3.0.2,<4"
 
 # ---- Pixi environments ----
 [tool.pixi.environments]
@@ -64,6 +82,20 @@ earthkit-plots = ">=0.5.0"
 [tool.pixi.workspace]
 channels = ["conda-forge"]
 platforms = ["win-64", "linux-64", "osx-64", "osx-arm64"]
+
+[tool.pixi.tasks]
+qa = "pre-commit run --all-files"
+unit-tests = "python -m pytest -vv --cov=. --cov-report=html --doctest-glob='*.md' --doctest-glob='*.rst'"
+type-check = "python -m mypy . --no-namespace-packages"
+template-update = "pre-commit run --all-files cruft -c .pre-commit-config-cruft.yaml"
+docker-build = "docker build -t earthkit-climate ."
+docker-run = "docker run --rm -ti -v $(pwd):/srv earthkit-climate"
+
+[tool.pixi.feature.docs.tasks]
+docs-build = "rm -rf docs/_api docs/_build && sphinx-build -M html docs docs/_build"
+
+[tool.pytest.ini_options]
+addopts = "-vv --cov=. --cov-report=html --doctest-glob='*.md' --doctest-glob='*.rst'"
 
 [tool.ruff]
 ignore = [
@@ -94,7 +126,6 @@ readme = {file = ["README.md"], content-type = "text/markdown"}
 
 # ---- Namespace package configuration ----
 [tool.setuptools.packages.find]
-namespaces = true
 where = ["src"]
 
 [tool.setuptools_scm]
