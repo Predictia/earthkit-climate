@@ -39,7 +39,7 @@
 - **Climate indicators**: climate indices wrapped in an object that provides more metadata and validation facilities (health checks) of the input. it includes attributes for CF metadata (cell methods), references, keywords, and more.
 - **Lower level process functions**: these include aggregation, computation spell length and counting, optimized computation of reference percentiles, bias correction methods and ensemble statistics. These functions are used by the implemented indices and can also be used to build new indices not included in the library.
 
----
+______________________________________________________________________
 
 ## Disclaimer
 
@@ -47,7 +47,7 @@ This project is currently in **BETA** and **experimental**.
 Interfaces, structure, and functionality are subject to change without notice.
 Do **not** use this software in any operational or production system.
 
----
+______________________________________________________________________
 
 ## Quick Start
 
@@ -67,14 +67,14 @@ from earthkit.climate.utils import conversions
 pr = precipitation.simple_daily_intensity(precip_data, freq="monthly")
 ```
 
----
+______________________________________________________________________
 
 ## Documentation
 
 For full documentation, including API reference and example notebooks, visit the
 [earthkit-climate ReadTheDocs page](https://earthkit-climate.readthedocs.io)
 
----
+______________________________________________________________________
 
 ## Development & Contribution Workflow
 
@@ -127,11 +127,12 @@ This project uses `pixi` tasks to manage development workflows, replacing the le
   ```
 
 - **Sync with ECMWF template**:
+
   ```bash
   pixi run template-update
   ```
 
----
+______________________________________________________________________
 
 ## Project Structure
 
@@ -156,7 +157,7 @@ earthkit-climate/
 └── README.md
 ```
 
----
+______________________________________________________________________
 
 ## License
 

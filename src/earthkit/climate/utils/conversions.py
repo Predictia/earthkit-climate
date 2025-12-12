@@ -8,7 +8,6 @@ import xarray
 
 import earthkit.data as ekd
 
-
 EarthkitData = ekd.FieldList | ekd.Field
 MetadataDict = Dict[str, Any]
 
