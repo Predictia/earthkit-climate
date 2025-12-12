@@ -62,7 +62,9 @@ def wrap_xclim_indicator(xclim_fn: Callable) -> Callable:
         output_dataset: xr.Dataset = xclim_fn(ds=dataset, *args, **kwargs)
 
         # --- STEP 3: Provenance & Output ---
-        metadata = provenance.add_indicator_provenance(metadata, xclim_fn, dataset, **kwargs)
+        metadata = provenance.add_indicator_provenance(
+            metadata, xclim_fn, dataset, **kwargs
+        )
 
         return conversions.to_earthkit_field(output_dataset, metadata)
 

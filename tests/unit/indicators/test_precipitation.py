@@ -2,6 +2,8 @@ from pytest_mock import MockerFixture
 
 from earthkit.climate.indicators import precipitation
 
+import pytest
+
 
 class MockEarthkitData:
     """Mock object for Earthkit input."""
