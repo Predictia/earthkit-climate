@@ -29,6 +29,26 @@
 > [!IMPORTANT]
 > This software is **Emerging** and subject to ECMWF's guidelines on [Software Maturity](https://github.com/ecmwf/codex/raw/refs/heads/main/Project%20Maturity).
 
+# earthkit-climate
+
+**earthkit-climate** is the package responsible for the climate index calculation within the earthkit ecosystem. It includes a wrapper prototype that allows the use of the `xclim` python package to compute a large amount of pre-defined climate indices used by the climate science community, and to define new ones.
+
+`xclim` relies heavily on the `xarray` python library and the `numpy` & `scipy` ecosystem. Its main elements are:
+
+- **Climate indices**: available to be directly computed with python functions. The input and output units are defined in these functions by using a decorator and are validated during runtime.
+- **Climate indicators**: climate indices wrapped in an object that provides more metadata and validation facilities (health checks) of the input. it includes attributes for CF metadata (cell methods), references, keywords, and more.
+- **Lower level process functions**: these include aggregation, computation spell length and counting, optimized computation of reference percentiles, bias correction methods and ensemble statistics. These functions are used by the implemented indices and can also be used to build new indices not included in the library.
+
+______________________________________________________________________
+
+## Disclaimer
+
+This project is currently in **BETA** and **experimental**.
+Interfaces, structure, and functionality are subject to change without notice.
+Do **not** use this software in any operational or production system.
+
+______________________________________________________________________
+
 ## Quick Start
 
 Install the package in editable mode:
@@ -47,8 +67,14 @@ from earthkit.climate.utils import conversions
 pr = precipitation.simple_daily_intensity(precip_data, freq="monthly")
 ```
 
+______________________________________________________________________
+
+## Documentation
+
 For full documentation, including API reference and example notebooks, visit the
 [earthkit-climate ReadTheDocs page](https://earthkit-climate.readthedocs.io)
+
+______________________________________________________________________
 
 ## Development & Contribution Workflow
 
@@ -60,49 +86,53 @@ It provides fast, reproducible environments and replaces Conda-based workflows.
 Install Pixi following the [official instructions](https://pixi.sh/latest/#installation), then run:
 
 ```bash
-pixi install --locked
-pixi shell
+pixi install
 ```
 
 This command installs all dependencies as defined in `pyproject.toml` and `pixi.lock`.
 
-### 2. Install the package
+### 2. Common Tasks
 
-Inside the Pixi environment:
+This project uses `pixi` tasks to manage development workflows, replacing the legacy `Makefile`.
 
-```bash
-pip install -e .
-```
+- **Quality Assurance**: Run pre-commit hooks to ensure code quality.
 
-### 3. Quality checks and tests
+  ```bash
+  pixi run qa
+  ```
 
-Before pushing to GitHub, run:
+- **Unit Tests**: Run the test suite using pytest.
 
-```bash
-make qa
-make unit-tests
-```
+  ```bash
+  pixi run unit-tests
+  ```
 
-You can also perform type checking and integration tests:
+- **Type Checking**: Run static type analysis with mypy.
 
-```bash
-make type-check
-make integration-tests
-```
+  ```bash
+  pixi run type-check
+  ```
 
-### 4. Documentation
+- **Build Documentation**: Build the Sphinx documentation. Note that this task runs in the `docs` environment.
 
-To build the documentation locally (using Sphinx):
+  ```bash
+  pixi run -e docs docs-build
+  ```
 
-```bash
-make docs-build
-```
+- **Docker**: Build and run the docker container.
 
-### 5. Optional: Sync with ECMWF template
+  ```bash
+  pixi run docker-build
+  pixi run docker-run
+  ```
 
-```bash
-make template-update
-```
+- **Sync with ECMWF template**:
+
+  ```bash
+  pixi run template-update
+  ```
+
+______________________________________________________________________
 
 ## Project Structure
 
@@ -110,12 +140,13 @@ make template-update
 earthkit-climate/
 ├── src/earthkit/
 │   ├── climate/
+│   │   ├── api/               # API wrapper logic
 │   │   ├── indicators/        # Climate indices (precipitation, temperature, etc.)
 │   │   └── utils/             # Type conversions, percentiles, provenance
 │   └── __init__.py
 ├── tests/
-│   ├── integration/           # Integration tests
-│   └── unit/                  # Unit tests for indicators and utils
+│   ├── unit/                  # Unit tests for indicators and utils
+│   └── test_00_version.py     # Version check
 ├── docs/                      # Sphinx documentation
 ├── ci/                        # Continuous integration configs
 ├── .github/workflows/         # GitHub Actions (push/release)
@@ -123,9 +154,10 @@ earthkit-climate/
 ├── pixi.lock                  # Locked dependency versions
 ├── Dockerfile                 # Pixi-based container
 ├── pyproject.toml             # Project configuration
-├── Makefile                   # Developer utilities (Pixi integrated)
 └── README.md
 ```
+
+______________________________________________________________________
 
 ## License
 

@@ -6,18 +6,9 @@ from typing import Any, Dict, Mapping, Tuple
 
 import xarray
 
-try:  # optional during tests
-    from xclim.core.units import convert_units_to  # type: ignore
-except Exception:  # pragma: no cover
+import earthkit.data as ekd
 
-    def convert_units_to(*args, **kwargs):  # type: ignore
-        raise RuntimeError("xclim is required for unit conversion. This import is optional during tests.")
-
-
-from earthkit.data import Field, FieldList
-from earthkit.data.wrappers import get_wrapper
-
-EarthkitData = FieldList | Field
+EarthkitData = ekd.FieldList | ekd.Field
 MetadataDict = Dict[str, Any]
 
 
@@ -131,5 +122,5 @@ def to_earthkit_field(
         dataset.attrs.setdefault("earthkit_provenance", provenance)
 
     # --- Use Earthkit’s official wrapper system ---
-    ek_object = get_wrapper(dataset)
+    ek_object = ekd.from_object(dataset)
     return ek_object

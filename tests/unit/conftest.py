@@ -62,7 +62,7 @@ def common_mocks(mocker: MockerFixture, dummy_precip_ds: xr.Dataset) -> dict:
 
     Returns
     -------
-    dict[str, Any]
+    dict[str, Any]+
         Dictionary with references to key mock objects for assertions.
     """
     object_ek = object()

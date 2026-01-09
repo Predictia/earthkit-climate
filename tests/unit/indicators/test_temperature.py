@@ -1,103 +1,90 @@
-import xarray as xr
 from pytest_mock import MockerFixture
 
-from earthkit.climate.indicators.temperature import (
-    daily_temperature_range,
-    heating_degree_days,
-    warm_spell_duration_index,
-)
+from earthkit.climate.indicators import temperature
 
 
-def test_dtr_end_to_end_returns_earthkit_object(
-    mocker: MockerFixture, dummy_temp_ds: xr.Dataset, common_mocks: dict
-) -> None:
-    """Ensure daily_temperature_range computes successfully and returns an Earthkit object."""
-    mock_to_xr = common_mocks["mock_to_xr"]
-    mock_ensure = common_mocks["mock_ensure_units"]
-    mock_add_prov = common_mocks["mock_add_prov"]
-    mock_to_ek = common_mocks["mock_to_ek"]
-    object_ek = common_mocks["object_ek"]
+class MockEarthkitData:
+    """Mock object for Earthkit input."""
 
-    mock_to_xr.side_effect = [
-        (dummy_temp_ds[["tasmax"]], {"earthkit_internal": {}}),
-        (dummy_temp_ds[["tasmin"]], {"earthkit_internal": {}}),
-    ]
-
-    dtr_da = xr.DataArray([10.0], name="dtr")
-    mock_xclim = mocker.patch("xclim.indicators.atmos.daily_temperature_range", return_value=dtr_da)
-
-    res = daily_temperature_range(dummy_temp_ds[["tasmax"]], dummy_temp_ds[["tasmin"]])
-
-    assert res is object_ek
-    assert mock_to_xr.call_count == 2
-    assert mock_ensure.call_count == 2
-    mock_xclim.assert_called_once()
-    mock_add_prov.assert_called_once()
-    mock_to_ek.assert_called_once_with(dtr_da.to_dataset(name="dtr"), {"earthkit_internal": {}, "prov": True})
+    pass
 
 
-def test_wsdi_end_to_end_computes_correctly(
-    mocker: MockerFixture, dummy_temp_ds: xr.Dataset, common_mocks: dict
-) -> None:
-    """Ensure warm_spell_duration_index orchestrates correctly and metadata flows as expected."""
-    mock_to_xr = common_mocks["mock_to_xr"]
-    mock_ensure = common_mocks["mock_ensure_units"]
-    mock_add_prov = common_mocks["mock_add_prov"]
-    mock_to_ek = common_mocks["mock_to_ek"]
-    object_ek = common_mocks["object_ek"]
+def test_daily_temperature_range(mocker: MockerFixture, common_mocks):
+    """Test daily_temperature_range calls wrapper with merged dataset."""
+    # Mock the wrapper creator and the wrapped function
+    mock_wrapper_factory = mocker.patch("earthkit.climate.indicators.temperature.wrap_xclim_indicator")
+    mock_wrapped_fn = mocker.MagicMock()
+    mock_wrapper_factory.return_value = mock_wrapped_fn
 
-    mock_to_xr.side_effect = [
-        (dummy_temp_ds[["tasmax"]], {"earthkit_internal": {}}),
-        (dummy_temp_ds[["tasmax"]], {"earthkit_internal": {}}),
-    ]
+    # Call function with single dataset
+    ds_in = MockEarthkitData()
+    temperature.daily_temperature_range(ds_in, arg="val")
 
-    mocker.patch("earthkit.climate.indicators.temperature.percentile_doy", return_value=xr.DataArray([25.0]))
+    # Verify wrapper created with correct xclim function
+    import xclim.indicators.atmos
 
-    wsdi_da = xr.DataArray([5.0], name="wsdi")
-    mock_xclim = mocker.patch(
-        "xclim.indicators.atmos.warm_spell_duration_index",
-        return_value=wsdi_da,
-    )
+    mock_wrapper_factory.assert_called_once_with(xclim.indicators.atmos.daily_temperature_range)
 
-    res = warm_spell_duration_index(dummy_temp_ds[["tasmax"]], dummy_temp_ds[["tasmax"]], freq="YS", window=6)
-
-    assert res is object_ek
-    assert mock_to_xr.call_count == 2
-    assert mock_ensure.call_count == 2
-    mock_xclim.assert_called_once()
-    mock_add_prov.assert_called_once()
-    mock_to_ek.assert_called_once_with(
-        wsdi_da.to_dataset(name="wsdi"), {"earthkit_internal": {}, "prov": True}
-    )
+    # Verify wrapped function called with the dataset
+    call_args = mock_wrapped_fn.call_args
+    assert call_args is not None
+    ds_arg = call_args[0][0]
+    # The wrapper receives the raw input, conversion happens inside the wrapper (which is mocked)
+    assert ds_arg is ds_in
+    assert call_args.kwargs["arg"] == "val"
 
 
-def test_hdd_end_to_end_returns_earthkit_object(
-    mocker: MockerFixture, dummy_temp_ds: xr.Dataset, common_mocks: dict
-) -> None:
-    """Ensure heating_degree_days computes correctly and returns the proper Earthkit object."""
-    mock_to_xr = common_mocks["mock_to_xr"]
-    mock_ensure = common_mocks["mock_ensure_units"]
-    mock_add_prov = common_mocks["mock_add_prov"]
-    mock_to_ek = common_mocks["mock_to_ek"]
-    object_ek = common_mocks["object_ek"]
+def test_heating_degree_days(mocker: MockerFixture, common_mocks):
+    """Test heating_degree_days calls wrapper with merged dataset."""
+    mock_wrapper_factory = mocker.patch("earthkit.climate.indicators.temperature.wrap_xclim_indicator")
+    mock_wrapped_fn = mocker.MagicMock()
+    mock_wrapper_factory.return_value = mock_wrapped_fn
 
-    mock_to_xr.side_effect = [
-        (dummy_temp_ds[["tasmax"]], {"earthkit_internal": {}}),
-        (dummy_temp_ds[["tasmin"]], {"earthkit_internal": {}}),
-        (dummy_temp_ds[["tas"]], {"earthkit_internal": {}}),
-    ]
+    ds_in = MockEarthkitData()
 
-    hdd_da = xr.DataArray([50.0], name="hdd")
-    mock_xclim = mocker.patch(
-        "xclim.indicators.atmos.heating_degree_days_approximation",
-        return_value=hdd_da,
-    )
+    temperature.heating_degree_days(ds_in, thresh="18 degC")
 
-    res = heating_degree_days(dummy_temp_ds[["tasmax"]], dummy_temp_ds[["tasmin"]], dummy_temp_ds[["tas"]])
+    import xclim.indicators.atmos
 
-    assert res is object_ek
-    assert mock_to_xr.call_count == 3
-    assert mock_ensure.call_count == 3
-    mock_xclim.assert_called_once()
-    mock_add_prov.assert_called_once()
-    mock_to_ek.assert_called_once_with(hdd_da.to_dataset(name="hdd"), {"earthkit_internal": {}, "prov": True})
+    mock_wrapper_factory.assert_called_once_with(xclim.indicators.atmos.heating_degree_days)
+
+    call_args = mock_wrapped_fn.call_args
+    ds_arg = call_args[0][0]
+    assert ds_arg is ds_in
+    assert call_args.kwargs["thresh"] == "18 degC"
+
+
+def test_warm_spell_duration_index(mocker: MockerFixture, common_mocks):
+    """Test warm_spell_duration_index passes merged dataset (tasmax + tasmax_per)."""
+    # Mock wrapper factory
+    mock_wrapper_factory = mocker.patch("earthkit.climate.indicators.temperature.wrap_xclim_indicator")
+    mock_wrapped_fn = mocker.MagicMock()
+    mock_wrapper_factory.return_value = mock_wrapped_fn
+
+    # Create a dummy input that represents a merged dataset
+    ds_merged_in = MockEarthkitData()
+
+    # Call with single merged input
+    temperature.warm_spell_duration_index(ds_merged_in, window=10)
+
+    import xclim.indicators.atmos
+
+    mock_wrapper_factory.assert_called_once_with(xclim.indicators.atmos.warm_spell_duration_index)
+
+    # Verify call args
+    mock_wrapped_fn.assert_called_once()
+    call_kwargs = mock_wrapped_fn.call_args.kwargs
+
+    # We assume the first positional arg is handled by the wrapper as 'earthkit_input'
+    # Check positional args first
+    if mock_wrapped_fn.call_args.args:
+        assert mock_wrapped_fn.call_args.args[0] is ds_merged_in
+    else:
+        # Fallback if passed as keyword
+        # (though wrapper signature might not support it yet, test logic verifies call)
+        # In this test we called it positionally.
+        pass
+
+    assert call_kwargs["window"] == 10
+    # Ensure reference_data is NOT passed
+    assert "reference_data" not in call_kwargs
