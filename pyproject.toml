@@ -38,7 +38,7 @@ dev = [
   "pytest-cov",
   "pytest-mock",
   "ipython",
-  "ipykernel"
+  "ipykernel",
   "black",
   "ruff",
   "mypy",
