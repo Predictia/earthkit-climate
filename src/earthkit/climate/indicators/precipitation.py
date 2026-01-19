@@ -47,6 +47,7 @@ def antecedent_precipitation_index(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.antecedent_precipitation_index)
     return wrapper(ds, **kwargs)
 
+
 def maximum_consecutive_dry_days(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -76,6 +77,7 @@ def maximum_consecutive_dry_days(
     """
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.maximum_consecutive_dry_days)
     return wrapper(ds, **kwargs)
+
 
 def cffwis_indices(
     ds: conversions.EarthkitData | xarray.Dataset,
@@ -108,6 +110,7 @@ def cffwis_indices(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.cffwis_indices)
     return wrapper(ds, **kwargs)
 
+
 def cold_and_dry_days(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -137,6 +140,7 @@ def cold_and_dry_days(
     """
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.cold_and_dry_days)
     return wrapper(ds, **kwargs)
+
 
 def cold_and_wet_days(
     ds: conversions.EarthkitData | xarray.Dataset,
@@ -168,6 +172,7 @@ def cold_and_wet_days(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.cold_and_wet_days)
     return wrapper(ds, **kwargs)
 
+
 def maximum_consecutive_wet_days(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -197,6 +202,7 @@ def maximum_consecutive_wet_days(
     """
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.maximum_consecutive_wet_days)
     return wrapper(ds, **kwargs)
+
 
 def days_over_precip_doy_thresh(
     ds: conversions.EarthkitData | xarray.Dataset,
@@ -228,6 +234,7 @@ def days_over_precip_doy_thresh(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.days_over_precip_doy_thresh)
     return wrapper(ds, **kwargs)
 
+
 def days_over_precip_thresh(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -258,6 +265,7 @@ def days_over_precip_thresh(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.days_over_precip_thresh)
     return wrapper(ds, **kwargs)
 
+
 def days_with_snow(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -287,6 +295,7 @@ def days_with_snow(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.days_with_snow)
     return wrapper(ds, **kwargs)
 
+
 def drought_code(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -314,6 +323,7 @@ def drought_code(
     """
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.drought_code)
     return wrapper(ds, **kwargs)
+
 
 def griffiths_drought_factor(
     ds: conversions.EarthkitData | xarray.Dataset,
@@ -344,6 +354,7 @@ def griffiths_drought_factor(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.griffiths_drought_factor)
     return wrapper(ds, **kwargs)
 
+
 def duff_moisture_code(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -372,6 +383,7 @@ def duff_moisture_code(
     """
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.duff_moisture_code)
     return wrapper(ds, **kwargs)
+
 
 def dry_days(
     ds: conversions.EarthkitData | xarray.Dataset,
@@ -402,6 +414,7 @@ def dry_days(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.dry_days)
     return wrapper(ds, **kwargs)
 
+
 def dry_spell_frequency(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -429,6 +442,7 @@ def dry_spell_frequency(
     """
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.dry_spell_frequency)
     return wrapper(ds, **kwargs)
+
 
 def dry_spell_max_length(
     ds: conversions.EarthkitData | xarray.Dataset,
@@ -460,6 +474,7 @@ def dry_spell_max_length(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.dry_spell_max_length)
     return wrapper(ds, **kwargs)
 
+
 def dry_spell_total_length(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -489,6 +504,7 @@ def dry_spell_total_length(
     """
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.dry_spell_total_length)
     return wrapper(ds, **kwargs)
+
 
 def dryness_index(
     ds: conversions.EarthkitData | xarray.Dataset,
@@ -521,6 +537,7 @@ def dryness_index(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.dryness_index)
     return wrapper(ds, **kwargs)
 
+
 def mcarthur_forest_fire_danger_index(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -547,6 +564,7 @@ def mcarthur_forest_fire_danger_index(
     """
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.mcarthur_forest_fire_danger_index)
     return wrapper(ds, **kwargs)
+
 
 def first_snowfall(
     ds: conversions.EarthkitData | xarray.Dataset,
@@ -575,6 +593,7 @@ def first_snowfall(
     """
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.first_snowfall)
     return wrapper(ds, **kwargs)
+
 
 def fraction_over_precip_doy_thresh(
     ds: conversions.EarthkitData | xarray.Dataset,
@@ -605,6 +624,7 @@ def fraction_over_precip_doy_thresh(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.fraction_over_precip_doy_thresh)
     return wrapper(ds, **kwargs)
 
+
 def fraction_over_precip_thresh(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -633,6 +653,7 @@ def fraction_over_precip_thresh(
     """
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.fraction_over_precip_thresh)
     return wrapper(ds, **kwargs)
+
 
 def high_precip_low_temp(
     ds: conversions.EarthkitData | xarray.Dataset,
@@ -663,6 +684,7 @@ def high_precip_low_temp(
     """
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.high_precip_low_temp)
     return wrapper(ds, **kwargs)
+
 
 def keetch_byram_drought_index(
     ds: conversions.EarthkitData | xarray.Dataset,
@@ -697,6 +719,7 @@ def keetch_byram_drought_index(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.keetch_byram_drought_index)
     return wrapper(ds, **kwargs)
 
+
 def last_snowfall(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -724,6 +747,7 @@ def last_snowfall(
     """
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.last_snowfall)
     return wrapper(ds, **kwargs)
+
 
 def liquid_precip_ratio(
     ds: conversions.EarthkitData | xarray.Dataset,
@@ -753,6 +777,7 @@ def liquid_precip_ratio(
     """
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.liquid_precip_ratio)
     return wrapper(ds, **kwargs)
+
 
 def liquid_precip_average(
     ds: conversions.EarthkitData | xarray.Dataset,
@@ -784,6 +809,7 @@ def liquid_precip_average(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.liquid_precip_average)
     return wrapper(ds, **kwargs)
 
+
 def liquid_precip_accumulation(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -814,12 +840,13 @@ def liquid_precip_accumulation(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.liquid_precip_accumulation)
     return wrapper(ds, **kwargs)
 
+
 def max_n_day_precipitation_amount(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
 ) -> conversions.EarthkitData:
     """
-    maximum n-day total precipitation.
+    Maximum n-day total precipitation.
 
     Maximum of the moving sum of daily precipitation for a given period.
 
@@ -842,6 +869,7 @@ def max_n_day_precipitation_amount(
     """
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.max_n_day_precipitation_amount)
     return wrapper(ds, **kwargs)
+
 
 def max_pr_intensity(
     ds: conversions.EarthkitData | xarray.Dataset,
@@ -871,6 +899,7 @@ def max_pr_intensity(
     """
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.max_pr_intensity)
     return wrapper(ds, **kwargs)
+
 
 def precip_average(
     ds: conversions.EarthkitData | xarray.Dataset,
@@ -904,6 +933,7 @@ def precip_average(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.precip_average)
     return wrapper(ds, **kwargs)
 
+
 def precip_accumulation(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -936,6 +966,7 @@ def precip_accumulation(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.precip_accumulation)
     return wrapper(ds, **kwargs)
 
+
 def rain_on_frozen_ground_days(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -966,6 +997,7 @@ def rain_on_frozen_ground_days(
     """
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.rain_on_frozen_ground_days)
     return wrapper(ds, **kwargs)
+
 
 def rain_season(
     ds: conversions.EarthkitData | xarray.Dataset,
@@ -999,6 +1031,7 @@ def rain_season(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.rain_season)
     return wrapper(ds, **kwargs)
 
+
 def rprctot(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -1026,6 +1059,7 @@ def rprctot(
     """
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.rprctot)
     return wrapper(ds, **kwargs)
+
 
 def max_1day_precipitation_amount(
     ds: conversions.EarthkitData | xarray.Dataset,
@@ -1056,6 +1090,7 @@ def max_1day_precipitation_amount(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.max_1day_precipitation_amount)
     return wrapper(ds, **kwargs)
 
+
 def daily_pr_intensity(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -1084,6 +1119,7 @@ def daily_pr_intensity(
     """
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.daily_pr_intensity)
     return wrapper(ds, **kwargs)
+
 
 def snowfall_frequency(
     ds: conversions.EarthkitData | xarray.Dataset,
@@ -1115,6 +1151,7 @@ def snowfall_frequency(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.snowfall_frequency)
     return wrapper(ds, **kwargs)
 
+
 def snowfall_intensity(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -1144,6 +1181,7 @@ def snowfall_intensity(
     """
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.snowfall_intensity)
     return wrapper(ds, **kwargs)
+
 
 def solid_precip_average(
     ds: conversions.EarthkitData | xarray.Dataset,
@@ -1175,6 +1213,7 @@ def solid_precip_average(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.solid_precip_average)
     return wrapper(ds, **kwargs)
 
+
 def solid_precip_accumulation(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -1204,6 +1243,7 @@ def solid_precip_accumulation(
     """
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.solid_precip_accumulation)
     return wrapper(ds, **kwargs)
+
 
 def warm_and_dry_days(
     ds: conversions.EarthkitData | xarray.Dataset,
@@ -1235,6 +1275,7 @@ def warm_and_dry_days(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.warm_and_dry_days)
     return wrapper(ds, **kwargs)
 
+
 def warm_and_wet_days(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -1265,6 +1306,7 @@ def warm_and_wet_days(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.warm_and_wet_days)
     return wrapper(ds, **kwargs)
 
+
 def water_cycle_intensity(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -1293,6 +1335,7 @@ def water_cycle_intensity(
     """
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.water_cycle_intensity)
     return wrapper(ds, **kwargs)
+
 
 def wet_precip_accumulation(
     ds: conversions.EarthkitData | xarray.Dataset,
@@ -1324,6 +1367,7 @@ def wet_precip_accumulation(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.wet_precip_accumulation)
     return wrapper(ds, **kwargs)
 
+
 def wet_spell_frequency(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -1352,6 +1396,7 @@ def wet_spell_frequency(
     """
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.wet_spell_frequency)
     return wrapper(ds, **kwargs)
+
 
 def wet_spell_max_length(
     ds: conversions.EarthkitData | xarray.Dataset,
@@ -1384,6 +1429,7 @@ def wet_spell_max_length(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.wet_spell_max_length)
     return wrapper(ds, **kwargs)
 
+
 def wet_spell_total_length(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -1415,6 +1461,7 @@ def wet_spell_total_length(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.wet_spell_total_length)
     return wrapper(ds, **kwargs)
 
+
 def wetdays(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -1444,6 +1491,7 @@ def wetdays(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.wetdays)
     return wrapper(ds, **kwargs)
 
+
 def wetdays_prop(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -1472,4 +1520,3 @@ def wetdays_prop(
     """
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.wetdays_prop)
     return wrapper(ds, **kwargs)
-
