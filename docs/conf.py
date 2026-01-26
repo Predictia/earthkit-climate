@@ -35,7 +35,6 @@ copyright = "%s, European Centre for Medium-Range Weather Forecasts (ECMWF)" % (
 # ones.
 extensions = [
     "autoapi.extension",
-    "myst_parser",
     "nbsphinx",
     "sphinx.ext.autodoc",
     "sphinx.ext.napoleon",
@@ -45,7 +44,7 @@ extensions = [
 autodoc_typehints = "none"
 
 # autoapi configuration
-autoapi_dirs = ["../earthkit/climate"]
+autoapi_dirs = ["../src/earthkit/climate"]
 autoapi_ignore = ["*/version.py"]
 autoapi_options = [
     "members",
@@ -77,6 +76,7 @@ exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 # a list of builtin themes.
 #
 html_theme = "sphinx_rtd_theme"
+html_logo = "_static/earthkit-climate-light.svg"
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,

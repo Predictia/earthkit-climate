@@ -32,6 +32,7 @@ ipython_config.py
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
 .idea/**/shelf
+.idea
 
 # AWS User-specific
 .idea/**/aws.xml
@@ -76,6 +77,9 @@ cmake-build-*/
 
 # IntelliJ
 out/
+
+# PyCharm
+.qodo
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/
