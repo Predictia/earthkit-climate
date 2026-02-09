@@ -8,9 +8,9 @@
 # granted to it by virtue of its status as an intergovernmental organisation nor
 # does it submit to any jurisdiction.
 
+import importlib
 import inspect
 import textwrap
-from pathlib import Path
 from typing import Any, List
 
 import xclim.indicators.atmos
@@ -167,8 +167,7 @@ def generate_module_content(category: str, indicators: List[Any]) -> str:
 
 
 def main():
-    output_dir = Path("src/earthkit/climate/indicators")
-
+    output_dir = importlib.resources.files("earthkit.climate.indicators")
     # Discovery
     module = xclim.indicators.atmos
 
