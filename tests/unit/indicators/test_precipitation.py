@@ -55,7 +55,9 @@ def test_daily_precipitation_intensity(mocker: MockerFixture, common_mocks):
     assert call_args.kwargs["thresh"] == "2 mm/day"
     assert call_args.kwargs["freq"] == "MS"
 
+
 # New tests
+
 
 def test_antecedent_precipitation_index(mocker: MockerFixture, common_mocks):
     mock_fn = mocker.patch("xclim.indicators.atmos.antecedent_precipitation_index")

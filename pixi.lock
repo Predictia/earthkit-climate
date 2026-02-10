@@ -5792,23 +5792,23 @@ packages:
   timestamp: 1733217860944
 - pypi: ./
   name: earthkit-climate
-  version: 0.1.1.dev50+gbb14434c7
-  sha256: 5dcf2bf388bcb38e295e30042e888abeefa55fc8f10e6fa1061beccf0eae2396
+  version: 0.1.1.dev68
+  sha256: 64129c6c22973e64d5797cb9def633140cd35600b2c405644fb07fd05536c5a1
   requires_dist:
   - earthkit-data>=0.17.0
   - numpy>=1.22
   - xarray>=2023.1
   - xclim>=0.59.1
   - xsdba>=0.5,<0.6
-  - pytest ; extra == 'dev'
-  - pytest-cov ; extra == 'dev'
-  - pytest-mock ; extra == 'dev'
-  - ipython ; extra == 'dev'
-  - ipykernel ; extra == 'dev'
   - black ; extra == 'dev'
   - ruff ; extra == 'dev'
   - mypy ; extra == 'dev'
   - pre-commit ; extra == 'dev'
+  - ipython ; extra == 'dev'
+  - pytest ; extra == 'dev'
+  - pytest-cov ; extra == 'dev'
+  - pytest-mock ; extra == 'dev'
+  - ipykernel ; extra == 'dev'
   - nbsphinx ; extra == 'docs'
   - roman-numerals-py>=3.1.0,<4 ; extra == 'docs'
   - sphinx ; extra == 'docs'
