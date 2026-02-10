@@ -182,8 +182,8 @@ def main():
     module_to_category = {
         "_precip": "precipitation",
         "_temperature": "temperature",
-        "_wind": "wind",
-        "_synoptic": "synoptic",
+        # "_wind": "wind",
+        # "_synoptic": "synoptic",
     }
 
     indicators_map = {cat: [] for cat in module_to_category.values()}
