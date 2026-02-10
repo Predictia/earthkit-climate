@@ -98,23 +98,20 @@ This project uses `pixi` tasks to manage development workflows, replacing the le
 - **Quality Assurance**: Run pre-commit hooks to ensure code quality.
 
   ```bash
-  pixi run qa
+  pixi run -e dev qa
   ```
 
 - **Unit Tests**: Run the test suite using pytest.
 
   ```bash
+  pixi run -e dev unit-tests
   ```
-
-pixi run -e dev unit-tests
-
-````
 
 - **Type Checking**: Run static type analysis with mypy.
 
-```bash
-pixi run -e dev type-check
-````
+  ```bash
+  pixi run -e dev type-check
+  ```
 
 - **Build Documentation**: Build the Sphinx documentation. Note that this task runs in the `docs` environment.
 
