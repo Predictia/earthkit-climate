@@ -6,6 +6,9 @@
 # granted to it by virtue of its status as an intergovernmental organisation nor
 # does it submit to any jurisdiction.
 
+from typing import Any, Callable, Dict
+
+import pytest
 from pytest_mock import MockerFixture
 
 from earthkit.climate.indicators import precipitation
@@ -17,659 +20,105 @@ class MockEarthkitData:
     pass
 
 
-def test_maximum_consecutive_wet_days(mocker: MockerFixture, common_mocks):
-    """Test maximum_consecutive_wet_days calls wrapper correctly."""
-    mock_fn = mocker.patch("xclim.indicators.atmos.maximum_consecutive_wet_days")
+INDICATORS = [
+    (precipitation.antecedent_precipitation_index, "antecedent_precipitation_index", {"val": "test"}),
+    (precipitation.maximum_consecutive_dry_days, "maximum_consecutive_dry_days", {"val": "test"}),
+    (
+        precipitation.maximum_consecutive_wet_days,
+        "maximum_consecutive_wet_days",
+        {"thresh": "2 mm/day", "freq": "MS"},
+    ),
+    # The original test used specific args for daily_pr_intensity, preserving those.
+    (precipitation.daily_pr_intensity, "daily_pr_intensity", {"thresh": "2 mm/day", "freq": "MS"}),
+    (precipitation.cffwis_indices, "cffwis_indices", {"arg1": "val1"}),
+    (precipitation.cold_and_dry_days, "cold_and_dry_days", {"arg1": "val1"}),
+    (precipitation.cold_and_wet_days, "cold_and_wet_days", {"arg1": "val1"}),
+    (precipitation.days_over_precip_doy_thresh, "days_over_precip_doy_thresh", {"arg1": "val1"}),
+    (precipitation.days_over_precip_thresh, "days_over_precip_thresh", {"arg1": "val1"}),
+    (precipitation.days_with_snow, "days_with_snow", {"arg1": "val1"}),
+    (precipitation.drought_code, "drought_code", {"arg1": "val1"}),
+    (precipitation.griffiths_drought_factor, "griffiths_drought_factor", {"arg1": "val1"}),
+    (precipitation.duff_moisture_code, "duff_moisture_code", {"arg1": "val1"}),
+    (precipitation.dry_days, "dry_days", {"arg1": "val1"}),
+    (precipitation.dry_spell_frequency, "dry_spell_frequency", {"arg1": "val1"}),
+    (precipitation.dry_spell_max_length, "dry_spell_max_length", {"arg1": "val1"}),
+    (precipitation.dry_spell_total_length, "dry_spell_total_length", {"arg1": "val1"}),
+    (precipitation.dryness_index, "dryness_index", {"arg1": "val1"}),
+    (precipitation.mcarthur_forest_fire_danger_index, "mcarthur_forest_fire_danger_index", {"arg1": "val1"}),
+    (precipitation.first_snowfall, "first_snowfall", {"arg1": "val1"}),
+    (precipitation.fraction_over_precip_doy_thresh, "fraction_over_precip_doy_thresh", {"arg1": "val1"}),
+    (precipitation.fraction_over_precip_thresh, "fraction_over_precip_thresh", {"arg1": "val1"}),
+    (precipitation.high_precip_low_temp, "high_precip_low_temp", {"arg1": "val1"}),
+    (precipitation.keetch_byram_drought_index, "keetch_byram_drought_index", {"arg1": "val1"}),
+    (precipitation.last_snowfall, "last_snowfall", {"arg1": "val1"}),
+    (precipitation.liquid_precip_ratio, "liquid_precip_ratio", {"arg1": "val1"}),
+    (precipitation.liquid_precip_average, "liquid_precip_average", {"arg1": "val1"}),
+    (precipitation.liquid_precip_accumulation, "liquid_precip_accumulation", {"arg1": "val1"}),
+    (precipitation.max_n_day_precipitation_amount, "max_n_day_precipitation_amount", {"arg1": "val1"}),
+    (precipitation.max_pr_intensity, "max_pr_intensity", {"arg1": "val1"}),
+    (precipitation.precip_average, "precip_average", {"arg1": "val1"}),
+    (precipitation.precip_accumulation, "precip_accumulation", {"arg1": "val1"}),
+    (precipitation.rain_on_frozen_ground_days, "rain_on_frozen_ground_days", {"arg1": "val1"}),
+    (precipitation.rain_season, "rain_season", {"arg1": "val1"}),
+    (precipitation.rprctot, "rprctot", {"arg1": "val1"}),
+    (precipitation.max_1day_precipitation_amount, "max_1day_precipitation_amount", {"arg1": "val1"}),
+    (precipitation.snowfall_frequency, "snowfall_frequency", {"arg1": "val1"}),
+    (precipitation.snowfall_intensity, "snowfall_intensity", {"arg1": "val1"}),
+    (precipitation.solid_precip_average, "solid_precip_average", {"arg1": "val1"}),
+    (precipitation.solid_precip_accumulation, "solid_precip_accumulation", {"arg1": "val1"}),
+    (precipitation.warm_and_dry_days, "warm_and_dry_days", {"arg1": "val1"}),
+    (precipitation.warm_and_wet_days, "warm_and_wet_days", {"arg1": "val1"}),
+    (precipitation.water_cycle_intensity, "water_cycle_intensity", {"arg1": "val1"}),
+    (precipitation.wet_precip_accumulation, "wet_precip_accumulation", {"arg1": "val1"}),
+    (precipitation.wet_spell_frequency, "wet_spell_frequency", {"arg1": "val1"}),
+    (precipitation.wet_spell_max_length, "wet_spell_max_length", {"arg1": "val1"}),
+    (precipitation.wet_spell_total_length, "wet_spell_total_length", {"arg1": "val1"}),
+    (precipitation.wetdays, "wetdays", {"arg1": "val1"}),
+    (precipitation.wetdays_prop, "wetdays_prop", {"arg1": "val1"}),
+]
 
-    pr_in = MockEarthkitData()
-    precipitation.maximum_consecutive_wet_days(pr_in, thresh="2 mm/day", freq="MS")
 
-    common_mocks["mock_to_xr"].assert_called_once_with(pr_in, {})
-    ds_converted = common_mocks["mock_to_xr"].return_value[0]
+@pytest.mark.parametrize("earthkit_fn, xclim_name, kwargs", INDICATORS)
+def test_precipitation_indicator(
+    mocker: MockerFixture,
+    common_mocks: dict,
+    earthkit_fn: Callable,
+    xclim_name: str,
+    kwargs: Dict[str, Any],
+):
+    """
+    Test that the earthkit function wraps the xclim function correctly.
 
-    mock_fn.assert_called_once()
-    call_args = mock_fn.call_args
-    assert call_args.kwargs["ds"] is ds_converted
-    assert call_args.kwargs["thresh"] == "2 mm/day"
-    assert call_args.kwargs["freq"] == "MS"
+    Parameters
+    ----------
+    mocker : MockerFixture
+        The pytest-mock fixture.
+    common_mocks : dict
+        Dictionary containing common mocks used in tests.
+    earthkit_fn : Callable
+        The earthkit indicator function to test.
+    xclim_name : str
+        The name of the corresponding xclim function.
+    kwargs : Dict[str, Any]
+        Arguments to pass to the function.
+    """
+    xclim_func_name = xclim_name
 
+    mock_path = f"xclim.indicators.atmos.{xclim_func_name}"
 
-def test_daily_precipitation_intensity(mocker: MockerFixture, common_mocks):
-    """Test daily_precipitation_intensity calls wrapper correctly."""
-    mock_fn = mocker.patch("xclim.indicators.atmos.daily_pr_intensity")
-
-    pr_in = MockEarthkitData()
-    # Note: Validating against daily_pr_intensity as per existing code structure
-    try:
-        precipitation.daily_precipitation_intensity(pr_in, thresh="2 mm/day", freq="MS")
-    except AttributeError:
-        # Fallback if the function is actually named daily_pr_intensity in the module
-        precipitation.daily_pr_intensity(pr_in, thresh="2 mm/day", freq="MS")
-
-    common_mocks["mock_to_xr"].assert_called_once_with(pr_in, {})
-    ds_converted = common_mocks["mock_to_xr"].return_value[0]
-
-    mock_fn.assert_called_once()
-    call_args = mock_fn.call_args
-    assert call_args.kwargs["ds"] is ds_converted
-    assert call_args.kwargs["thresh"] == "2 mm/day"
-    assert call_args.kwargs["freq"] == "MS"
-
-
-# New tests
-
-
-def test_antecedent_precipitation_index(mocker: MockerFixture, common_mocks):
-    mock_fn = mocker.patch("xclim.indicators.atmos.antecedent_precipitation_index")
+    mock_fn = mocker.patch(mock_path)
 
     ds_in = MockEarthkitData()
-    precipitation.antecedent_precipitation_index(ds_in, val="test")
 
+    # Call the earthkit function
+    earthkit_fn(ds_in, **kwargs)
+
+    # Verify conversions were called (handled by common_mocks)
     common_mocks["mock_to_xr"].assert_called_once_with(ds_in, {})
     ds_converted = common_mocks["mock_to_xr"].return_value[0]
 
+    # Verify wrapped function called with the dataset and arguments
     mock_fn.assert_called_once()
     assert mock_fn.call_args.kwargs["ds"] is ds_converted
-    # No other kwargs passed in original test besides ds_in? Wait, val="test" was passed.
-    # The original test passed val="test" to the wrapper.
-    # Let's verify it's passed to the xclim fn.
-    assert mock_fn.call_args.kwargs["val"] == "test"
-
-
-def test_maximum_consecutive_dry_days(mocker: MockerFixture, common_mocks):
-    mock_fn = mocker.patch("xclim.indicators.atmos.maximum_consecutive_dry_days")
-
-    ds_in = MockEarthkitData()
-    precipitation.maximum_consecutive_dry_days(ds_in, val="test")
-
-    common_mocks["mock_to_xr"].assert_called_once_with(ds_in, {})
-    ds_converted = common_mocks["mock_to_xr"].return_value[0]
-
-    mock_fn.assert_called_once()
-    assert mock_fn.call_args.kwargs["ds"] is ds_converted
-    assert mock_fn.call_args.kwargs["val"] == "test"
-
-
-def test_cffwis_indices(mocker: MockerFixture, common_mocks):
-    mock_fn = mocker.patch("xclim.indicators.atmos.cffwis_indices")
-
-    ds_in = MockEarthkitData()
-    precipitation.cffwis_indices(ds_in)
-
-    common_mocks["mock_to_xr"].assert_called_once_with(ds_in, {})
-    ds_converted = common_mocks["mock_to_xr"].return_value[0]
-
-    mock_fn.assert_called_once()
-    assert mock_fn.call_args.kwargs["ds"] is ds_converted
-
-
-def test_cold_and_dry_days(mocker: MockerFixture, common_mocks):
-    mock_fn = mocker.patch("xclim.indicators.atmos.cold_and_dry_days")
-
-    ds_in = MockEarthkitData()
-    precipitation.cold_and_dry_days(ds_in)
-
-    common_mocks["mock_to_xr"].assert_called_once_with(ds_in, {})
-    ds_converted = common_mocks["mock_to_xr"].return_value[0]
-
-    mock_fn.assert_called_once()
-    assert mock_fn.call_args.kwargs["ds"] is ds_converted
-
-
-def test_cold_and_wet_days(mocker: MockerFixture, common_mocks):
-    mock_fn = mocker.patch("xclim.indicators.atmos.cold_and_wet_days")
-
-    ds_in = MockEarthkitData()
-    precipitation.cold_and_wet_days(ds_in)
-
-    common_mocks["mock_to_xr"].assert_called_once_with(ds_in, {})
-    ds_converted = common_mocks["mock_to_xr"].return_value[0]
-
-    mock_fn.assert_called_once()
-    assert mock_fn.call_args.kwargs["ds"] is ds_converted
-
-
-def test_days_over_precip_doy_thresh(mocker: MockerFixture, common_mocks):
-    mock_fn = mocker.patch("xclim.indicators.atmos.days_over_precip_doy_thresh")
-
-    ds_in = MockEarthkitData()
-    precipitation.days_over_precip_doy_thresh(ds_in)
-
-    common_mocks["mock_to_xr"].assert_called_once_with(ds_in, {})
-    ds_converted = common_mocks["mock_to_xr"].return_value[0]
-
-    mock_fn.assert_called_once()
-    assert mock_fn.call_args.kwargs["ds"] is ds_converted
-
-
-def test_days_over_precip_thresh(mocker: MockerFixture, common_mocks):
-    mock_fn = mocker.patch("xclim.indicators.atmos.days_over_precip_thresh")
-
-    ds_in = MockEarthkitData()
-    precipitation.days_over_precip_thresh(ds_in)
-
-    common_mocks["mock_to_xr"].assert_called_once_with(ds_in, {})
-    ds_converted = common_mocks["mock_to_xr"].return_value[0]
-
-    mock_fn.assert_called_once()
-    assert mock_fn.call_args.kwargs["ds"] is ds_converted
-
-
-def test_days_with_snow(mocker: MockerFixture, common_mocks):
-    mock_fn = mocker.patch("xclim.indicators.atmos.days_with_snow")
-
-    ds_in = MockEarthkitData()
-    precipitation.days_with_snow(ds_in)
-
-    common_mocks["mock_to_xr"].assert_called_once_with(ds_in, {})
-    ds_converted = common_mocks["mock_to_xr"].return_value[0]
-
-    mock_fn.assert_called_once()
-    assert mock_fn.call_args.kwargs["ds"] is ds_converted
-
-
-def test_drought_code(mocker: MockerFixture, common_mocks):
-    mock_fn = mocker.patch("xclim.indicators.atmos.drought_code")
-
-    ds_in = MockEarthkitData()
-    precipitation.drought_code(ds_in)
-
-    common_mocks["mock_to_xr"].assert_called_once_with(ds_in, {})
-    ds_converted = common_mocks["mock_to_xr"].return_value[0]
-
-    mock_fn.assert_called_once()
-    assert mock_fn.call_args.kwargs["ds"] is ds_converted
-
-
-def test_griffiths_drought_factor(mocker: MockerFixture, common_mocks):
-    mock_fn = mocker.patch("xclim.indicators.atmos.griffiths_drought_factor")
-
-    ds_in = MockEarthkitData()
-    precipitation.griffiths_drought_factor(ds_in)
-
-    common_mocks["mock_to_xr"].assert_called_once_with(ds_in, {})
-    ds_converted = common_mocks["mock_to_xr"].return_value[0]
-
-    mock_fn.assert_called_once()
-    assert mock_fn.call_args.kwargs["ds"] is ds_converted
-
-
-def test_duff_moisture_code(mocker: MockerFixture, common_mocks):
-    mock_fn = mocker.patch("xclim.indicators.atmos.duff_moisture_code")
-
-    ds_in = MockEarthkitData()
-    precipitation.duff_moisture_code(ds_in)
-
-    common_mocks["mock_to_xr"].assert_called_once_with(ds_in, {})
-    ds_converted = common_mocks["mock_to_xr"].return_value[0]
-
-    mock_fn.assert_called_once()
-    assert mock_fn.call_args.kwargs["ds"] is ds_converted
-
-
-def test_dry_days(mocker: MockerFixture, common_mocks):
-    mock_fn = mocker.patch("xclim.indicators.atmos.dry_days")
-
-    ds_in = MockEarthkitData()
-    precipitation.dry_days(ds_in)
-
-    common_mocks["mock_to_xr"].assert_called_once_with(ds_in, {})
-    ds_converted = common_mocks["mock_to_xr"].return_value[0]
-
-    mock_fn.assert_called_once()
-    assert mock_fn.call_args.kwargs["ds"] is ds_converted
-
-
-def test_dry_spell_frequency(mocker: MockerFixture, common_mocks):
-    mock_fn = mocker.patch("xclim.indicators.atmos.dry_spell_frequency")
-
-    ds_in = MockEarthkitData()
-    precipitation.dry_spell_frequency(ds_in)
-
-    common_mocks["mock_to_xr"].assert_called_once_with(ds_in, {})
-    ds_converted = common_mocks["mock_to_xr"].return_value[0]
-
-    mock_fn.assert_called_once()
-    assert mock_fn.call_args.kwargs["ds"] is ds_converted
-
-
-def test_dry_spell_max_length(mocker: MockerFixture, common_mocks):
-    mock_fn = mocker.patch("xclim.indicators.atmos.dry_spell_max_length")
-
-    ds_in = MockEarthkitData()
-    precipitation.dry_spell_max_length(ds_in)
-
-    common_mocks["mock_to_xr"].assert_called_once_with(ds_in, {})
-    ds_converted = common_mocks["mock_to_xr"].return_value[0]
-
-    mock_fn.assert_called_once()
-    assert mock_fn.call_args.kwargs["ds"] is ds_converted
-
-
-def test_dry_spell_total_length(mocker: MockerFixture, common_mocks):
-    mock_fn = mocker.patch("xclim.indicators.atmos.dry_spell_total_length")
-
-    ds_in = MockEarthkitData()
-    precipitation.dry_spell_total_length(ds_in)
-
-    common_mocks["mock_to_xr"].assert_called_once_with(ds_in, {})
-    ds_converted = common_mocks["mock_to_xr"].return_value[0]
-
-    mock_fn.assert_called_once()
-    assert mock_fn.call_args.kwargs["ds"] is ds_converted
-
-
-def test_dryness_index(mocker: MockerFixture, common_mocks):
-    mock_fn = mocker.patch("xclim.indicators.atmos.dryness_index")
-
-    ds_in = MockEarthkitData()
-    precipitation.dryness_index(ds_in)
-
-    common_mocks["mock_to_xr"].assert_called_once_with(ds_in, {})
-    ds_converted = common_mocks["mock_to_xr"].return_value[0]
-
-    mock_fn.assert_called_once()
-    assert mock_fn.call_args.kwargs["ds"] is ds_converted
-
-
-def test_mcarthur_forest_fire_danger_index(mocker: MockerFixture, common_mocks):
-    mock_fn = mocker.patch("xclim.indicators.atmos.mcarthur_forest_fire_danger_index")
-
-    ds_in = MockEarthkitData()
-    precipitation.mcarthur_forest_fire_danger_index(ds_in)
-
-    common_mocks["mock_to_xr"].assert_called_once_with(ds_in, {})
-    ds_converted = common_mocks["mock_to_xr"].return_value[0]
-
-    mock_fn.assert_called_once()
-    assert mock_fn.call_args.kwargs["ds"] is ds_converted
-
-
-def test_first_snowfall(mocker: MockerFixture, common_mocks):
-    mock_fn = mocker.patch("xclim.indicators.atmos.first_snowfall")
-
-    ds_in = MockEarthkitData()
-    precipitation.first_snowfall(ds_in)
-
-    common_mocks["mock_to_xr"].assert_called_once_with(ds_in, {})
-    ds_converted = common_mocks["mock_to_xr"].return_value[0]
-
-    mock_fn.assert_called_once()
-    assert mock_fn.call_args.kwargs["ds"] is ds_converted
-
-
-def test_fraction_over_precip_doy_thresh(mocker: MockerFixture, common_mocks):
-    mock_fn = mocker.patch("xclim.indicators.atmos.fraction_over_precip_doy_thresh")
-
-    ds_in = MockEarthkitData()
-    precipitation.fraction_over_precip_doy_thresh(ds_in)
-
-    common_mocks["mock_to_xr"].assert_called_once_with(ds_in, {})
-    ds_converted = common_mocks["mock_to_xr"].return_value[0]
-
-    mock_fn.assert_called_once()
-    assert mock_fn.call_args.kwargs["ds"] is ds_converted
-
-
-def test_fraction_over_precip_thresh(mocker: MockerFixture, common_mocks):
-    mock_fn = mocker.patch("xclim.indicators.atmos.fraction_over_precip_thresh")
-
-    ds_in = MockEarthkitData()
-    precipitation.fraction_over_precip_thresh(ds_in)
-
-    common_mocks["mock_to_xr"].assert_called_once_with(ds_in, {})
-    ds_converted = common_mocks["mock_to_xr"].return_value[0]
-
-    mock_fn.assert_called_once()
-    assert mock_fn.call_args.kwargs["ds"] is ds_converted
-
-
-def test_high_precip_low_temp(mocker: MockerFixture, common_mocks):
-    mock_fn = mocker.patch("xclim.indicators.atmos.high_precip_low_temp")
-
-    ds_in = MockEarthkitData()
-    precipitation.high_precip_low_temp(ds_in)
-
-    common_mocks["mock_to_xr"].assert_called_once_with(ds_in, {})
-    ds_converted = common_mocks["mock_to_xr"].return_value[0]
-
-    mock_fn.assert_called_once()
-    assert mock_fn.call_args.kwargs["ds"] is ds_converted
-
-
-def test_keetch_byram_drought_index(mocker: MockerFixture, common_mocks):
-    mock_fn = mocker.patch("xclim.indicators.atmos.keetch_byram_drought_index")
-
-    ds_in = MockEarthkitData()
-    precipitation.keetch_byram_drought_index(ds_in)
-
-    common_mocks["mock_to_xr"].assert_called_once_with(ds_in, {})
-    ds_converted = common_mocks["mock_to_xr"].return_value[0]
-
-    mock_fn.assert_called_once()
-    assert mock_fn.call_args.kwargs["ds"] is ds_converted
-
-
-def test_last_snowfall(mocker: MockerFixture, common_mocks):
-    mock_fn = mocker.patch("xclim.indicators.atmos.last_snowfall")
-
-    ds_in = MockEarthkitData()
-    precipitation.last_snowfall(ds_in)
-
-    common_mocks["mock_to_xr"].assert_called_once_with(ds_in, {})
-    ds_converted = common_mocks["mock_to_xr"].return_value[0]
-
-    mock_fn.assert_called_once()
-    assert mock_fn.call_args.kwargs["ds"] is ds_converted
-
-
-def test_liquid_precip_ratio(mocker: MockerFixture, common_mocks):
-    mock_fn = mocker.patch("xclim.indicators.atmos.liquid_precip_ratio")
-
-    ds_in = MockEarthkitData()
-    precipitation.liquid_precip_ratio(ds_in)
-
-    common_mocks["mock_to_xr"].assert_called_once_with(ds_in, {})
-    ds_converted = common_mocks["mock_to_xr"].return_value[0]
-
-    mock_fn.assert_called_once()
-    assert mock_fn.call_args.kwargs["ds"] is ds_converted
-
-
-def test_liquid_precip_average(mocker: MockerFixture, common_mocks):
-    mock_fn = mocker.patch("xclim.indicators.atmos.liquid_precip_average")
-
-    ds_in = MockEarthkitData()
-    precipitation.liquid_precip_average(ds_in)
-
-    common_mocks["mock_to_xr"].assert_called_once_with(ds_in, {})
-    ds_converted = common_mocks["mock_to_xr"].return_value[0]
-
-    mock_fn.assert_called_once()
-    assert mock_fn.call_args.kwargs["ds"] is ds_converted
-
-
-def test_liquid_precip_accumulation(mocker: MockerFixture, common_mocks):
-    mock_fn = mocker.patch("xclim.indicators.atmos.liquid_precip_accumulation")
-
-    ds_in = MockEarthkitData()
-    precipitation.liquid_precip_accumulation(ds_in)
-
-    common_mocks["mock_to_xr"].assert_called_once_with(ds_in, {})
-    ds_converted = common_mocks["mock_to_xr"].return_value[0]
-
-    mock_fn.assert_called_once()
-    assert mock_fn.call_args.kwargs["ds"] is ds_converted
-
-
-def test_max_n_day_precipitation_amount(mocker: MockerFixture, common_mocks):
-    mock_fn = mocker.patch("xclim.indicators.atmos.max_n_day_precipitation_amount")
-
-    ds_in = MockEarthkitData()
-    precipitation.max_n_day_precipitation_amount(ds_in)
-
-    common_mocks["mock_to_xr"].assert_called_once_with(ds_in, {})
-    ds_converted = common_mocks["mock_to_xr"].return_value[0]
-
-    mock_fn.assert_called_once()
-    assert mock_fn.call_args.kwargs["ds"] is ds_converted
-
-
-def test_max_pr_intensity(mocker: MockerFixture, common_mocks):
-    mock_fn = mocker.patch("xclim.indicators.atmos.max_pr_intensity")
-
-    ds_in = MockEarthkitData()
-    precipitation.max_pr_intensity(ds_in)
-
-    common_mocks["mock_to_xr"].assert_called_once_with(ds_in, {})
-    ds_converted = common_mocks["mock_to_xr"].return_value[0]
-
-    mock_fn.assert_called_once()
-    assert mock_fn.call_args.kwargs["ds"] is ds_converted
-
-
-def test_precip_average(mocker: MockerFixture, common_mocks):
-    mock_fn = mocker.patch("xclim.indicators.atmos.precip_average")
-
-    ds_in = MockEarthkitData()
-    precipitation.precip_average(ds_in)
-
-    common_mocks["mock_to_xr"].assert_called_once_with(ds_in, {})
-    ds_converted = common_mocks["mock_to_xr"].return_value[0]
-
-    mock_fn.assert_called_once()
-    assert mock_fn.call_args.kwargs["ds"] is ds_converted
-
-
-def test_precip_accumulation(mocker: MockerFixture, common_mocks):
-    mock_fn = mocker.patch("xclim.indicators.atmos.precip_accumulation")
-
-    ds_in = MockEarthkitData()
-    precipitation.precip_accumulation(ds_in)
-
-    common_mocks["mock_to_xr"].assert_called_once_with(ds_in, {})
-    ds_converted = common_mocks["mock_to_xr"].return_value[0]
-
-    mock_fn.assert_called_once()
-    assert mock_fn.call_args.kwargs["ds"] is ds_converted
-
-
-def test_rain_on_frozen_ground_days(mocker: MockerFixture, common_mocks):
-    mock_fn = mocker.patch("xclim.indicators.atmos.rain_on_frozen_ground_days")
-
-    ds_in = MockEarthkitData()
-    precipitation.rain_on_frozen_ground_days(ds_in)
-
-    common_mocks["mock_to_xr"].assert_called_once_with(ds_in, {})
-    ds_converted = common_mocks["mock_to_xr"].return_value[0]
-
-    mock_fn.assert_called_once()
-    assert mock_fn.call_args.kwargs["ds"] is ds_converted
-
-
-def test_rain_season(mocker: MockerFixture, common_mocks):
-    mock_fn = mocker.patch("xclim.indicators.atmos.rain_season")
-
-    ds_in = MockEarthkitData()
-    precipitation.rain_season(ds_in)
-
-    common_mocks["mock_to_xr"].assert_called_once_with(ds_in, {})
-    ds_converted = common_mocks["mock_to_xr"].return_value[0]
-
-    mock_fn.assert_called_once()
-    assert mock_fn.call_args.kwargs["ds"] is ds_converted
-
-
-def test_rprctot(mocker: MockerFixture, common_mocks):
-    mock_fn = mocker.patch("xclim.indicators.atmos.rprctot")
-
-    ds_in = MockEarthkitData()
-    precipitation.rprctot(ds_in)
-
-    common_mocks["mock_to_xr"].assert_called_once_with(ds_in, {})
-    ds_converted = common_mocks["mock_to_xr"].return_value[0]
-
-    mock_fn.assert_called_once()
-    assert mock_fn.call_args.kwargs["ds"] is ds_converted
-
-
-def test_max_1day_precipitation_amount(mocker: MockerFixture, common_mocks):
-    mock_fn = mocker.patch("xclim.indicators.atmos.max_1day_precipitation_amount")
-
-    ds_in = MockEarthkitData()
-    precipitation.max_1day_precipitation_amount(ds_in)
-
-    common_mocks["mock_to_xr"].assert_called_once_with(ds_in, {})
-    ds_converted = common_mocks["mock_to_xr"].return_value[0]
-
-    mock_fn.assert_called_once()
-    assert mock_fn.call_args.kwargs["ds"] is ds_converted
-
-
-def test_snowfall_frequency(mocker: MockerFixture, common_mocks):
-    mock_fn = mocker.patch("xclim.indicators.atmos.snowfall_frequency")
-
-    ds_in = MockEarthkitData()
-    precipitation.snowfall_frequency(ds_in)
-
-    common_mocks["mock_to_xr"].assert_called_once_with(ds_in, {})
-    ds_converted = common_mocks["mock_to_xr"].return_value[0]
-
-    mock_fn.assert_called_once()
-    assert mock_fn.call_args.kwargs["ds"] is ds_converted
-
-
-def test_snowfall_intensity(mocker: MockerFixture, common_mocks):
-    mock_fn = mocker.patch("xclim.indicators.atmos.snowfall_intensity")
-
-    ds_in = MockEarthkitData()
-    precipitation.snowfall_intensity(ds_in)
-
-    common_mocks["mock_to_xr"].assert_called_once_with(ds_in, {})
-    ds_converted = common_mocks["mock_to_xr"].return_value[0]
-
-    mock_fn.assert_called_once()
-    assert mock_fn.call_args.kwargs["ds"] is ds_converted
-
-
-def test_solid_precip_average(mocker: MockerFixture, common_mocks):
-    mock_fn = mocker.patch("xclim.indicators.atmos.solid_precip_average")
-
-    ds_in = MockEarthkitData()
-    precipitation.solid_precip_average(ds_in)
-
-    common_mocks["mock_to_xr"].assert_called_once_with(ds_in, {})
-    ds_converted = common_mocks["mock_to_xr"].return_value[0]
-
-    mock_fn.assert_called_once()
-    assert mock_fn.call_args.kwargs["ds"] is ds_converted
-
-
-def test_solid_precip_accumulation(mocker: MockerFixture, common_mocks):
-    mock_fn = mocker.patch("xclim.indicators.atmos.solid_precip_accumulation")
-
-    ds_in = MockEarthkitData()
-    precipitation.solid_precip_accumulation(ds_in)
-
-    common_mocks["mock_to_xr"].assert_called_once_with(ds_in, {})
-    ds_converted = common_mocks["mock_to_xr"].return_value[0]
-
-    mock_fn.assert_called_once()
-    assert mock_fn.call_args.kwargs["ds"] is ds_converted
-
-
-def test_warm_and_dry_days(mocker: MockerFixture, common_mocks):
-    mock_fn = mocker.patch("xclim.indicators.atmos.warm_and_dry_days")
-
-    ds_in = MockEarthkitData()
-    precipitation.warm_and_dry_days(ds_in)
-
-    common_mocks["mock_to_xr"].assert_called_once_with(ds_in, {})
-    ds_converted = common_mocks["mock_to_xr"].return_value[0]
-
-    mock_fn.assert_called_once()
-    assert mock_fn.call_args.kwargs["ds"] is ds_converted
-
-
-def test_warm_and_wet_days(mocker: MockerFixture, common_mocks):
-    mock_fn = mocker.patch("xclim.indicators.atmos.warm_and_wet_days")
-
-    ds_in = MockEarthkitData()
-    precipitation.warm_and_wet_days(ds_in)
-
-    common_mocks["mock_to_xr"].assert_called_once_with(ds_in, {})
-    ds_converted = common_mocks["mock_to_xr"].return_value[0]
-
-    mock_fn.assert_called_once()
-    assert mock_fn.call_args.kwargs["ds"] is ds_converted
-
-
-def test_water_cycle_intensity(mocker: MockerFixture, common_mocks):
-    mock_fn = mocker.patch("xclim.indicators.atmos.water_cycle_intensity")
-
-    ds_in = MockEarthkitData()
-    precipitation.water_cycle_intensity(ds_in)
-
-    common_mocks["mock_to_xr"].assert_called_once_with(ds_in, {})
-    ds_converted = common_mocks["mock_to_xr"].return_value[0]
-
-    mock_fn.assert_called_once()
-    assert mock_fn.call_args.kwargs["ds"] is ds_converted
-
-
-def test_wet_precip_accumulation(mocker: MockerFixture, common_mocks):
-    mock_fn = mocker.patch("xclim.indicators.atmos.wet_precip_accumulation")
-
-    ds_in = MockEarthkitData()
-    precipitation.wet_precip_accumulation(ds_in)
-
-    common_mocks["mock_to_xr"].assert_called_once_with(ds_in, {})
-    ds_converted = common_mocks["mock_to_xr"].return_value[0]
-
-    mock_fn.assert_called_once()
-    assert mock_fn.call_args.kwargs["ds"] is ds_converted
-
-
-def test_wet_spell_frequency(mocker: MockerFixture, common_mocks):
-    mock_fn = mocker.patch("xclim.indicators.atmos.wet_spell_frequency")
-
-    ds_in = MockEarthkitData()
-    precipitation.wet_spell_frequency(ds_in)
-
-    common_mocks["mock_to_xr"].assert_called_once_with(ds_in, {})
-    ds_converted = common_mocks["mock_to_xr"].return_value[0]
-
-    mock_fn.assert_called_once()
-    assert mock_fn.call_args.kwargs["ds"] is ds_converted
-
-
-def test_wet_spell_max_length(mocker: MockerFixture, common_mocks):
-    mock_fn = mocker.patch("xclim.indicators.atmos.wet_spell_max_length")
-
-    ds_in = MockEarthkitData()
-    precipitation.wet_spell_max_length(ds_in)
-
-    common_mocks["mock_to_xr"].assert_called_once_with(ds_in, {})
-    ds_converted = common_mocks["mock_to_xr"].return_value[0]
-
-    mock_fn.assert_called_once()
-    assert mock_fn.call_args.kwargs["ds"] is ds_converted
-
-
-def test_wet_spell_total_length(mocker: MockerFixture, common_mocks):
-    mock_fn = mocker.patch("xclim.indicators.atmos.wet_spell_total_length")
-
-    ds_in = MockEarthkitData()
-    precipitation.wet_spell_total_length(ds_in)
-
-    common_mocks["mock_to_xr"].assert_called_once_with(ds_in, {})
-    ds_converted = common_mocks["mock_to_xr"].return_value[0]
-
-    mock_fn.assert_called_once()
-    assert mock_fn.call_args.kwargs["ds"] is ds_converted
-
-
-def test_wetdays(mocker: MockerFixture, common_mocks):
-    mock_fn = mocker.patch("xclim.indicators.atmos.wetdays")
-
-    ds_in = MockEarthkitData()
-    precipitation.wetdays(ds_in)
-
-    common_mocks["mock_to_xr"].assert_called_once_with(ds_in, {})
-    ds_converted = common_mocks["mock_to_xr"].return_value[0]
-
-    mock_fn.assert_called_once()
-    assert mock_fn.call_args.kwargs["ds"] is ds_converted
-
-
-def test_wetdays_prop(mocker: MockerFixture, common_mocks):
-    mock_fn = mocker.patch("xclim.indicators.atmos.wetdays_prop")
-
-    ds_in = MockEarthkitData()
-    precipitation.wetdays_prop(ds_in)
-
-    common_mocks["mock_to_xr"].assert_called_once_with(ds_in, {})
-    ds_converted = common_mocks["mock_to_xr"].return_value[0]
-
-    mock_fn.assert_called_once()
-    assert mock_fn.call_args.kwargs["ds"] is ds_converted
+    for k, v in kwargs.items():
+        assert mock_fn.call_args.kwargs[k] == v
