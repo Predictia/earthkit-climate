@@ -49,24 +49,26 @@ def {func_name}(
 """
 
 
-def generate_docstring(indicator: Any) -> str:
+def generate_docstring(indicator: Any, xclim_func_name: str) -> str:
     """Generate a docstring for the wrapper function based on the xclim indicator.
 
     Parameters
     ----------
     indicator : xclim.core.indicator.Indicator
         The xclim indicator object.
+    xclim_func_name : str
+         The name of the function in xclim.indicators.atmos.
 
     Returns
     -------
     str
         The generated docstring for the wrapper function.
     """
-    identifier = indicator.identifier
+    identifier = indicator.identifier.capitalize()
 
     # Extract metadata
     # Use title as the summary if available, otherwise fallback to docstring or identifier
-    summary = getattr(indicator, "title", "").strip()
+    summary = getattr(indicator, "title", "").strip().capitalize()
     if not summary:
         summary = (indicator.__doc__ or "").split("\n")[0].strip()
 
@@ -78,6 +80,7 @@ def generate_docstring(indicator: Any) -> str:
 
     description = getattr(indicator, "abstract", "") or getattr(indicator, "description", "")
     units = getattr(indicator, "units", "")
+    outputs = getattr(indicator, "var_name", None)
 
     sections = [summary]
 
@@ -86,10 +89,38 @@ def generate_docstring(indicator: Any) -> str:
         # We target a width of 88 to allow for indentation (4 spaces) and staying well under 110
         sections.append(textwrap.fill(description, width=88))
 
-    if units:
-        sections.append(f"**Units:** {units}")
+    # Units handling
+    units_section = ""
+    if isinstance(units, str):
+        units = units.strip()
+        if not units:
+            units = "dimensionless"
+        units_section = f"**Units:** {units}"
+    elif isinstance(units, (list, tuple)):
+        if units:
+            # Treat empty units as "dimensionless"
+            processed_units = [u.strip() if u else "dimensionless" for u in units]
 
-    sections.append(f"This function wraps :func:`xclim.indicators.atmos.{identifier}`.")
+            if len(processed_units) == 1:
+                units_section = f"**Units:** {processed_units[0]}"
+            else:
+                # Check if outputs align with units
+                if isinstance(outputs, (list, tuple)) and len(outputs) == len(processed_units):
+                    lines = ["**Units:**"]
+                    for out, unit in zip(outputs, processed_units):
+                        lines.append(f"- {out}: {unit}")
+                    units_section = "\n".join(lines)
+                else:
+                    # Fallback to comma-separated
+                    units_section = f"**Units:** {', '.join(processed_units)}"
+
+    if units_section:
+        sections.append(units_section)
+
+    sections.append(
+        f"This function wraps `xclim.indicators.atmos.{xclim_func_name} "
+        f"<https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.{xclim_func_name}>`_."
+    )
 
     # Static footer
     footer = inspect.cleandoc(f"""
@@ -99,7 +130,7 @@ def generate_docstring(indicator: Any) -> str:
             Input dataset. See xclim documentation for required variables.
         **kwargs : Any
             Additional keyword arguments forwarded to
-            :func:`xclim.indicators.atmos.{identifier}`.
+            :func:`xclim.indicators.atmos.{xclim_func_name}`.
 
         Returns
         -------
@@ -129,8 +160,6 @@ def generate_module_content(category: str, indicators: List[Any]) -> str:
     functions_code = []
 
     # Sort indicators by name for consistent output
-    # key=lambda x: x.identifier might be good, but we want to sort by the function name we use.
-    # We use xclim_func_name derived below, but let's just sort by identifier primarily.
     indicators.sort(key=lambda x: x.identifier)
 
     for ind in indicators:
@@ -148,7 +177,7 @@ def generate_module_content(category: str, indicators: List[Any]) -> str:
         # Use the xclim variable name as the function name to match existing conventions
         func_name = xclim_func_name
 
-        docstring = generate_docstring(ind)
+        docstring = generate_docstring(ind, xclim_func_name)
 
         # Indent the docstring correctly
         lines = docstring.split("\n")
@@ -209,10 +238,7 @@ def main():
             category = module_to_category[module_name]
             indicators_map[category].append(obj)
         else:
-            # Fallback or skip
-            # If we want to capture everything, we might need a default, but
-            # adhering to strict categories is checking checking the files mentioned.
-            # print(f"Skipping {name} from unknown module {module_name}")
+            print(f"Skipping {name} from unknown module {module_name}")
             continue
 
     for category, indicators in indicators_map.items():

@@ -30,7 +30,9 @@ def australian_hardiness_zones(
     scheme divides categories into 5-degree Celsius zones, starting from -15 degrees Celsius
     and ending at 20 degrees Celsius.
 
-    This function wraps :func:`xclim.indicators.atmos.australian_hardiness_zones`.
+    **Units:** dimensionless
+
+    This function wraps `xclim.indicators.atmos.australian_hardiness_zones <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.australian_hardiness_zones>`_.
 
     Parameters
     ----------
@@ -48,7 +50,6 @@ def australian_hardiness_zones(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.australian_hardiness_zones)
     return wrapper(ds, **kwargs)
 
-
 def biologically_effective_degree_days(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -64,7 +65,7 @@ def biologically_effective_degree_days(
 
     **Units:** K days
 
-    This function wraps :func:`xclim.indicators.atmos.biologically_effective_degree_days`.
+    This function wraps `xclim.indicators.atmos.biologically_effective_degree_days <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.biologically_effective_degree_days>`_.
 
     Parameters
     ----------
@@ -82,7 +83,6 @@ def biologically_effective_degree_days(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.biologically_effective_degree_days)
     return wrapper(ds, **kwargs)
 
-
 def cold_spell_days(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -95,7 +95,7 @@ def cold_spell_days(
 
     **Units:** days
 
-    This function wraps :func:`xclim.indicators.atmos.cold_spell_days`.
+    This function wraps `xclim.indicators.atmos.cold_spell_days <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.cold_spell_days>`_.
 
     Parameters
     ----------
@@ -113,13 +113,12 @@ def cold_spell_days(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.cold_spell_days)
     return wrapper(ds, **kwargs)
 
-
 def cold_spell_duration_index(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
 ) -> conversions.EarthkitData:
     """
-    Cold Spell Duration Index (CSDI).
+    Cold spell duration index (csdi).
 
     Number of days part of a percentile-defined cold spell. A cold spell occurs when the
     daily minimum temperature is below a given percentile for a given number of consecutive
@@ -127,7 +126,7 @@ def cold_spell_duration_index(
 
     **Units:** days
 
-    This function wraps :func:`xclim.indicators.atmos.cold_spell_duration_index`.
+    This function wraps `xclim.indicators.atmos.cold_spell_duration_index <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.cold_spell_duration_index>`_.
 
     Parameters
     ----------
@@ -145,7 +144,6 @@ def cold_spell_duration_index(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.cold_spell_duration_index)
     return wrapper(ds, **kwargs)
 
-
 def cold_spell_frequency(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -156,7 +154,9 @@ def cold_spell_frequency(
     The frequency of cold periods of `N` days or more, during which the temperature over a
     given time window of days is below a given threshold.
 
-    This function wraps :func:`xclim.indicators.atmos.cold_spell_frequency`.
+    **Units:** dimensionless
+
+    This function wraps `xclim.indicators.atmos.cold_spell_frequency <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.cold_spell_frequency>`_.
 
     Parameters
     ----------
@@ -174,7 +174,6 @@ def cold_spell_frequency(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.cold_spell_frequency)
     return wrapper(ds, **kwargs)
 
-
 def cold_spell_max_length(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -187,7 +186,7 @@ def cold_spell_max_length(
 
     **Units:** days
 
-    This function wraps :func:`xclim.indicators.atmos.cold_spell_max_length`.
+    This function wraps `xclim.indicators.atmos.cold_spell_max_length <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.cold_spell_max_length>`_.
 
     Parameters
     ----------
@@ -205,7 +204,6 @@ def cold_spell_max_length(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.cold_spell_max_length)
     return wrapper(ds, **kwargs)
 
-
 def cold_spell_total_length(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -218,7 +216,7 @@ def cold_spell_total_length(
 
     **Units:** days
 
-    This function wraps :func:`xclim.indicators.atmos.cold_spell_total_length`.
+    This function wraps `xclim.indicators.atmos.cold_spell_total_length <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.cold_spell_total_length>`_.
 
     Parameters
     ----------
@@ -236,7 +234,6 @@ def cold_spell_total_length(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.cold_spell_total_length)
     return wrapper(ds, **kwargs)
 
-
 def consecutive_frost_days(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -248,7 +245,7 @@ def consecutive_frost_days(
 
     **Units:** days
 
-    This function wraps :func:`xclim.indicators.atmos.consecutive_frost_days`.
+    This function wraps `xclim.indicators.atmos.consecutive_frost_days <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.consecutive_frost_days>`_.
 
     Parameters
     ----------
@@ -266,7 +263,6 @@ def consecutive_frost_days(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.consecutive_frost_days)
     return wrapper(ds, **kwargs)
 
-
 def maximum_consecutive_frost_free_days(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -279,7 +275,7 @@ def maximum_consecutive_frost_free_days(
 
     **Units:** days
 
-    This function wraps :func:`xclim.indicators.atmos.consecutive_frost_free_days`.
+    This function wraps `xclim.indicators.atmos.maximum_consecutive_frost_free_days <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.maximum_consecutive_frost_free_days>`_.
 
     Parameters
     ----------
@@ -287,7 +283,7 @@ def maximum_consecutive_frost_free_days(
         Input dataset. See xclim documentation for required variables.
     **kwargs : Any
         Additional keyword arguments forwarded to
-        :func:`xclim.indicators.atmos.consecutive_frost_free_days`.
+        :func:`xclim.indicators.atmos.maximum_consecutive_frost_free_days`.
 
     Returns
     -------
@@ -296,7 +292,6 @@ def maximum_consecutive_frost_free_days(
     """
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.maximum_consecutive_frost_free_days)
     return wrapper(ds, **kwargs)
-
 
 def cool_night_index(
     ds: conversions.EarthkitData | xarray.Dataset,
@@ -310,7 +305,7 @@ def cool_night_index(
 
     **Units:** degC
 
-    This function wraps :func:`xclim.indicators.atmos.cool_night_index`.
+    This function wraps `xclim.indicators.atmos.cool_night_index <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.cool_night_index>`_.
 
     Parameters
     ----------
@@ -328,7 +323,6 @@ def cool_night_index(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.cool_night_index)
     return wrapper(ds, **kwargs)
 
-
 def cooling_degree_days(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -341,7 +335,7 @@ def cooling_degree_days(
 
     **Units:** K days
 
-    This function wraps :func:`xclim.indicators.atmos.cooling_degree_days`.
+    This function wraps `xclim.indicators.atmos.cooling_degree_days <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.cooling_degree_days>`_.
 
     Parameters
     ----------
@@ -359,7 +353,6 @@ def cooling_degree_days(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.cooling_degree_days)
     return wrapper(ds, **kwargs)
 
-
 def cooling_degree_days_approximation(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -374,7 +367,7 @@ def cooling_degree_days_approximation(
 
     **Units:** K days
 
-    This function wraps :func:`xclim.indicators.atmos.cooling_degree_days_approximation`.
+    This function wraps `xclim.indicators.atmos.cooling_degree_days_approximation <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.cooling_degree_days_approximation>`_.
 
     Parameters
     ----------
@@ -392,7 +385,6 @@ def cooling_degree_days_approximation(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.cooling_degree_days_approximation)
     return wrapper(ds, **kwargs)
 
-
 def corn_heat_units(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -403,7 +395,9 @@ def corn_heat_units(
     A temperature-based index used to estimate the development of corn crops. Corn growth
     occurs when the daily minimum and maximum temperatures exceed given thresholds.
 
-    This function wraps :func:`xclim.indicators.atmos.corn_heat_units`.
+    **Units:** dimensionless
+
+    This function wraps `xclim.indicators.atmos.corn_heat_units <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.corn_heat_units>`_.
 
     Parameters
     ----------
@@ -420,7 +414,6 @@ def corn_heat_units(
     """
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.corn_heat_units)
     return wrapper(ds, **kwargs)
-
 
 def chill_portions(
     ds: conversions.EarthkitData | xarray.Dataset,
@@ -439,7 +432,9 @@ def chill_portions(
     accurate than other chill models like the Chilling hours or Utah model, especially in
     moderate climates like Israel, California or Spain.
 
-    This function wraps :func:`xclim.indicators.atmos.cp`.
+    **Units:** dimensionless
+
+    This function wraps `xclim.indicators.atmos.chill_portions <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.chill_portions>`_.
 
     Parameters
     ----------
@@ -447,7 +442,7 @@ def chill_portions(
         Input dataset. See xclim documentation for required variables.
     **kwargs : Any
         Additional keyword arguments forwarded to
-        :func:`xclim.indicators.atmos.cp`.
+        :func:`xclim.indicators.atmos.chill_portions`.
 
     Returns
     -------
@@ -456,7 +451,6 @@ def chill_portions(
     """
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.chill_portions)
     return wrapper(ds, **kwargs)
-
 
 def chill_units(
     ds: conversions.EarthkitData | xarray.Dataset,
@@ -471,7 +465,9 @@ def chill_units(
     for bud breaking. Providing `positive_only=True` will ignore days with negative chill
     units.
 
-    This function wraps :func:`xclim.indicators.atmos.cu`.
+    **Units:** dimensionless
+
+    This function wraps `xclim.indicators.atmos.chill_units <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.chill_units>`_.
 
     Parameters
     ----------
@@ -479,7 +475,7 @@ def chill_units(
         Input dataset. See xclim documentation for required variables.
     **kwargs : Any
         Additional keyword arguments forwarded to
-        :func:`xclim.indicators.atmos.cu`.
+        :func:`xclim.indicators.atmos.chill_units`.
 
     Returns
     -------
@@ -488,7 +484,6 @@ def chill_units(
     """
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.chill_units)
     return wrapper(ds, **kwargs)
-
 
 def degree_days_exceedance_date(
     ds: conversions.EarthkitData | xarray.Dataset,
@@ -500,7 +495,9 @@ def degree_days_exceedance_date(
     The day of the year when the sum of degree days exceeds a threshold, occurring after a
     given date. Degree days are calculated above or below a given temperature threshold.
 
-    This function wraps :func:`xclim.indicators.atmos.degree_days_exceedance_date`.
+    **Units:** dimensionless
+
+    This function wraps `xclim.indicators.atmos.degree_days_exceedance_date <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.degree_days_exceedance_date>`_.
 
     Parameters
     ----------
@@ -518,7 +515,6 @@ def degree_days_exceedance_date(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.degree_days_exceedance_date)
     return wrapper(ds, **kwargs)
 
-
 def daily_freezethaw_cycles(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -532,7 +528,7 @@ def daily_freezethaw_cycles(
 
     **Units:** days
 
-    This function wraps :func:`xclim.indicators.atmos.dlyfrzthw`.
+    This function wraps `xclim.indicators.atmos.daily_freezethaw_cycles <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.daily_freezethaw_cycles>`_.
 
     Parameters
     ----------
@@ -540,7 +536,7 @@ def daily_freezethaw_cycles(
         Input dataset. See xclim documentation for required variables.
     **kwargs : Any
         Additional keyword arguments forwarded to
-        :func:`xclim.indicators.atmos.dlyfrzthw`.
+        :func:`xclim.indicators.atmos.daily_freezethaw_cycles`.
 
     Returns
     -------
@@ -549,7 +545,6 @@ def daily_freezethaw_cycles(
     """
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.daily_freezethaw_cycles)
     return wrapper(ds, **kwargs)
-
 
 def daily_temperature_range(
     ds: conversions.EarthkitData | xarray.Dataset,
@@ -562,7 +557,7 @@ def daily_temperature_range(
 
     **Units:** K
 
-    This function wraps :func:`xclim.indicators.atmos.dtr`.
+    This function wraps `xclim.indicators.atmos.daily_temperature_range <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.daily_temperature_range>`_.
 
     Parameters
     ----------
@@ -570,7 +565,7 @@ def daily_temperature_range(
         Input dataset. See xclim documentation for required variables.
     **kwargs : Any
         Additional keyword arguments forwarded to
-        :func:`xclim.indicators.atmos.dtr`.
+        :func:`xclim.indicators.atmos.daily_temperature_range`.
 
     Returns
     -------
@@ -579,7 +574,6 @@ def daily_temperature_range(
     """
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.daily_temperature_range)
     return wrapper(ds, **kwargs)
-
 
 def max_daily_temperature_range(
     ds: conversions.EarthkitData | xarray.Dataset,
@@ -592,7 +586,7 @@ def max_daily_temperature_range(
 
     **Units:** K
 
-    This function wraps :func:`xclim.indicators.atmos.dtrmax`.
+    This function wraps `xclim.indicators.atmos.max_daily_temperature_range <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.max_daily_temperature_range>`_.
 
     Parameters
     ----------
@@ -600,7 +594,7 @@ def max_daily_temperature_range(
         Input dataset. See xclim documentation for required variables.
     **kwargs : Any
         Additional keyword arguments forwarded to
-        :func:`xclim.indicators.atmos.dtrmax`.
+        :func:`xclim.indicators.atmos.max_daily_temperature_range`.
 
     Returns
     -------
@@ -609,7 +603,6 @@ def max_daily_temperature_range(
     """
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.max_daily_temperature_range)
     return wrapper(ds, **kwargs)
-
 
 def daily_temperature_range_variability(
     ds: conversions.EarthkitData | xarray.Dataset,
@@ -622,7 +615,7 @@ def daily_temperature_range_variability(
 
     **Units:** K
 
-    This function wraps :func:`xclim.indicators.atmos.dtrvar`.
+    This function wraps `xclim.indicators.atmos.daily_temperature_range_variability <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.daily_temperature_range_variability>`_.
 
     Parameters
     ----------
@@ -630,7 +623,7 @@ def daily_temperature_range_variability(
         Input dataset. See xclim documentation for required variables.
     **kwargs : Any
         Additional keyword arguments forwarded to
-        :func:`xclim.indicators.atmos.dtrvar`.
+        :func:`xclim.indicators.atmos.daily_temperature_range_variability`.
 
     Returns
     -------
@@ -639,7 +632,6 @@ def daily_temperature_range_variability(
     """
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.daily_temperature_range_variability)
     return wrapper(ds, **kwargs)
-
 
 def extreme_temperature_range(
     ds: conversions.EarthkitData | xarray.Dataset,
@@ -652,7 +644,7 @@ def extreme_temperature_range(
 
     **Units:** K
 
-    This function wraps :func:`xclim.indicators.atmos.etr`.
+    This function wraps `xclim.indicators.atmos.extreme_temperature_range <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.extreme_temperature_range>`_.
 
     Parameters
     ----------
@@ -660,7 +652,7 @@ def extreme_temperature_range(
         Input dataset. See xclim documentation for required variables.
     **kwargs : Any
         Additional keyword arguments forwarded to
-        :func:`xclim.indicators.atmos.etr`.
+        :func:`xclim.indicators.atmos.extreme_temperature_range`.
 
     Returns
     -------
@@ -669,7 +661,6 @@ def extreme_temperature_range(
     """
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.extreme_temperature_range)
     return wrapper(ds, **kwargs)
-
 
 def fire_season(
     ds: conversions.EarthkitData | xarray.Dataset,
@@ -681,7 +672,9 @@ def fire_season(
     Binary mask of the active fire season, defined by conditions on consecutive daily
     temperatures and, optionally, snow depths.
 
-    This function wraps :func:`xclim.indicators.atmos.fire_season`.
+    **Units:** dimensionless
+
+    This function wraps `xclim.indicators.atmos.fire_season <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.fire_season>`_.
 
     Parameters
     ----------
@@ -699,7 +692,6 @@ def fire_season(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.fire_season)
     return wrapper(ds, **kwargs)
 
-
 def first_day_tg_above(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -710,7 +702,9 @@ def first_day_tg_above(
     Returns first day of period where temperature is superior to a threshold over a given
     number of days (default: 1), limited to a starting calendar date (default: January 1st).
 
-    This function wraps :func:`xclim.indicators.atmos.first_day_tg_above`.
+    **Units:** dimensionless
+
+    This function wraps `xclim.indicators.atmos.first_day_tg_above <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.first_day_tg_above>`_.
 
     Parameters
     ----------
@@ -728,7 +722,6 @@ def first_day_tg_above(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.first_day_tg_above)
     return wrapper(ds, **kwargs)
 
-
 def first_day_tg_below(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -739,7 +732,9 @@ def first_day_tg_below(
     Returns first day of period where temperature is inferior to a threshold over a given
     number of days (default: 1), limited to a starting calendar date (default: July 1st).
 
-    This function wraps :func:`xclim.indicators.atmos.first_day_tg_below`.
+    **Units:** dimensionless
+
+    This function wraps `xclim.indicators.atmos.first_day_tg_below <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.first_day_tg_below>`_.
 
     Parameters
     ----------
@@ -757,7 +752,6 @@ def first_day_tg_below(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.first_day_tg_below)
     return wrapper(ds, **kwargs)
 
-
 def first_day_tn_above(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -768,7 +762,9 @@ def first_day_tn_above(
     Returns first day of period where temperature is superior to a threshold over a given
     number of days (default: 1), limited to a starting calendar date (default: January 1st).
 
-    This function wraps :func:`xclim.indicators.atmos.first_day_tn_above`.
+    **Units:** dimensionless
+
+    This function wraps `xclim.indicators.atmos.first_day_tn_above <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.first_day_tn_above>`_.
 
     Parameters
     ----------
@@ -786,7 +782,6 @@ def first_day_tn_above(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.first_day_tn_above)
     return wrapper(ds, **kwargs)
 
-
 def first_day_tn_below(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -797,7 +792,9 @@ def first_day_tn_below(
     Returns first day of period where temperature is inferior to a threshold over a given
     number of days (default: 1), limited to a starting calendar date (default: July 1st).
 
-    This function wraps :func:`xclim.indicators.atmos.first_day_tn_below`.
+    **Units:** dimensionless
+
+    This function wraps `xclim.indicators.atmos.first_day_tn_below <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.first_day_tn_below>`_.
 
     Parameters
     ----------
@@ -815,7 +812,6 @@ def first_day_tn_below(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.first_day_tn_below)
     return wrapper(ds, **kwargs)
 
-
 def first_day_tx_above(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -826,7 +822,9 @@ def first_day_tx_above(
     Returns first day of period where temperature is superior to a threshold over a given
     number of days (default: 1), limited to a starting calendar date (default: January 1st).
 
-    This function wraps :func:`xclim.indicators.atmos.first_day_tx_above`.
+    **Units:** dimensionless
+
+    This function wraps `xclim.indicators.atmos.first_day_tx_above <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.first_day_tx_above>`_.
 
     Parameters
     ----------
@@ -844,7 +842,6 @@ def first_day_tx_above(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.first_day_tx_above)
     return wrapper(ds, **kwargs)
 
-
 def first_day_tx_below(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -855,7 +852,9 @@ def first_day_tx_below(
     Returns first day of period where temperature is inferior to a threshold over a given
     number of days (default: 1), limited to a starting calendar date (default: July 1st).
 
-    This function wraps :func:`xclim.indicators.atmos.first_day_tx_below`.
+    **Units:** dimensionless
+
+    This function wraps `xclim.indicators.atmos.first_day_tx_below <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.first_day_tx_below>`_.
 
     Parameters
     ----------
@@ -873,7 +872,6 @@ def first_day_tx_below(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.first_day_tx_below)
     return wrapper(ds, **kwargs)
 
-
 def freezethaw_spell_frequency(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -887,7 +885,7 @@ def freezethaw_spell_frequency(
 
     **Units:** days
 
-    This function wraps :func:`xclim.indicators.atmos.freezethaw_spell_frequency`.
+    This function wraps `xclim.indicators.atmos.freezethaw_spell_frequency <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.freezethaw_spell_frequency>`_.
 
     Parameters
     ----------
@@ -905,7 +903,6 @@ def freezethaw_spell_frequency(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.freezethaw_spell_frequency)
     return wrapper(ds, **kwargs)
 
-
 def freezethaw_spell_max_length(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -919,7 +916,7 @@ def freezethaw_spell_max_length(
 
     **Units:** days
 
-    This function wraps :func:`xclim.indicators.atmos.freezethaw_spell_max_length`.
+    This function wraps `xclim.indicators.atmos.freezethaw_spell_max_length <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.freezethaw_spell_max_length>`_.
 
     Parameters
     ----------
@@ -937,7 +934,6 @@ def freezethaw_spell_max_length(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.freezethaw_spell_max_length)
     return wrapper(ds, **kwargs)
 
-
 def freezethaw_spell_mean_length(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -951,7 +947,7 @@ def freezethaw_spell_mean_length(
 
     **Units:** days
 
-    This function wraps :func:`xclim.indicators.atmos.freezethaw_spell_mean_length`.
+    This function wraps `xclim.indicators.atmos.freezethaw_spell_mean_length <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.freezethaw_spell_mean_length>`_.
 
     Parameters
     ----------
@@ -969,7 +965,6 @@ def freezethaw_spell_mean_length(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.freezethaw_spell_mean_length)
     return wrapper(ds, **kwargs)
 
-
 def freezing_degree_days(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -982,7 +977,7 @@ def freezing_degree_days(
 
     **Units:** K days
 
-    This function wraps :func:`xclim.indicators.atmos.freezing_degree_days`.
+    This function wraps `xclim.indicators.atmos.freezing_degree_days <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.freezing_degree_days>`_.
 
     Parameters
     ----------
@@ -1000,7 +995,6 @@ def freezing_degree_days(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.freezing_degree_days)
     return wrapper(ds, **kwargs)
 
-
 def freshet_start(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -1011,7 +1005,9 @@ def freshet_start(
     Day of year of the spring freshet start, defined as the first day when the temperature
     exceeds a certain threshold for a given number of consecutive days.
 
-    This function wraps :func:`xclim.indicators.atmos.freshet_start`.
+    **Units:** dimensionless
+
+    This function wraps `xclim.indicators.atmos.freshet_start <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.freshet_start>`_.
 
     Parameters
     ----------
@@ -1029,7 +1025,6 @@ def freshet_start(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.freshet_start)
     return wrapper(ds, **kwargs)
 
-
 def frost_days(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -1041,7 +1036,7 @@ def frost_days(
 
     **Units:** days
 
-    This function wraps :func:`xclim.indicators.atmos.frost_days`.
+    This function wraps `xclim.indicators.atmos.frost_days <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.frost_days>`_.
 
     Parameters
     ----------
@@ -1059,7 +1054,6 @@ def frost_days(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.frost_days)
     return wrapper(ds, **kwargs)
 
-
 def frost_free_season_end(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -1070,7 +1064,9 @@ def frost_free_season_end(
     First day when the temperature is below a given threshold for a given number of
     consecutive days after a median calendar date.
 
-    This function wraps :func:`xclim.indicators.atmos.frost_free_season_end`.
+    **Units:** dimensionless
+
+    This function wraps `xclim.indicators.atmos.frost_free_season_end <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.frost_free_season_end>`_.
 
     Parameters
     ----------
@@ -1088,7 +1084,6 @@ def frost_free_season_end(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.frost_free_season_end)
     return wrapper(ds, **kwargs)
 
-
 def frost_free_season_length(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -1102,7 +1097,7 @@ def frost_free_season_length(
 
     **Units:** days
 
-    This function wraps :func:`xclim.indicators.atmos.frost_free_season_length`.
+    This function wraps `xclim.indicators.atmos.frost_free_season_length <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.frost_free_season_length>`_.
 
     Parameters
     ----------
@@ -1120,7 +1115,6 @@ def frost_free_season_length(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.frost_free_season_length)
     return wrapper(ds, **kwargs)
 
-
 def frost_free_season_start(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -1131,7 +1125,9 @@ def frost_free_season_start(
     First day when minimum daily temperature exceeds a given threshold for a given number of
     consecutive days
 
-    This function wraps :func:`xclim.indicators.atmos.frost_free_season_start`.
+    **Units:** dimensionless
+
+    This function wraps `xclim.indicators.atmos.frost_free_season_start <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.frost_free_season_start>`_.
 
     Parameters
     ----------
@@ -1149,7 +1145,6 @@ def frost_free_season_start(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.frost_free_season_start)
     return wrapper(ds, **kwargs)
 
-
 def frost_free_spell_max_length(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -1162,7 +1157,7 @@ def frost_free_spell_max_length(
 
     **Units:** days
 
-    This function wraps :func:`xclim.indicators.atmos.frost_free_spell_max_length`.
+    This function wraps `xclim.indicators.atmos.frost_free_spell_max_length <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.frost_free_spell_max_length>`_.
 
     Parameters
     ----------
@@ -1180,7 +1175,6 @@ def frost_free_spell_max_length(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.frost_free_spell_max_length)
     return wrapper(ds, **kwargs)
 
-
 def frost_season_length(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -1194,7 +1188,7 @@ def frost_season_length(
 
     **Units:** days
 
-    This function wraps :func:`xclim.indicators.atmos.frost_season_length`.
+    This function wraps `xclim.indicators.atmos.frost_season_length <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.frost_season_length>`_.
 
     Parameters
     ----------
@@ -1212,7 +1206,6 @@ def frost_season_length(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.frost_season_length)
     return wrapper(ds, **kwargs)
 
-
 def growing_degree_days(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -1225,7 +1218,7 @@ def growing_degree_days(
 
     **Units:** K days
 
-    This function wraps :func:`xclim.indicators.atmos.growing_degree_days`.
+    This function wraps `xclim.indicators.atmos.growing_degree_days <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.growing_degree_days>`_.
 
     Parameters
     ----------
@@ -1243,7 +1236,6 @@ def growing_degree_days(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.growing_degree_days)
     return wrapper(ds, **kwargs)
 
-
 def growing_season_end(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -1254,7 +1246,9 @@ def growing_season_end(
     The first day when the temperature is below a certain threshold for a certain number of
     consecutive days after a given calendar date.
 
-    This function wraps :func:`xclim.indicators.atmos.growing_season_end`.
+    **Units:** dimensionless
+
+    This function wraps `xclim.indicators.atmos.growing_season_end <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.growing_season_end>`_.
 
     Parameters
     ----------
@@ -1272,7 +1266,6 @@ def growing_season_end(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.growing_season_end)
     return wrapper(ds, **kwargs)
 
-
 def growing_season_length(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -1286,7 +1279,7 @@ def growing_season_length(
 
     **Units:** days
 
-    This function wraps :func:`xclim.indicators.atmos.growing_season_length`.
+    This function wraps `xclim.indicators.atmos.growing_season_length <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.growing_season_length>`_.
 
     Parameters
     ----------
@@ -1304,7 +1297,6 @@ def growing_season_length(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.growing_season_length)
     return wrapper(ds, **kwargs)
 
-
 def growing_season_start(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -1315,7 +1307,9 @@ def growing_season_start(
     The first day when the temperature exceeds a certain threshold for a given number of
     consecutive days.
 
-    This function wraps :func:`xclim.indicators.atmos.growing_season_start`.
+    **Units:** dimensionless
+
+    This function wraps `xclim.indicators.atmos.growing_season_start <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.growing_season_start>`_.
 
     Parameters
     ----------
@@ -1333,7 +1327,6 @@ def growing_season_start(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.growing_season_start)
     return wrapper(ds, **kwargs)
 
-
 def heat_spell_frequency(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -1344,7 +1337,9 @@ def heat_spell_frequency(
     Number of heat spells. A heat spell occurs when rolling averages of daily minimum and
     maximumtemperatures exceed given thresholds for a number of days.
 
-    This function wraps :func:`xclim.indicators.atmos.heat_spell_frequency`.
+    **Units:** dimensionless
+
+    This function wraps `xclim.indicators.atmos.heat_spell_frequency <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.heat_spell_frequency>`_.
 
     Parameters
     ----------
@@ -1362,7 +1357,6 @@ def heat_spell_frequency(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.heat_spell_frequency)
     return wrapper(ds, **kwargs)
 
-
 def heat_spell_max_length(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -1375,7 +1369,7 @@ def heat_spell_max_length(
 
     **Units:** days
 
-    This function wraps :func:`xclim.indicators.atmos.heat_spell_max_length`.
+    This function wraps `xclim.indicators.atmos.heat_spell_max_length <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.heat_spell_max_length>`_.
 
     Parameters
     ----------
@@ -1393,7 +1387,6 @@ def heat_spell_max_length(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.heat_spell_max_length)
     return wrapper(ds, **kwargs)
 
-
 def heat_spell_total_length(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -1406,7 +1399,7 @@ def heat_spell_total_length(
 
     **Units:** days
 
-    This function wraps :func:`xclim.indicators.atmos.heat_spell_total_length`.
+    This function wraps `xclim.indicators.atmos.heat_spell_total_length <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.heat_spell_total_length>`_.
 
     Parameters
     ----------
@@ -1424,7 +1417,6 @@ def heat_spell_total_length(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.heat_spell_total_length)
     return wrapper(ds, **kwargs)
 
-
 def heat_wave_frequency(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -1435,7 +1427,9 @@ def heat_wave_frequency(
     Number of heat waves. A heat wave occurs when daily minimum and maximum temperatures
     exceed given thresholds for a number of days.
 
-    This function wraps :func:`xclim.indicators.atmos.heat_wave_frequency`.
+    **Units:** dimensionless
+
+    This function wraps `xclim.indicators.atmos.heat_wave_frequency <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.heat_wave_frequency>`_.
 
     Parameters
     ----------
@@ -1453,7 +1447,6 @@ def heat_wave_frequency(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.heat_wave_frequency)
     return wrapper(ds, **kwargs)
 
-
 def heat_wave_index(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -1466,7 +1459,7 @@ def heat_wave_index(
 
     **Units:** days
 
-    This function wraps :func:`xclim.indicators.atmos.heat_wave_index`.
+    This function wraps `xclim.indicators.atmos.heat_wave_index <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.heat_wave_index>`_.
 
     Parameters
     ----------
@@ -1484,7 +1477,6 @@ def heat_wave_index(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.heat_wave_index)
     return wrapper(ds, **kwargs)
 
-
 def heat_wave_max_length(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -1497,7 +1489,7 @@ def heat_wave_max_length(
 
     **Units:** days
 
-    This function wraps :func:`xclim.indicators.atmos.heat_wave_max_length`.
+    This function wraps `xclim.indicators.atmos.heat_wave_max_length <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.heat_wave_max_length>`_.
 
     Parameters
     ----------
@@ -1515,7 +1507,6 @@ def heat_wave_max_length(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.heat_wave_max_length)
     return wrapper(ds, **kwargs)
 
-
 def heat_wave_total_length(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -1528,7 +1519,7 @@ def heat_wave_total_length(
 
     **Units:** days
 
-    This function wraps :func:`xclim.indicators.atmos.heat_wave_total_length`.
+    This function wraps `xclim.indicators.atmos.heat_wave_total_length <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.heat_wave_total_length>`_.
 
     Parameters
     ----------
@@ -1546,7 +1537,6 @@ def heat_wave_total_length(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.heat_wave_total_length)
     return wrapper(ds, **kwargs)
 
-
 def heating_degree_days(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -1559,7 +1549,7 @@ def heating_degree_days(
 
     **Units:** K days
 
-    This function wraps :func:`xclim.indicators.atmos.heating_degree_days`.
+    This function wraps `xclim.indicators.atmos.heating_degree_days <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.heating_degree_days>`_.
 
     Parameters
     ----------
@@ -1577,7 +1567,6 @@ def heating_degree_days(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.heating_degree_days)
     return wrapper(ds, **kwargs)
 
-
 def heating_degree_days_approximation(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -1592,7 +1581,7 @@ def heating_degree_days_approximation(
 
     **Units:** K days
 
-    This function wraps :func:`xclim.indicators.atmos.heating_degree_days_approximation`.
+    This function wraps `xclim.indicators.atmos.heating_degree_days_approximation <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.heating_degree_days_approximation>`_.
 
     Parameters
     ----------
@@ -1610,7 +1599,6 @@ def heating_degree_days_approximation(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.heating_degree_days_approximation)
     return wrapper(ds, **kwargs)
 
-
 def hot_days(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -1622,7 +1610,7 @@ def hot_days(
 
     **Units:** days
 
-    This function wraps :func:`xclim.indicators.atmos.hot_days`.
+    This function wraps `xclim.indicators.atmos.hot_days <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.hot_days>`_.
 
     Parameters
     ----------
@@ -1640,7 +1628,6 @@ def hot_days(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.hot_days)
     return wrapper(ds, **kwargs)
 
-
 def hot_spell_frequency(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -1651,7 +1638,9 @@ def hot_spell_frequency(
     The frequency of hot periods of `N` days or more, during which the temperature over a
     given time window of days is above a given threshold.
 
-    This function wraps :func:`xclim.indicators.atmos.hot_spell_frequency`.
+    **Units:** dimensionless
+
+    This function wraps `xclim.indicators.atmos.hot_spell_frequency <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.hot_spell_frequency>`_.
 
     Parameters
     ----------
@@ -1669,7 +1658,6 @@ def hot_spell_frequency(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.hot_spell_frequency)
     return wrapper(ds, **kwargs)
 
-
 def hot_spell_max_length(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -1682,7 +1670,7 @@ def hot_spell_max_length(
 
     **Units:** days
 
-    This function wraps :func:`xclim.indicators.atmos.hot_spell_max_length`.
+    This function wraps `xclim.indicators.atmos.hot_spell_max_length <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.hot_spell_max_length>`_.
 
     Parameters
     ----------
@@ -1700,7 +1688,6 @@ def hot_spell_max_length(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.hot_spell_max_length)
     return wrapper(ds, **kwargs)
 
-
 def hot_spell_max_magnitude(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -1713,7 +1700,7 @@ def hot_spell_max_magnitude(
 
     **Units:** K d
 
-    This function wraps :func:`xclim.indicators.atmos.hot_spell_max_magnitude`.
+    This function wraps `xclim.indicators.atmos.hot_spell_max_magnitude <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.hot_spell_max_magnitude>`_.
 
     Parameters
     ----------
@@ -1731,7 +1718,6 @@ def hot_spell_max_magnitude(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.hot_spell_max_magnitude)
     return wrapper(ds, **kwargs)
 
-
 def hot_spell_total_length(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -1744,7 +1730,7 @@ def hot_spell_total_length(
 
     **Units:** days
 
-    This function wraps :func:`xclim.indicators.atmos.hot_spell_total_length`.
+    This function wraps `xclim.indicators.atmos.hot_spell_total_length <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.hot_spell_total_length>`_.
 
     Parameters
     ----------
@@ -1762,7 +1748,6 @@ def hot_spell_total_length(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.hot_spell_total_length)
     return wrapper(ds, **kwargs)
 
-
 def huglin_index(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -1776,7 +1761,9 @@ def huglin_index(
     coefficient calculation for higher latitudes. Metric originally published in Huglin
     (1978). Day-length coefficient based on Hall & Jones (2010).
 
-    This function wraps :func:`xclim.indicators.atmos.huglin_index`.
+    **Units:** dimensionless
+
+    This function wraps `xclim.indicators.atmos.huglin_index <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.huglin_index>`_.
 
     Parameters
     ----------
@@ -1794,7 +1781,6 @@ def huglin_index(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.huglin_index)
     return wrapper(ds, **kwargs)
 
-
 def ice_days(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -1806,7 +1792,7 @@ def ice_days(
 
     **Units:** days
 
-    This function wraps :func:`xclim.indicators.atmos.ice_days`.
+    This function wraps `xclim.indicators.atmos.ice_days <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.ice_days>`_.
 
     Parameters
     ----------
@@ -1824,7 +1810,6 @@ def ice_days(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.ice_days)
     return wrapper(ds, **kwargs)
 
-
 def last_spring_frost(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -1835,7 +1820,9 @@ def last_spring_frost(
     The last day when minimum temperature is below a given threshold for a certain number of
     days, limited by a final calendar date.
 
-    This function wraps :func:`xclim.indicators.atmos.last_spring_frost`.
+    **Units:** dimensionless
+
+    This function wraps `xclim.indicators.atmos.last_spring_frost <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.last_spring_frost>`_.
 
     Parameters
     ----------
@@ -1853,7 +1840,6 @@ def last_spring_frost(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.last_spring_frost)
     return wrapper(ds, **kwargs)
 
-
 def late_frost_days(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -1866,7 +1852,7 @@ def late_frost_days(
 
     **Units:** days
 
-    This function wraps :func:`xclim.indicators.atmos.late_frost_days`.
+    This function wraps `xclim.indicators.atmos.late_frost_days <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.late_frost_days>`_.
 
     Parameters
     ----------
@@ -1884,7 +1870,6 @@ def late_frost_days(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.late_frost_days)
     return wrapper(ds, **kwargs)
 
-
 def latitude_temperature_index(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -1898,7 +1883,9 @@ def latitude_temperature_index(
     difference of latitude factor coefficient minus latitude. Metric originally published in
     Jackson, D. I., & Cherry, N. J. (1988).
 
-    This function wraps :func:`xclim.indicators.atmos.latitude_temperature_index`.
+    **Units:** dimensionless
+
+    This function wraps `xclim.indicators.atmos.latitude_temperature_index <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.latitude_temperature_index>`_.
 
     Parameters
     ----------
@@ -1916,7 +1903,6 @@ def latitude_temperature_index(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.latitude_temperature_index)
     return wrapper(ds, **kwargs)
 
-
 def maximum_consecutive_warm_days(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -1929,7 +1915,7 @@ def maximum_consecutive_warm_days(
 
     **Units:** days
 
-    This function wraps :func:`xclim.indicators.atmos.maximum_consecutive_warm_days`.
+    This function wraps `xclim.indicators.atmos.maximum_consecutive_warm_days <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.maximum_consecutive_warm_days>`_.
 
     Parameters
     ----------
@@ -1947,7 +1933,6 @@ def maximum_consecutive_warm_days(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.maximum_consecutive_warm_days)
     return wrapper(ds, **kwargs)
 
-
 def tg10p(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -1959,7 +1944,7 @@ def tg10p(
 
     **Units:** days
 
-    This function wraps :func:`xclim.indicators.atmos.tg10p`.
+    This function wraps `xclim.indicators.atmos.tg10p <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.tg10p>`_.
 
     Parameters
     ----------
@@ -1977,7 +1962,6 @@ def tg10p(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.tg10p)
     return wrapper(ds, **kwargs)
 
-
 def tg90p(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -1989,7 +1973,7 @@ def tg90p(
 
     **Units:** days
 
-    This function wraps :func:`xclim.indicators.atmos.tg90p`.
+    This function wraps `xclim.indicators.atmos.tg90p <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.tg90p>`_.
 
     Parameters
     ----------
@@ -2007,7 +1991,6 @@ def tg90p(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.tg90p)
     return wrapper(ds, **kwargs)
 
-
 def tg_days_above(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -2019,7 +2002,7 @@ def tg_days_above(
 
     **Units:** days
 
-    This function wraps :func:`xclim.indicators.atmos.tg_days_above`.
+    This function wraps `xclim.indicators.atmos.tg_days_above <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.tg_days_above>`_.
 
     Parameters
     ----------
@@ -2037,7 +2020,6 @@ def tg_days_above(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.tg_days_above)
     return wrapper(ds, **kwargs)
 
-
 def tg_days_below(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -2049,7 +2031,7 @@ def tg_days_below(
 
     **Units:** days
 
-    This function wraps :func:`xclim.indicators.atmos.tg_days_below`.
+    This function wraps `xclim.indicators.atmos.tg_days_below <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.tg_days_below>`_.
 
     Parameters
     ----------
@@ -2067,7 +2049,6 @@ def tg_days_below(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.tg_days_below)
     return wrapper(ds, **kwargs)
 
-
 def tg_max(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -2079,7 +2060,7 @@ def tg_max(
 
     **Units:** K
 
-    This function wraps :func:`xclim.indicators.atmos.tg_max`.
+    This function wraps `xclim.indicators.atmos.tg_max <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.tg_max>`_.
 
     Parameters
     ----------
@@ -2097,7 +2078,6 @@ def tg_max(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.tg_max)
     return wrapper(ds, **kwargs)
 
-
 def tg_mean(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -2109,7 +2089,7 @@ def tg_mean(
 
     **Units:** K
 
-    This function wraps :func:`xclim.indicators.atmos.tg_mean`.
+    This function wraps `xclim.indicators.atmos.tg_mean <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.tg_mean>`_.
 
     Parameters
     ----------
@@ -2127,7 +2107,6 @@ def tg_mean(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.tg_mean)
     return wrapper(ds, **kwargs)
 
-
 def tg_min(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -2139,7 +2118,7 @@ def tg_min(
 
     **Units:** K
 
-    This function wraps :func:`xclim.indicators.atmos.tg_min`.
+    This function wraps `xclim.indicators.atmos.tg_min <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.tg_min>`_.
 
     Parameters
     ----------
@@ -2157,7 +2136,6 @@ def tg_min(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.tg_min)
     return wrapper(ds, **kwargs)
 
-
 def thawing_degree_days(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -2170,7 +2148,7 @@ def thawing_degree_days(
 
     **Units:** K days
 
-    This function wraps :func:`xclim.indicators.atmos.thawing_degree_days`.
+    This function wraps `xclim.indicators.atmos.thawing_degree_days <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.thawing_degree_days>`_.
 
     Parameters
     ----------
@@ -2188,7 +2166,6 @@ def thawing_degree_days(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.thawing_degree_days)
     return wrapper(ds, **kwargs)
 
-
 def tn10p(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -2200,7 +2177,7 @@ def tn10p(
 
     **Units:** days
 
-    This function wraps :func:`xclim.indicators.atmos.tn10p`.
+    This function wraps `xclim.indicators.atmos.tn10p <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.tn10p>`_.
 
     Parameters
     ----------
@@ -2218,7 +2195,6 @@ def tn10p(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.tn10p)
     return wrapper(ds, **kwargs)
 
-
 def tn90p(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -2230,7 +2206,7 @@ def tn90p(
 
     **Units:** days
 
-    This function wraps :func:`xclim.indicators.atmos.tn90p`.
+    This function wraps `xclim.indicators.atmos.tn90p <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.tn90p>`_.
 
     Parameters
     ----------
@@ -2248,7 +2224,6 @@ def tn90p(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.tn90p)
     return wrapper(ds, **kwargs)
 
-
 def tn_days_above(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -2260,7 +2235,7 @@ def tn_days_above(
 
     **Units:** days
 
-    This function wraps :func:`xclim.indicators.atmos.tn_days_above`.
+    This function wraps `xclim.indicators.atmos.tn_days_above <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.tn_days_above>`_.
 
     Parameters
     ----------
@@ -2278,7 +2253,6 @@ def tn_days_above(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.tn_days_above)
     return wrapper(ds, **kwargs)
 
-
 def tn_days_below(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -2290,7 +2264,7 @@ def tn_days_below(
 
     **Units:** days
 
-    This function wraps :func:`xclim.indicators.atmos.tn_days_below`.
+    This function wraps `xclim.indicators.atmos.tn_days_below <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.tn_days_below>`_.
 
     Parameters
     ----------
@@ -2308,7 +2282,6 @@ def tn_days_below(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.tn_days_below)
     return wrapper(ds, **kwargs)
 
-
 def tn_max(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -2320,7 +2293,7 @@ def tn_max(
 
     **Units:** K
 
-    This function wraps :func:`xclim.indicators.atmos.tn_max`.
+    This function wraps `xclim.indicators.atmos.tn_max <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.tn_max>`_.
 
     Parameters
     ----------
@@ -2338,7 +2311,6 @@ def tn_max(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.tn_max)
     return wrapper(ds, **kwargs)
 
-
 def tn_mean(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -2350,7 +2322,7 @@ def tn_mean(
 
     **Units:** K
 
-    This function wraps :func:`xclim.indicators.atmos.tn_mean`.
+    This function wraps `xclim.indicators.atmos.tn_mean <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.tn_mean>`_.
 
     Parameters
     ----------
@@ -2368,7 +2340,6 @@ def tn_mean(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.tn_mean)
     return wrapper(ds, **kwargs)
 
-
 def tn_min(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -2380,7 +2351,7 @@ def tn_min(
 
     **Units:** K
 
-    This function wraps :func:`xclim.indicators.atmos.tn_min`.
+    This function wraps `xclim.indicators.atmos.tn_min <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.tn_min>`_.
 
     Parameters
     ----------
@@ -2398,7 +2369,6 @@ def tn_min(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.tn_min)
     return wrapper(ds, **kwargs)
 
-
 def tropical_nights(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -2410,7 +2380,7 @@ def tropical_nights(
 
     **Units:** days
 
-    This function wraps :func:`xclim.indicators.atmos.tropical_nights`.
+    This function wraps `xclim.indicators.atmos.tropical_nights <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.tropical_nights>`_.
 
     Parameters
     ----------
@@ -2428,7 +2398,6 @@ def tropical_nights(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.tropical_nights)
     return wrapper(ds, **kwargs)
 
-
 def tx10p(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -2440,7 +2409,7 @@ def tx10p(
 
     **Units:** days
 
-    This function wraps :func:`xclim.indicators.atmos.tx10p`.
+    This function wraps `xclim.indicators.atmos.tx10p <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.tx10p>`_.
 
     Parameters
     ----------
@@ -2458,7 +2427,6 @@ def tx10p(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.tx10p)
     return wrapper(ds, **kwargs)
 
-
 def tx90p(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -2470,7 +2438,7 @@ def tx90p(
 
     **Units:** days
 
-    This function wraps :func:`xclim.indicators.atmos.tx90p`.
+    This function wraps `xclim.indicators.atmos.tx90p <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.tx90p>`_.
 
     Parameters
     ----------
@@ -2488,7 +2456,6 @@ def tx90p(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.tx90p)
     return wrapper(ds, **kwargs)
 
-
 def tx_days_above(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -2500,7 +2467,7 @@ def tx_days_above(
 
     **Units:** days
 
-    This function wraps :func:`xclim.indicators.atmos.tx_days_above`.
+    This function wraps `xclim.indicators.atmos.tx_days_above <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.tx_days_above>`_.
 
     Parameters
     ----------
@@ -2518,7 +2485,6 @@ def tx_days_above(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.tx_days_above)
     return wrapper(ds, **kwargs)
 
-
 def tx_days_below(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -2530,7 +2496,7 @@ def tx_days_below(
 
     **Units:** days
 
-    This function wraps :func:`xclim.indicators.atmos.tx_days_below`.
+    This function wraps `xclim.indicators.atmos.tx_days_below <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.tx_days_below>`_.
 
     Parameters
     ----------
@@ -2548,7 +2514,6 @@ def tx_days_below(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.tx_days_below)
     return wrapper(ds, **kwargs)
 
-
 def tx_max(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -2560,7 +2525,7 @@ def tx_max(
 
     **Units:** K
 
-    This function wraps :func:`xclim.indicators.atmos.tx_max`.
+    This function wraps `xclim.indicators.atmos.tx_max <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.tx_max>`_.
 
     Parameters
     ----------
@@ -2578,7 +2543,6 @@ def tx_max(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.tx_max)
     return wrapper(ds, **kwargs)
 
-
 def tx_mean(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -2590,7 +2554,7 @@ def tx_mean(
 
     **Units:** K
 
-    This function wraps :func:`xclim.indicators.atmos.tx_mean`.
+    This function wraps `xclim.indicators.atmos.tx_mean <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.tx_mean>`_.
 
     Parameters
     ----------
@@ -2608,7 +2572,6 @@ def tx_mean(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.tx_mean)
     return wrapper(ds, **kwargs)
 
-
 def tx_min(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -2620,7 +2583,7 @@ def tx_min(
 
     **Units:** K
 
-    This function wraps :func:`xclim.indicators.atmos.tx_min`.
+    This function wraps `xclim.indicators.atmos.tx_min <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.tx_min>`_.
 
     Parameters
     ----------
@@ -2638,7 +2601,6 @@ def tx_min(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.tx_min)
     return wrapper(ds, **kwargs)
 
-
 def tx_tn_days_above(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -2650,7 +2612,7 @@ def tx_tn_days_above(
 
     **Units:** days
 
-    This function wraps :func:`xclim.indicators.atmos.tx_tn_days_above`.
+    This function wraps `xclim.indicators.atmos.tx_tn_days_above <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.tx_tn_days_above>`_.
 
     Parameters
     ----------
@@ -2668,13 +2630,12 @@ def tx_tn_days_above(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.tx_tn_days_above)
     return wrapper(ds, **kwargs)
 
-
 def usda_hardiness_zones(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
 ) -> conversions.EarthkitData:
     """
-    USDA hardiness zones.
+    Usda hardiness zones.
 
     A climate indice based on a multi-year rolling average of the annual minimum
     temperature. Developed specifically to aid in determining plant suitability of
@@ -2682,7 +2643,9 @@ def usda_hardiness_zones(
     Fahrenheit zones, with 5-degree Fahrenheit half-zones, starting from -65 degrees
     Fahrenheit and ending at 65 degrees Fahrenheit.
 
-    This function wraps :func:`xclim.indicators.atmos.usda_hardiness_zones`.
+    **Units:** dimensionless
+
+    This function wraps `xclim.indicators.atmos.usda_hardiness_zones <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.usda_hardiness_zones>`_.
 
     Parameters
     ----------
@@ -2700,7 +2663,6 @@ def usda_hardiness_zones(
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.usda_hardiness_zones)
     return wrapper(ds, **kwargs)
 
-
 def warm_spell_duration_index(
     ds: conversions.EarthkitData | xarray.Dataset,
     **kwargs: Any,
@@ -2714,7 +2676,7 @@ def warm_spell_duration_index(
 
     **Units:** days
 
-    This function wraps :func:`xclim.indicators.atmos.warm_spell_duration_index`.
+    This function wraps `xclim.indicators.atmos.warm_spell_duration_index <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.warm_spell_duration_index>`_.
 
     Parameters
     ----------
@@ -2731,3 +2693,4 @@ def warm_spell_duration_index(
     """
     wrapper = wrap_xclim_indicator(xclim.indicators.atmos.warm_spell_duration_index)
     return wrapper(ds, **kwargs)
+
