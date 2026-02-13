@@ -90,29 +90,29 @@ def generate_docstring(indicator: Any, xclim_func_name: str) -> str:
         sections.append(textwrap.fill(description, width=88))
 
     # Units handling
-    units_section = ""
+    units_list = []
     if isinstance(units, str):
         units = units.strip()
         if not units:
-            units = "dimensionless"
-        units_section = f"**Units:** {units}"
+            units_list = ["dimensionless"]
+        else:
+            units_list = [units]
     elif isinstance(units, (list, tuple)):
-        if units:
-            # Treat empty units as "dimensionless"
-            processed_units = [u.strip() if u else "dimensionless" for u in units]
+        units_list = [u.strip() if u else "dimensionless" for u in units]
+    else:
+        units_list = ["dimensionless"]
 
-            if len(processed_units) == 1:
-                units_section = f"**Units:** {processed_units[0]}"
-            else:
-                # Check if outputs align with units
-                if isinstance(outputs, (list, tuple)) and len(outputs) == len(processed_units):
-                    lines = ["**Units:**"]
-                    for out, unit in zip(outputs, processed_units):
-                        lines.append(f"- {out}: {unit}")
-                    units_section = "\n".join(lines)
-                else:
-                    # Fallback to comma-separated
-                    units_section = f"**Units:** {', '.join(processed_units)}"
+    outputs_list = []
+    if isinstance(outputs, str):
+        outputs_list = [outputs.strip()]
+    elif isinstance(outputs, (list, tuple)):
+        outputs_list = [o.strip() for o in outputs]
+
+    units_section = ""
+    lines = ["**Units:**", ""]
+    for out, unit in zip(outputs_list, units_list):
+        lines.append(f"- {out}: {unit}")
+    units_section = "\n".join(lines)
 
     if units_section:
         sections.append(units_section)

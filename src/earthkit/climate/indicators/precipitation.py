@@ -27,7 +27,9 @@ def antecedent_precipitation_index(
     Calculate the running weighted sum of daily precipitation values given a window and
     weighting exponent. This index serves as an indicator for soil moisture.
 
-    **Units:** mm
+    **Units:**
+
+    - api: mm
 
     This function wraps `xclim.indicators.atmos.antecedent_precipitation_index <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.antecedent_precipitation_index>`_.
 
@@ -58,7 +60,9 @@ def maximum_consecutive_dry_days(
     The longest number of consecutive days where daily precipitation below a given
     threshold.
 
-    **Units:** days
+    **Units:**
+
+    - cdd: days
 
     This function wraps `xclim.indicators.atmos.maximum_consecutive_dry_days <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.maximum_consecutive_dry_days>`_.
 
@@ -91,6 +95,7 @@ def cffwis_indices(
     Spread Index - The Build Up Index - The Fire Weather Index.
 
     **Units:**
+
     - dc: dimensionless
     - dmc: dimensionless
     - ffmc: dimensionless
@@ -127,7 +132,9 @@ def cold_and_dry_days(
     Number of days with temperature below a given percentile and precipitation below a given
     percentile.
 
-    **Units:** days
+    **Units:**
+
+    - cold_and_dry_days: days
 
     This function wraps `xclim.indicators.atmos.cold_and_dry_days <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.cold_and_dry_days>`_.
 
@@ -158,7 +165,9 @@ def cold_and_wet_days(
     Number of days with temperature below a given percentile and precipitation above a given
     percentile.
 
-    **Units:** days
+    **Units:**
+
+    - cold_and_wet_days: days
 
     This function wraps `xclim.indicators.atmos.cold_and_wet_days <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.cold_and_wet_days>`_.
 
@@ -189,7 +198,9 @@ def maximum_consecutive_wet_days(
     The longest number of consecutive days where daily precipitation is at or above a given
     threshold.
 
-    **Units:** days
+    **Units:**
+
+    - cwd: days
 
     This function wraps `xclim.indicators.atmos.maximum_consecutive_wet_days <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.maximum_consecutive_wet_days>`_.
 
@@ -220,7 +231,9 @@ def days_over_precip_doy_thresh(
     Number of days in a period where precipitation is above a given daily percentile and a
     fixed threshold.
 
-    **Units:** days
+    **Units:**
+
+    - days_over_precip_doy_thresh: days
 
     This function wraps `xclim.indicators.atmos.days_over_precip_doy_thresh <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.days_over_precip_doy_thresh>`_.
 
@@ -251,7 +264,9 @@ def days_over_precip_thresh(
     Number of days in a period where precipitation is above a given percentile, calculated
     over a given period and a fixed threshold.
 
-    **Units:** days
+    **Units:**
+
+    - days_over_precip_thresh: days
 
     This function wraps `xclim.indicators.atmos.days_over_precip_thresh <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.days_over_precip_thresh>`_.
 
@@ -281,7 +296,9 @@ def days_with_snow(
 
     Number of days with snow between a lower and upper limit.
 
-    **Units:** days
+    **Units:**
+
+    - days_with_snow: days
 
     This function wraps `xclim.indicators.atmos.days_with_snow <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.days_with_snow>`_.
 
@@ -312,7 +329,9 @@ def drought_code(
     The Drought Index is part of the Canadian Forest-Weather Index system. It is a numerical
     code that estimates the average moisture content of organic layers.
 
-    **Units:** dimensionless
+    **Units:**
+
+    - dc: dimensionless
 
     This function wraps `xclim.indicators.atmos.drought_code <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.drought_code>`_.
 
@@ -344,7 +363,9 @@ def griffiths_drought_factor(
     deep litter bed. It is often used in the calculation of the McArthur Forest Fire Danger
     Index. The method implemented here follows :cite:t:`ffdi-finkele_2006`.
 
-    **Units:** dimensionless
+    **Units:**
+
+    - df: dimensionless
 
     This function wraps `xclim.indicators.atmos.griffiths_drought_factor <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.griffiths_drought_factor>`_.
 
@@ -376,7 +397,9 @@ def duff_moisture_code(
     numeric rating of the average moisture content of loosely compacted organic layers of
     moderate depth.
 
-    **Units:** dimensionless
+    **Units:**
+
+    - dmc: dimensionless
 
     This function wraps `xclim.indicators.atmos.duff_moisture_code <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.duff_moisture_code>`_.
 
@@ -406,7 +429,9 @@ def dry_days(
 
     The number of days with daily precipitation under a given threshold.
 
-    **Units:** days
+    **Units:**
+
+    - dry_days: days
 
     This function wraps `xclim.indicators.atmos.dry_days <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.dry_days>`_.
 
@@ -437,7 +462,9 @@ def dry_spell_frequency(
     The frequency of dry periods of `N` days or more, during which the accumulated or
     maximum precipitation over a given time window of days is below a given threshold.
 
-    **Units:** dimensionless
+    **Units:**
+
+    - dry_spell_frequency: dimensionless
 
     This function wraps `xclim.indicators.atmos.dry_spell_frequency <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.dry_spell_frequency>`_.
 
@@ -468,7 +495,9 @@ def dry_spell_max_length(
     The maximum length of a dry period of `N` days or more, during which the accumulated or
     maximum precipitation over a given time window of days is below a given threshold.
 
-    **Units:** days
+    **Units:**
+
+    - dry_spell_max_length: days
 
     This function wraps `xclim.indicators.atmos.dry_spell_max_length <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.dry_spell_max_length>`_.
 
@@ -499,7 +528,9 @@ def dry_spell_total_length(
     The total length of dry periods of `N` days or more, during which the accumulated or
     maximum precipitation over a given time window of days is below a given threshold.
 
-    **Units:** days
+    **Units:**
+
+    - dry_spell_total_length: days
 
     This function wraps `xclim.indicators.atmos.dry_spell_total_length <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.dry_spell_total_length>`_.
 
@@ -531,7 +562,9 @@ def dryness_index(
     which considers the precipitation and evapotranspiration factors without deduction for
     surface runoff or drainage. Metric originally published in Riou et al. (1994).
 
-    **Units:** mm
+    **Units:**
+
+    - dryness_index: mm
 
     This function wraps `xclim.indicators.atmos.dryness_index <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.dryness_index>`_.
 
@@ -561,7 +594,9 @@ def mcarthur_forest_fire_danger_index(
 
     The FFDI is a numeric indicator of the potential danger of a forest fire.
 
-    **Units:** dimensionless
+    **Units:**
+
+    - ffdi: dimensionless
 
     This function wraps `xclim.indicators.atmos.mcarthur_forest_fire_danger_index <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.mcarthur_forest_fire_danger_index>`_.
 
@@ -592,7 +627,9 @@ def first_snowfall(
     The first day where snowfall exceeded a given threshold during a time period (the
     threshold can be given as a snowfall flux or a liquid water equivalent snowfall rate).
 
-    **Units:** dimensionless
+    **Units:**
+
+    - first_snowfall: dimensionless
 
     This function wraps `xclim.indicators.atmos.first_snowfall <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.first_snowfall>`_.
 
@@ -624,7 +661,9 @@ def fraction_over_precip_doy_thresh(
     precipitation is above a threshold defining wet days and above a given percentile for
     that day.
 
-    **Units:** dimensionless
+    **Units:**
+
+    - fraction_over_precip_doy_thresh: dimensionless
 
     This function wraps `xclim.indicators.atmos.fraction_over_precip_doy_thresh <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.fraction_over_precip_doy_thresh>`_.
 
@@ -656,7 +695,9 @@ def fraction_over_precip_thresh(
     precipitation is above a threshold defining wet days and above a given percentile for
     that day.
 
-    **Units:** dimensionless
+    **Units:**
+
+    - fraction_over_precip_thresh: dimensionless
 
     This function wraps `xclim.indicators.atmos.fraction_over_precip_thresh <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.fraction_over_precip_thresh>`_.
 
@@ -687,7 +728,9 @@ def high_precip_low_temp(
     Number of days with precipitation above a given threshold and temperature below a given
     threshold.
 
-    **Units:** days
+    **Units:**
+
+    - high_precip_low_temp: days
 
     This function wraps `xclim.indicators.atmos.high_precip_low_temp <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.high_precip_low_temp>`_.
 
@@ -721,7 +764,9 @@ def keetch_byram_drought_index(
     the maximum KBDI to 203.2 mm, rather than 200 mm, in order to align best with the
     majority of the literature.
 
-    **Units:** mm/day
+    **Units:**
+
+    - kbdi: mm/day
 
     This function wraps `xclim.indicators.atmos.keetch_byram_drought_index <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.keetch_byram_drought_index>`_.
 
@@ -752,7 +797,9 @@ def last_snowfall(
     The last day where snowfall exceeded a given threshold during a time period (the
     threshold can be given as a snowfall flux or a liquid water equivalent snowfall rate).
 
-    **Units:** dimensionless
+    **Units:**
+
+    - last_snowfall: dimensionless
 
     This function wraps `xclim.indicators.atmos.last_snowfall <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.last_snowfall>`_.
 
@@ -784,7 +831,9 @@ def liquid_precip_ratio(
     precipitation is approximated from total precipitation on days where temperature is
     above a given threshold.
 
-    **Units:** dimensionless
+    **Units:**
+
+    - liquid_precip_ratio: dimensionless
 
     This function wraps `xclim.indicators.atmos.liquid_precip_ratio <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.liquid_precip_ratio>`_.
 
@@ -815,7 +864,9 @@ def liquid_precip_average(
     Averaged liquid precipitation. Precipitation is considered liquid when the average daily
     temperature is above a given threshold.
 
-    **Units:** mm
+    **Units:**
+
+    - liquidprcpavg: mm
 
     This function wraps `xclim.indicators.atmos.liquid_precip_average <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.liquid_precip_average>`_.
 
@@ -846,7 +897,9 @@ def liquid_precip_accumulation(
     Total accumulated liquid precipitation. Precipitation is considered liquid when the
     average daily temperature is above a given threshold.
 
-    **Units:** mm
+    **Units:**
+
+    - liquidprcptot: mm
 
     This function wraps `xclim.indicators.atmos.liquid_precip_accumulation <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.liquid_precip_accumulation>`_.
 
@@ -876,7 +929,9 @@ def max_n_day_precipitation_amount(
 
     Maximum of the moving sum of daily precipitation for a given period.
 
-    **Units:** mm
+    **Units:**
+
+    - rx{window}day: mm
 
     This function wraps `xclim.indicators.atmos.max_n_day_precipitation_amount <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.max_n_day_precipitation_amount>`_.
 
@@ -906,7 +961,9 @@ def max_pr_intensity(
 
     Maximum precipitation intensity over a given rolling time window.
 
-    **Units:** mm h-1
+    **Units:**
+
+    - max_pr_intensity: mm h-1
 
     This function wraps `xclim.indicators.atmos.max_pr_intensity <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.max_pr_intensity>`_.
 
@@ -939,7 +996,9 @@ def precip_average(
     solid). Precipitation is considered solid if the average daily temperature is below 0°C
     threshold (and vice versa).
 
-    **Units:** mm
+    **Units:**
+
+    - prcpavg: mm
 
     This function wraps `xclim.indicators.atmos.precip_average <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.precip_average>`_.
 
@@ -972,7 +1031,9 @@ def precip_accumulation(
     (liquid or solid). Precipitation is considered solid if the average daily temperature is
     below 0°C (and vice versa).
 
-    **Units:** mm
+    **Units:**
+
+    - prcptot: mm
 
     This function wraps `xclim.indicators.atmos.precip_accumulation <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.precip_accumulation>`_.
 
@@ -1004,7 +1065,9 @@ def rain_on_frozen_ground_days(
     average daily temperature below 0°C. Precipitation is assumed to be rain when the daily
     average temperature is above 0°C.
 
-    **Units:** days
+    **Units:**
+
+    - rain_frzgr: days
 
     This function wraps `xclim.indicators.atmos.rain_on_frozen_ground_days <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.rain_on_frozen_ground_days>`_.
 
@@ -1038,6 +1101,7 @@ def rain_season(
     rain season stops during a dry period happening after a given date.
 
     **Units:**
+
     - rain_season_start: dimensionless
     - rain_season_end: dimensionless
     - rain_season_length: days
@@ -1071,7 +1135,9 @@ def rprctot(
     The proportion of total precipitation due to convective processes. Only days with
     surpassing a minimum precipitation flux are considered.
 
-    **Units:** dimensionless
+    **Units:**
+
+    - rprctot: dimensionless
 
     This function wraps `xclim.indicators.atmos.rprctot <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.rprctot>`_.
 
@@ -1101,7 +1167,9 @@ def max_1day_precipitation_amount(
 
     Maximum total daily precipitation for a given period.
 
-    **Units:** mm/day
+    **Units:**
+
+    - rx1day: mm/day
 
     This function wraps `xclim.indicators.atmos.max_1day_precipitation_amount <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.max_1day_precipitation_amount>`_.
 
@@ -1131,7 +1199,9 @@ def daily_pr_intensity(
 
     Average precipitation for days with daily precipitation above a given threshold.
 
-    **Units:** mm d-1
+    **Units:**
+
+    - sdii: mm d-1
 
     This function wraps `xclim.indicators.atmos.daily_pr_intensity <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.daily_pr_intensity>`_.
 
@@ -1162,7 +1232,9 @@ def snowfall_frequency(
     Percentage of days with snowfall above a given threshold (either a snowfall flux or a
     liquid water equivalent snowfall rate).
 
-    **Units:** %
+    **Units:**
+
+    - snowfall_frequency: %
 
     This function wraps `xclim.indicators.atmos.snowfall_frequency <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.snowfall_frequency>`_.
 
@@ -1193,7 +1265,9 @@ def snowfall_intensity(
     Mean daily liquid water equivalent snowfall rate above threshold (either a snowfall flux
     or a liquid water equivalent snowfall rate)
 
-    **Units:** mm/day
+    **Units:**
+
+    - snowfall_intensity: mm/day
 
     This function wraps `xclim.indicators.atmos.snowfall_intensity <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.snowfall_intensity>`_.
 
@@ -1224,7 +1298,9 @@ def solid_precip_average(
     Averaged solid precipitation. Precipitation is considered solid when the average daily
     temperature is at or below a given threshold.
 
-    **Units:** mm
+    **Units:**
+
+    - solidprcpavg: mm
 
     This function wraps `xclim.indicators.atmos.solid_precip_average <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.solid_precip_average>`_.
 
@@ -1255,7 +1331,9 @@ def solid_precip_accumulation(
     Total accumulated solid precipitation. Precipitation is considered solid when the
     average daily temperature is at or below a given threshold.
 
-    **Units:** mm
+    **Units:**
+
+    - solidprcptot: mm
 
     This function wraps `xclim.indicators.atmos.solid_precip_accumulation <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.solid_precip_accumulation>`_.
 
@@ -1286,7 +1364,9 @@ def warm_and_dry_days(
     Number of days with temperature above a given percentile and precipitation below a given
     percentile.
 
-    **Units:** days
+    **Units:**
+
+    - warm_and_dry_days: days
 
     This function wraps `xclim.indicators.atmos.warm_and_dry_days <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.warm_and_dry_days>`_.
 
@@ -1317,7 +1397,9 @@ def warm_and_wet_days(
     Number of days with temperature above a given percentile and precipitation above a given
     percentile.
 
-    **Units:** days
+    **Units:**
+
+    - warm_and_wet_days: days
 
     This function wraps `xclim.indicators.atmos.warm_and_wet_days <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.warm_and_wet_days>`_.
 
@@ -1347,7 +1429,9 @@ def water_cycle_intensity(
 
     The sum of precipitation and actual evapotranspiration.
 
-    **Units:** mm
+    **Units:**
+
+    - water_cycle_intensity: mm
 
     This function wraps `xclim.indicators.atmos.water_cycle_intensity <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.water_cycle_intensity>`_.
 
@@ -1378,7 +1462,9 @@ def wet_precip_accumulation(
     Total accumulated precipitation on days with precipitation. A day is considered to have
     precipitation if the precipitation is greater than or equal to a given threshold.
 
-    **Units:** mm
+    **Units:**
+
+    - wet_prcptot: mm
 
     This function wraps `xclim.indicators.atmos.wet_precip_accumulation <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.wet_precip_accumulation>`_.
 
@@ -1410,7 +1496,9 @@ def wet_spell_frequency(
     maximum precipitation over a given time window of days is equal or above a given
     threshold.
 
-    **Units:** dimensionless
+    **Units:**
+
+    - wet_spell_frequency: dimensionless
 
     This function wraps `xclim.indicators.atmos.wet_spell_frequency <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.wet_spell_frequency>`_.
 
@@ -1442,7 +1530,9 @@ def wet_spell_max_length(
     maximum precipitation over a given time window of days is equal or above a given
     threshold.
 
-    **Units:** days
+    **Units:**
+
+    - wet_spell_max_length: days
 
     This function wraps `xclim.indicators.atmos.wet_spell_max_length <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.wet_spell_max_length>`_.
 
@@ -1474,7 +1564,9 @@ def wet_spell_total_length(
     maximum precipitation over a given time window of days is equal or above a given
     threshold.
 
-    **Units:** days
+    **Units:**
+
+    - wet_spell_total_length: days
 
     This function wraps `xclim.indicators.atmos.wet_spell_total_length <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.wet_spell_total_length>`_.
 
@@ -1504,7 +1596,9 @@ def wetdays(
 
     The number of days with daily precipitation at or above a given threshold.
 
-    **Units:** days
+    **Units:**
+
+    - wetdays: days
 
     This function wraps `xclim.indicators.atmos.wetdays <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.wetdays>`_.
 
@@ -1534,7 +1628,9 @@ def wetdays_prop(
 
     The proportion of days with daily precipitation at or above a given threshold.
 
-    **Units:** 1
+    **Units:**
+
+    - wetdays_prop: 1
 
     This function wraps `xclim.indicators.atmos.wetdays_prop <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.wetdays_prop>`_.
 

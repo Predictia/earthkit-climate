@@ -30,7 +30,9 @@ def australian_hardiness_zones(
     scheme divides categories into 5-degree Celsius zones, starting from -15 degrees Celsius
     and ending at 20 degrees Celsius.
 
-    **Units:** dimensionless
+    **Units:**
+
+    - hz: dimensionless
 
     This function wraps `xclim.indicators.atmos.australian_hardiness_zones <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.australian_hardiness_zones>`_.
 
@@ -64,7 +66,9 @@ def biologically_effective_degree_days(
     well as for swings in daily temperature range. Metric originally published in Gladstones
     (1992).
 
-    **Units:** K days
+    **Units:**
+
+    - bedd: K days
 
     This function wraps `xclim.indicators.atmos.biologically_effective_degree_days <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.biologically_effective_degree_days>`_.
 
@@ -95,7 +99,9 @@ def cold_spell_days(
     The number of days that are part of a cold spell. A cold spell is defined as a minimum
     number of consecutive days with mean daily temperature below a given threshold.
 
-    **Units:** days
+    **Units:**
+
+    - cold_spell_days: days
 
     This function wraps `xclim.indicators.atmos.cold_spell_days <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.cold_spell_days>`_.
 
@@ -127,7 +133,9 @@ def cold_spell_duration_index(
     daily minimum temperature is below a given percentile for a given number of consecutive
     days.
 
-    **Units:** days
+    **Units:**
+
+    - csdi_{window}: days
 
     This function wraps `xclim.indicators.atmos.cold_spell_duration_index <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.cold_spell_duration_index>`_.
 
@@ -158,7 +166,9 @@ def cold_spell_frequency(
     The frequency of cold periods of `N` days or more, during which the temperature over a
     given time window of days is below a given threshold.
 
-    **Units:** dimensionless
+    **Units:**
+
+    - cold_spell_frequency: dimensionless
 
     This function wraps `xclim.indicators.atmos.cold_spell_frequency <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.cold_spell_frequency>`_.
 
@@ -189,7 +199,9 @@ def cold_spell_max_length(
     The maximum length of a cold period of `N` days or more, during which the temperature
     over a given time window of days is below a given threshold.
 
-    **Units:** days
+    **Units:**
+
+    - cold_spell_max_length: days
 
     This function wraps `xclim.indicators.atmos.cold_spell_max_length <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.cold_spell_max_length>`_.
 
@@ -220,7 +232,9 @@ def cold_spell_total_length(
     The total length of cold periods of `N` days or more, during which the temperature over
     a given time window of days is below a given threshold.
 
-    **Units:** days
+    **Units:**
+
+    - cold_spell_total_length: days
 
     This function wraps `xclim.indicators.atmos.cold_spell_total_length <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.cold_spell_total_length>`_.
 
@@ -250,7 +264,9 @@ def consecutive_frost_days(
 
     Maximum number of consecutive days where the daily minimum temperature is below 0°C
 
-    **Units:** days
+    **Units:**
+
+    - consecutive_frost_days: days
 
     This function wraps `xclim.indicators.atmos.consecutive_frost_days <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.consecutive_frost_days>`_.
 
@@ -281,7 +297,9 @@ def maximum_consecutive_frost_free_days(
     Maximum number of consecutive frost-free days: where the daily minimum temperature is
     above or equal to 0°C
 
-    **Units:** days
+    **Units:**
+
+    - consecutive_frost_free_days: days
 
     This function wraps `xclim.indicators.atmos.maximum_consecutive_frost_free_days <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.maximum_consecutive_frost_free_days>`_.
 
@@ -312,7 +330,9 @@ def cool_night_index(
     A night coolness variable which takes into account the mean minimum night temperatures
     during the month when ripening usually occurs beyond the ripening period.
 
-    **Units:** degC
+    **Units:**
+
+    - cool_night_index: degC
 
     This function wraps `xclim.indicators.atmos.cool_night_index <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.cool_night_index>`_.
 
@@ -343,7 +363,9 @@ def cooling_degree_days(
     The cumulative degree days for days when the mean daily temperature is above a given
     threshold and buildings must be air conditioned.
 
-    **Units:** K days
+    **Units:**
+
+    - cooling_degree_days: K days
 
     This function wraps `xclim.indicators.atmos.cooling_degree_days <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.cooling_degree_days>`_.
 
@@ -376,7 +398,9 @@ def cooling_degree_days_approximation(
     temperatures, accounting for asymmetry in the distributions of temperatures throughout
     the diurnal cycle.
 
-    **Units:** K days
+    **Units:**
+
+    - cooling_degree_days_approximation: K days
 
     This function wraps `xclim.indicators.atmos.cooling_degree_days_approximation <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.cooling_degree_days_approximation>`_.
 
@@ -407,7 +431,9 @@ def corn_heat_units(
     A temperature-based index used to estimate the development of corn crops. Corn growth
     occurs when the daily minimum and maximum temperatures exceed given thresholds.
 
-    **Units:** dimensionless
+    **Units:**
+
+    - chu: dimensionless
 
     This function wraps `xclim.indicators.atmos.corn_heat_units <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.corn_heat_units>`_.
 
@@ -445,7 +471,9 @@ def chill_portions(
     accurate than other chill models like the Chilling hours or Utah model, especially in
     moderate climates like Israel, California or Spain.
 
-    **Units:** dimensionless
+    **Units:**
+
+    - cp: dimensionless
 
     This function wraps `xclim.indicators.atmos.chill_portions <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.chill_portions>`_.
 
@@ -479,7 +507,9 @@ def chill_units(
     for bud breaking. Providing `positive_only=True` will ignore days with negative chill
     units.
 
-    **Units:** dimensionless
+    **Units:**
+
+    - cu: dimensionless
 
     This function wraps `xclim.indicators.atmos.chill_units <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.chill_units>`_.
 
@@ -510,7 +540,9 @@ def degree_days_exceedance_date(
     The day of the year when the sum of degree days exceeds a threshold, occurring after a
     given date. Degree days are calculated above or below a given temperature threshold.
 
-    **Units:** dimensionless
+    **Units:**
+
+    - degree_days_exceedance_date: dimensionless
 
     This function wraps `xclim.indicators.atmos.degree_days_exceedance_date <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.degree_days_exceedance_date>`_.
 
@@ -542,7 +574,9 @@ def daily_freezethaw_cycles(
     where maximum daily temperature is above a given threshold and minimum daily temperature
     is at or below a given threshold, usually 0°C for both.
 
-    **Units:** days
+    **Units:**
+
+    - dlyfrzthw: days
 
     This function wraps `xclim.indicators.atmos.daily_freezethaw_cycles <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.daily_freezethaw_cycles>`_.
 
@@ -572,7 +606,9 @@ def daily_temperature_range(
 
     The average difference between the daily maximum and minimum temperatures.
 
-    **Units:** K
+    **Units:**
+
+    - dtr: K
 
     This function wraps `xclim.indicators.atmos.daily_temperature_range <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.daily_temperature_range>`_.
 
@@ -602,7 +638,9 @@ def max_daily_temperature_range(
 
     The maximum difference between the daily maximum and minimum temperatures.
 
-    **Units:** K
+    **Units:**
+
+    - dtrmax: K
 
     This function wraps `xclim.indicators.atmos.max_daily_temperature_range <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.max_daily_temperature_range>`_.
 
@@ -632,7 +670,9 @@ def daily_temperature_range_variability(
 
     The average day-to-day variation in daily temperature range.
 
-    **Units:** K
+    **Units:**
+
+    - dtrvar: K
 
     This function wraps `xclim.indicators.atmos.daily_temperature_range_variability <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.daily_temperature_range_variability>`_.
 
@@ -662,7 +702,9 @@ def extreme_temperature_range(
 
     The maximum of the maximum temperature minus the minimum of the minimum temperature.
 
-    **Units:** K
+    **Units:**
+
+    - etr: K
 
     This function wraps `xclim.indicators.atmos.extreme_temperature_range <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.extreme_temperature_range>`_.
 
@@ -693,7 +735,9 @@ def fire_season(
     Binary mask of the active fire season, defined by conditions on consecutive daily
     temperatures and, optionally, snow depths.
 
-    **Units:** dimensionless
+    **Units:**
+
+    - fire_season: dimensionless
 
     This function wraps `xclim.indicators.atmos.fire_season <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.fire_season>`_.
 
@@ -724,7 +768,9 @@ def first_day_tg_above(
     Returns first day of period where temperature is superior to a threshold over a given
     number of days (default: 1), limited to a starting calendar date (default: January 1st).
 
-    **Units:** dimensionless
+    **Units:**
+
+    - first_day_tg_above: dimensionless
 
     This function wraps `xclim.indicators.atmos.first_day_tg_above <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.first_day_tg_above>`_.
 
@@ -755,7 +801,9 @@ def first_day_tg_below(
     Returns first day of period where temperature is inferior to a threshold over a given
     number of days (default: 1), limited to a starting calendar date (default: July 1st).
 
-    **Units:** dimensionless
+    **Units:**
+
+    - first_day_tg_below: dimensionless
 
     This function wraps `xclim.indicators.atmos.first_day_tg_below <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.first_day_tg_below>`_.
 
@@ -786,7 +834,9 @@ def first_day_tn_above(
     Returns first day of period where temperature is superior to a threshold over a given
     number of days (default: 1), limited to a starting calendar date (default: January 1st).
 
-    **Units:** dimensionless
+    **Units:**
+
+    - first_day_tn_above: dimensionless
 
     This function wraps `xclim.indicators.atmos.first_day_tn_above <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.first_day_tn_above>`_.
 
@@ -817,7 +867,9 @@ def first_day_tn_below(
     Returns first day of period where temperature is inferior to a threshold over a given
     number of days (default: 1), limited to a starting calendar date (default: July 1st).
 
-    **Units:** dimensionless
+    **Units:**
+
+    - first_day_tn_below: dimensionless
 
     This function wraps `xclim.indicators.atmos.first_day_tn_below <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.first_day_tn_below>`_.
 
@@ -848,7 +900,9 @@ def first_day_tx_above(
     Returns first day of period where temperature is superior to a threshold over a given
     number of days (default: 1), limited to a starting calendar date (default: January 1st).
 
-    **Units:** dimensionless
+    **Units:**
+
+    - first_day_tx_above: dimensionless
 
     This function wraps `xclim.indicators.atmos.first_day_tx_above <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.first_day_tx_above>`_.
 
@@ -879,7 +933,9 @@ def first_day_tx_below(
     Returns first day of period where temperature is inferior to a threshold over a given
     number of days (default: 1), limited to a starting calendar date (default: July 1st).
 
-    **Units:** dimensionless
+    **Units:**
+
+    - first_day_tx_below: dimensionless
 
     This function wraps `xclim.indicators.atmos.first_day_tx_below <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.first_day_tx_below>`_.
 
@@ -911,7 +967,9 @@ def freezethaw_spell_frequency(
     consecutive days where maximum daily temperatures are above a given threshold and
     minimum daily temperatures are at or below a given threshold, usually 0°C for both.
 
-    **Units:** days
+    **Units:**
+
+    - freezethaw_spell_frequency: days
 
     This function wraps `xclim.indicators.atmos.freezethaw_spell_frequency <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.freezethaw_spell_frequency>`_.
 
@@ -943,7 +1001,9 @@ def freezethaw_spell_max_length(
     of consecutive days where maximum daily temperatures are above a given threshold and
     minimum daily temperatures are at or below a threshold, usually 0°C for both.
 
-    **Units:** days
+    **Units:**
+
+    - freezethaw_spell_max_length: days
 
     This function wraps `xclim.indicators.atmos.freezethaw_spell_max_length <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.freezethaw_spell_max_length>`_.
 
@@ -975,7 +1035,9 @@ def freezethaw_spell_mean_length(
     of consecutive days where maximum daily temperatures are above a given threshold and
     minimum daily temperatures are at or below a given threshold, usually 0°C for both.
 
-    **Units:** days
+    **Units:**
+
+    - freezethaw_spell_mean_length: days
 
     This function wraps `xclim.indicators.atmos.freezethaw_spell_mean_length <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.freezethaw_spell_mean_length>`_.
 
@@ -1006,7 +1068,9 @@ def freezing_degree_days(
     The cumulative degree days for days when the average temperature is below a given
     threshold, typically 0°C.
 
-    **Units:** K days
+    **Units:**
+
+    - freezing_degree_days: K days
 
     This function wraps `xclim.indicators.atmos.freezing_degree_days <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.freezing_degree_days>`_.
 
@@ -1037,7 +1101,9 @@ def freshet_start(
     Day of year of the spring freshet start, defined as the first day when the temperature
     exceeds a certain threshold for a given number of consecutive days.
 
-    **Units:** dimensionless
+    **Units:**
+
+    - freshet_start: dimensionless
 
     This function wraps `xclim.indicators.atmos.freshet_start <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.freshet_start>`_.
 
@@ -1067,7 +1133,9 @@ def frost_days(
 
     Number of days where the daily minimum temperature is below a given threshold.
 
-    **Units:** days
+    **Units:**
+
+    - frost_days: days
 
     This function wraps `xclim.indicators.atmos.frost_days <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.frost_days>`_.
 
@@ -1098,7 +1166,9 @@ def frost_free_season_end(
     First day when the temperature is below a given threshold for a given number of
     consecutive days after a median calendar date.
 
-    **Units:** dimensionless
+    **Units:**
+
+    - frost_free_season_end: dimensionless
 
     This function wraps `xclim.indicators.atmos.frost_free_season_end <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.frost_free_season_end>`_.
 
@@ -1130,7 +1200,9 @@ def frost_free_season_length(
     temperature is above 0°C without a freezing window of `N` days, with freezing occurring
     after a median calendar date.
 
-    **Units:** days
+    **Units:**
+
+    - frost_free_season_length: days
 
     This function wraps `xclim.indicators.atmos.frost_free_season_length <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.frost_free_season_length>`_.
 
@@ -1161,7 +1233,9 @@ def frost_free_season_start(
     First day when minimum daily temperature exceeds a given threshold for a given number of
     consecutive days
 
-    **Units:** dimensionless
+    **Units:**
+
+    - frost_free_season_start: dimensionless
 
     This function wraps `xclim.indicators.atmos.frost_free_season_start <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.frost_free_season_start>`_.
 
@@ -1192,7 +1266,9 @@ def frost_free_spell_max_length(
     The maximum length of a frost free period of `N` days or more, during which the minimum
     temperature over a given time window of days is above a given threshold.
 
-    **Units:** days
+    **Units:**
+
+    - frost_free_spell_max_length: days
 
     This function wraps `xclim.indicators.atmos.frost_free_spell_max_length <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.frost_free_spell_max_length>`_.
 
@@ -1224,7 +1300,9 @@ def frost_season_length(
     temperature is below 0°C without a thawing window of days, with the thaw occurring after
     a median calendar date.
 
-    **Units:** days
+    **Units:**
+
+    - frost_season_length: days
 
     This function wraps `xclim.indicators.atmos.frost_season_length <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.frost_season_length>`_.
 
@@ -1255,7 +1333,9 @@ def growing_degree_days(
     The cumulative degree days for days when the average temperature is above a given
     threshold.
 
-    **Units:** K days
+    **Units:**
+
+    - growing_degree_days: K days
 
     This function wraps `xclim.indicators.atmos.growing_degree_days <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.growing_degree_days>`_.
 
@@ -1286,7 +1366,9 @@ def growing_season_end(
     The first day when the temperature is below a certain threshold for a certain number of
     consecutive days after a given calendar date.
 
-    **Units:** dimensionless
+    **Units:**
+
+    - growing_season_end: dimensionless
 
     This function wraps `xclim.indicators.atmos.growing_season_end <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.growing_season_end>`_.
 
@@ -1318,7 +1400,9 @@ def growing_season_length(
     temperature above a threshold and the first occurrence of a series of days with a daily
     average temperature below that same threshold, occurring after a given calendar date.
 
-    **Units:** days
+    **Units:**
+
+    - growing_season_length: days
 
     This function wraps `xclim.indicators.atmos.growing_season_length <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.growing_season_length>`_.
 
@@ -1349,7 +1433,9 @@ def growing_season_start(
     The first day when the temperature exceeds a certain threshold for a given number of
     consecutive days.
 
-    **Units:** dimensionless
+    **Units:**
+
+    - growing_season_start: dimensionless
 
     This function wraps `xclim.indicators.atmos.growing_season_start <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.growing_season_start>`_.
 
@@ -1380,7 +1466,9 @@ def heat_spell_frequency(
     Number of heat spells. A heat spell occurs when rolling averages of daily minimum and
     maximumtemperatures exceed given thresholds for a number of days.
 
-    **Units:** dimensionless
+    **Units:**
+
+    - heat_spell_frequency: dimensionless
 
     This function wraps `xclim.indicators.atmos.heat_spell_frequency <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.heat_spell_frequency>`_.
 
@@ -1411,7 +1499,9 @@ def heat_spell_max_length(
     The longest heat spell of a period. A heat spell occurs when rolling averages of daily
     minimum and maximum temperatures exceed given thresholds for a number of days.
 
-    **Units:** days
+    **Units:**
+
+    - heat_spell_max_length: days
 
     This function wraps `xclim.indicators.atmos.heat_spell_max_length <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.heat_spell_max_length>`_.
 
@@ -1442,7 +1532,9 @@ def heat_spell_total_length(
     Total length of heat spells. A heat spell occurs when rolling averages of daily minimum
     and maximum temperatures exceed given thresholds for a number of days.
 
-    **Units:** days
+    **Units:**
+
+    - heat_spell_total_length: days
 
     This function wraps `xclim.indicators.atmos.heat_spell_total_length <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.heat_spell_total_length>`_.
 
@@ -1473,7 +1565,9 @@ def heat_wave_frequency(
     Number of heat waves. A heat wave occurs when daily minimum and maximum temperatures
     exceed given thresholds for a number of days.
 
-    **Units:** dimensionless
+    **Units:**
+
+    - heat_wave_frequency: dimensionless
 
     This function wraps `xclim.indicators.atmos.heat_wave_frequency <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.heat_wave_frequency>`_.
 
@@ -1504,7 +1598,9 @@ def heat_wave_index(
     Number of days that constitute heatwave events. A heat wave occurs when daily minimum
     and maximum temperatures exceed given thresholds for a number of days.
 
-    **Units:** days
+    **Units:**
+
+    - heat_wave_index: days
 
     This function wraps `xclim.indicators.atmos.heat_wave_index <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.heat_wave_index>`_.
 
@@ -1535,7 +1631,9 @@ def heat_wave_max_length(
     Maximal duration of heat waves. A heat wave occurs when daily minimum and maximum
     temperatures exceed given thresholds for a number of days.
 
-    **Units:** days
+    **Units:**
+
+    - heat_wave_max_length: days
 
     This function wraps `xclim.indicators.atmos.heat_wave_max_length <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.heat_wave_max_length>`_.
 
@@ -1566,7 +1664,9 @@ def heat_wave_total_length(
     Total length of heat waves. A heat wave occurs when daily minimum and maximum
     temperatures exceed given thresholds for a number of days.
 
-    **Units:** days
+    **Units:**
+
+    - heat_wave_total_length: days
 
     This function wraps `xclim.indicators.atmos.heat_wave_total_length <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.heat_wave_total_length>`_.
 
@@ -1597,7 +1697,9 @@ def heating_degree_days(
     The cumulative degree days for days when the mean daily temperature is below a given
     threshold and buildings must be heated.
 
-    **Units:** K days
+    **Units:**
+
+    - heating_degree_days: K days
 
     This function wraps `xclim.indicators.atmos.heating_degree_days <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.heating_degree_days>`_.
 
@@ -1630,7 +1732,9 @@ def heating_degree_days_approximation(
     temperatures, accounting for asymmetry in the distributions of temperatures throughout
     the diurnal cycle.
 
-    **Units:** K days
+    **Units:**
+
+    - heating_degree_days_approximation: K days
 
     This function wraps `xclim.indicators.atmos.heating_degree_days_approximation <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.heating_degree_days_approximation>`_.
 
@@ -1660,7 +1764,9 @@ def hot_days(
 
     Number of days where the daily maximum temperature is above a given threshold.
 
-    **Units:** days
+    **Units:**
+
+    - hot_days: days
 
     This function wraps `xclim.indicators.atmos.hot_days <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.hot_days>`_.
 
@@ -1691,7 +1797,9 @@ def hot_spell_frequency(
     The frequency of hot periods of `N` days or more, during which the temperature over a
     given time window of days is above a given threshold.
 
-    **Units:** dimensionless
+    **Units:**
+
+    - hot_spell_frequency: dimensionless
 
     This function wraps `xclim.indicators.atmos.hot_spell_frequency <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.hot_spell_frequency>`_.
 
@@ -1722,7 +1830,9 @@ def hot_spell_max_length(
     The maximum length of a hot period of `N` days or more, during which the temperature
     over a given time window of days is above a given threshold.
 
-    **Units:** days
+    **Units:**
+
+    - hot_spell_max_length: days
 
     This function wraps `xclim.indicators.atmos.hot_spell_max_length <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.hot_spell_max_length>`_.
 
@@ -1753,7 +1863,9 @@ def hot_spell_max_magnitude(
     Magnitude of the most intensive heat wave per {freq}. A heat wave occurs when daily
     maximum temperatures exceed given thresholds for a number of days.
 
-    **Units:** K d
+    **Units:**
+
+    - hot_spell_max_magnitude: K d
 
     This function wraps `xclim.indicators.atmos.hot_spell_max_magnitude <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.hot_spell_max_magnitude>`_.
 
@@ -1784,7 +1896,9 @@ def hot_spell_total_length(
     The total length of hot periods of `N` days or more, during which the temperature over a
     given time window of days is above a given threshold.
 
-    **Units:** days
+    **Units:**
+
+    - hot_spell_total_length: days
 
     This function wraps `xclim.indicators.atmos.hot_spell_total_length <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.hot_spell_total_length>`_.
 
@@ -1818,7 +1932,9 @@ def huglin_index(
     coefficient calculation for higher latitudes. Metric originally published in Huglin
     (1978). Day-length coefficient based on Hall & Jones (2010).
 
-    **Units:** dimensionless
+    **Units:**
+
+    - hi: dimensionless
 
     This function wraps `xclim.indicators.atmos.huglin_index <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.huglin_index>`_.
 
@@ -1848,7 +1964,9 @@ def ice_days(
 
     Number of days where the daily maximum temperature is below 0°C
 
-    **Units:** days
+    **Units:**
+
+    - ice_days: days
 
     This function wraps `xclim.indicators.atmos.ice_days <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.ice_days>`_.
 
@@ -1879,7 +1997,9 @@ def last_spring_frost(
     The last day when minimum temperature is below a given threshold for a certain number of
     days, limited by a final calendar date.
 
-    **Units:** dimensionless
+    **Units:**
+
+    - last_spring_frost: dimensionless
 
     This function wraps `xclim.indicators.atmos.last_spring_frost <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.last_spring_frost>`_.
 
@@ -1910,7 +2030,9 @@ def late_frost_days(
     Number of days where the daily minimum temperature is below a given threshold between a
     givenstart date and a given end date.
 
-    **Units:** days
+    **Units:**
+
+    - late_frost_days: days
 
     This function wraps `xclim.indicators.atmos.late_frost_days <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.late_frost_days>`_.
 
@@ -1944,7 +2066,9 @@ def latitude_temperature_index(
     difference of latitude factor coefficient minus latitude. Metric originally published in
     Jackson, D. I., & Cherry, N. J. (1988).
 
-    **Units:** dimensionless
+    **Units:**
+
+    - lti: dimensionless
 
     This function wraps `xclim.indicators.atmos.latitude_temperature_index <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.latitude_temperature_index>`_.
 
@@ -1975,7 +2099,9 @@ def maximum_consecutive_warm_days(
     Maximum number of consecutive days where the maximum daily temperature exceeds a certain
     threshold.
 
-    **Units:** days
+    **Units:**
+
+    - maximum_consecutive_warm_days: days
 
     This function wraps `xclim.indicators.atmos.maximum_consecutive_warm_days <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.maximum_consecutive_warm_days>`_.
 
@@ -2005,7 +2131,9 @@ def tg10p(
 
     Number of days with mean temperature below the 10th percentile.
 
-    **Units:** days
+    **Units:**
+
+    - tg10p: days
 
     This function wraps `xclim.indicators.atmos.tg10p <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.tg10p>`_.
 
@@ -2035,7 +2163,9 @@ def tg90p(
 
     Number of days with mean temperature above the 90th percentile.
 
-    **Units:** days
+    **Units:**
+
+    - tg90p: days
 
     This function wraps `xclim.indicators.atmos.tg90p <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.tg90p>`_.
 
@@ -2065,7 +2195,9 @@ def tg_days_above(
 
     The number of days with mean temperature above a given threshold.
 
-    **Units:** days
+    **Units:**
+
+    - tg_days_above: days
 
     This function wraps `xclim.indicators.atmos.tg_days_above <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.tg_days_above>`_.
 
@@ -2095,7 +2227,9 @@ def tg_days_below(
 
     The number of days with mean temperature below a given threshold.
 
-    **Units:** days
+    **Units:**
+
+    - tg_days_below: days
 
     This function wraps `xclim.indicators.atmos.tg_days_below <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.tg_days_below>`_.
 
@@ -2125,7 +2259,9 @@ def tg_max(
 
     Maximum of daily mean temperature.
 
-    **Units:** K
+    **Units:**
+
+    - tg_max: K
 
     This function wraps `xclim.indicators.atmos.tg_max <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.tg_max>`_.
 
@@ -2155,7 +2291,9 @@ def tg_mean(
 
     Mean of daily mean temperature.
 
-    **Units:** K
+    **Units:**
+
+    - tg_mean: K
 
     This function wraps `xclim.indicators.atmos.tg_mean <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.tg_mean>`_.
 
@@ -2185,7 +2323,9 @@ def tg_min(
 
     Minimum of daily mean temperature.
 
-    **Units:** K
+    **Units:**
+
+    - tg_min: K
 
     This function wraps `xclim.indicators.atmos.tg_min <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.tg_min>`_.
 
@@ -2216,7 +2356,9 @@ def thawing_degree_days(
     The cumulative degree days for days when the average temperature is above a given
     threshold, typically 0°C.
 
-    **Units:** K days
+    **Units:**
+
+    - thawing_degree_days: K days
 
     This function wraps `xclim.indicators.atmos.thawing_degree_days <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.thawing_degree_days>`_.
 
@@ -2246,7 +2388,9 @@ def tn10p(
 
     Number of days with minimum temperature below the 10th percentile.
 
-    **Units:** days
+    **Units:**
+
+    - tn10p: days
 
     This function wraps `xclim.indicators.atmos.tn10p <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.tn10p>`_.
 
@@ -2276,7 +2420,9 @@ def tn90p(
 
     Number of days with minimum temperature above the 90th percentile.
 
-    **Units:** days
+    **Units:**
+
+    - tn90p: days
 
     This function wraps `xclim.indicators.atmos.tn90p <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.tn90p>`_.
 
@@ -2306,7 +2452,9 @@ def tn_days_above(
 
     The number of days with minimum temperature above a given threshold.
 
-    **Units:** days
+    **Units:**
+
+    - tn_days_above: days
 
     This function wraps `xclim.indicators.atmos.tn_days_above <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.tn_days_above>`_.
 
@@ -2336,7 +2484,9 @@ def tn_days_below(
 
     The number of days with minimum temperature below a given threshold.
 
-    **Units:** days
+    **Units:**
+
+    - tn_days_below: days
 
     This function wraps `xclim.indicators.atmos.tn_days_below <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.tn_days_below>`_.
 
@@ -2366,7 +2516,9 @@ def tn_max(
 
     Maximum of daily minimum temperature.
 
-    **Units:** K
+    **Units:**
+
+    - tn_max: K
 
     This function wraps `xclim.indicators.atmos.tn_max <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.tn_max>`_.
 
@@ -2396,7 +2548,9 @@ def tn_mean(
 
     Mean of daily minimum temperature.
 
-    **Units:** K
+    **Units:**
+
+    - tn_mean: K
 
     This function wraps `xclim.indicators.atmos.tn_mean <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.tn_mean>`_.
 
@@ -2426,7 +2580,9 @@ def tn_min(
 
     Minimum of daily minimum temperature.
 
-    **Units:** K
+    **Units:**
+
+    - tn_min: K
 
     This function wraps `xclim.indicators.atmos.tn_min <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.tn_min>`_.
 
@@ -2456,7 +2612,9 @@ def tropical_nights(
 
     Number of days where minimum temperature is above a given threshold.
 
-    **Units:** days
+    **Units:**
+
+    - tropical_nights: days
 
     This function wraps `xclim.indicators.atmos.tropical_nights <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.tropical_nights>`_.
 
@@ -2486,7 +2644,9 @@ def tx10p(
 
     Number of days with maximum temperature below the 10th percentile.
 
-    **Units:** days
+    **Units:**
+
+    - tx10p: days
 
     This function wraps `xclim.indicators.atmos.tx10p <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.tx10p>`_.
 
@@ -2516,7 +2676,9 @@ def tx90p(
 
     Number of days with maximum temperature above the 90th percentile.
 
-    **Units:** days
+    **Units:**
+
+    - tx90p: days
 
     This function wraps `xclim.indicators.atmos.tx90p <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.tx90p>`_.
 
@@ -2546,7 +2708,9 @@ def tx_days_above(
 
     The number of days with maximum temperature above a given threshold.
 
-    **Units:** days
+    **Units:**
+
+    - tx_days_above: days
 
     This function wraps `xclim.indicators.atmos.tx_days_above <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.tx_days_above>`_.
 
@@ -2576,7 +2740,9 @@ def tx_days_below(
 
     The number of days with maximum temperature below a given threshold.
 
-    **Units:** days
+    **Units:**
+
+    - tx_days_below: days
 
     This function wraps `xclim.indicators.atmos.tx_days_below <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.tx_days_below>`_.
 
@@ -2606,7 +2772,9 @@ def tx_max(
 
     Maximum of daily maximum temperature.
 
-    **Units:** K
+    **Units:**
+
+    - tx_max: K
 
     This function wraps `xclim.indicators.atmos.tx_max <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.tx_max>`_.
 
@@ -2636,7 +2804,9 @@ def tx_mean(
 
     Mean of daily maximum temperature.
 
-    **Units:** K
+    **Units:**
+
+    - tx_mean: K
 
     This function wraps `xclim.indicators.atmos.tx_mean <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.tx_mean>`_.
 
@@ -2666,7 +2836,9 @@ def tx_min(
 
     Minimum of daily maximum temperature.
 
-    **Units:** K
+    **Units:**
+
+    - tx_min: K
 
     This function wraps `xclim.indicators.atmos.tx_min <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.tx_min>`_.
 
@@ -2696,7 +2868,9 @@ def tx_tn_days_above(
 
     Number of days with daily maximum and minimum temperatures above given thresholds.
 
-    **Units:** days
+    **Units:**
+
+    - tx_tn_days_above: days
 
     This function wraps `xclim.indicators.atmos.tx_tn_days_above <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.tx_tn_days_above>`_.
 
@@ -2730,7 +2904,9 @@ def usda_hardiness_zones(
     Fahrenheit zones, with 5-degree Fahrenheit half-zones, starting from -65 degrees
     Fahrenheit and ending at 65 degrees Fahrenheit.
 
-    **Units:** dimensionless
+    **Units:**
+
+    - hz: dimensionless
 
     This function wraps `xclim.indicators.atmos.usda_hardiness_zones <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.usda_hardiness_zones>`_.
 
@@ -2762,7 +2938,9 @@ def warm_spell_duration_index(
     maximum daily temperature is above a given percentile for a given number of consecutive
     days.
 
-    **Units:** days
+    **Units:**
+
+    - warm_spell_duration_index: days
 
     This function wraps `xclim.indicators.atmos.warm_spell_duration_index <https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.warm_spell_duration_index>`_.
 
