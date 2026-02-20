@@ -12,9 +12,8 @@ from __future__ import annotations
 
 from typing import Any, Dict, Mapping, Tuple
 
-import xarray
-
 import earthkit.data as ekd
+import xarray
 
 EarthkitData = ekd.FieldList | ekd.Field
 MetadataDict = Dict[str, Any]
