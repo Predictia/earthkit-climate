@@ -10,12 +10,12 @@ from typing import Any
 
 import pytest
 import xarray as xr
+from earthkit.data.wrappers.xarray import XArrayDatasetWrapper
 
 from earthkit.climate.utils.conversions import (
     to_earthkit_field,
     to_xarray_dataset,
 )
-from earthkit.data.wrappers.xarray import XArrayDatasetWrapper
 
 
 @pytest.mark.parametrize(
