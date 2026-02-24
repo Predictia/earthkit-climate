@@ -1,5 +1,4 @@
 [dependencies]
-earthkit-data = ">=0.17.0"
 flox = ">=0.11.0,<0.12"
 numpy = ">=1.22"
 python = "3.12.*"
@@ -35,7 +34,9 @@ docs-build = "rm -rf docs/_api docs/_build && sphinx-build -M html docs docs/_bu
 
 [pypi-dependencies]
 earthkit-climate = {path = ".", editable = true}
+earthkit-data = {git = "https://github.com/ecmwf/earthkit-data.git", branch = "883-hackathon-20260127-inputs-transforms-decorator-freeze"}
 earthkit-plots = ">=0.5.0"
+earthkit-utils = {git = "https://github.com/ecmwf/earthkit-utils.git", branch = "feature/proc-hackathon-units"}
 
 [tasks]
 qa = "pre-commit run --all-files"
