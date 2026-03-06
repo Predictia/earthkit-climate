@@ -152,8 +152,6 @@ def generate_docstring(indicator: Any, xclim_func_name: str) -> str:
     params_lines = [
         "Parameters",
         "----------",
-        "ds : xarray.Dataset | Any",
-        "    Input dataset.",
     ]
 
     try:
@@ -182,6 +180,8 @@ def generate_docstring(indicator: Any, xclim_func_name: str) -> str:
     except Exception:
         pass
 
+    params_lines.append("ds : xarray.Dataset | Any")
+    params_lines.append("    Input dataset.")
     params_lines.append("**kwargs : Any")
     params_lines.append("    Additional keyword arguments.")
 
@@ -201,7 +201,7 @@ def generate_docstring(indicator: Any, xclim_func_name: str) -> str:
 
 def format_signature_params(indicator: Any) -> str:
     """Format the parameters for the function signature."""
-    params = ["    ds: xarray.Dataset | Any,"]
+    params = []
 
     try:
         sig = inspect.signature(indicator)
@@ -233,6 +233,9 @@ def format_signature_params(indicator: Any) -> str:
             type_hint = simplify_type(p.annotation)
             default_val = repr(p.default)
             params.append(f"    {p.name}: {type_hint} = {default_val},")
+
+        # Add ds here
+        params.append("    ds: xarray.Dataset | Any = None,")
 
         if kw_only:
             params.append("    *,")

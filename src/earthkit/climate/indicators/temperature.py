@@ -20,8 +20,8 @@ from earthkit.utils.decorators.format_handlers import format_handler
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.australian_hardiness_zones)
 def australian_hardiness_zones(
-    ds: xarray.Dataset | Any,
     tasmin: xarray.DataArray | str = 'tasmin',
+    ds: xarray.Dataset | Any = None,
     *,
     window: int = 30,
     freq: str = 'YS',
@@ -45,14 +45,14 @@ def australian_hardiness_zones(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tasmin : xarray.DataArray | str
         Minimum temperature.
     window : int
         The length of the averaging window, in years.
     freq : str
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -72,10 +72,10 @@ def australian_hardiness_zones(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.biologically_effective_degree_days)
 def biologically_effective_degree_days(
-    ds: xarray.Dataset | Any,
     tasmin: xarray.DataArray | str = 'tasmin',
     tasmax: xarray.DataArray | str = 'tasmax',
     lat: xarray.DataArray | str = 'lat',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh_tasmin: Any = '10 degC',
     method: Literal['gladstones', 'icclim', 'jones', 'smoothed', 'stepwise'] = 'gladstones',
@@ -106,8 +106,6 @@ def biologically_effective_degree_days(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tasmin : xarray.DataArray | str
         Minimum daily temperature.
     tasmax : xarray.DataArray | str
@@ -148,6 +146,8 @@ def biologically_effective_degree_days(
         date is non-inclusive.
     freq : str
         Resampling frequency (For Southern Hemisphere, should be "YS-JUL").
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -176,8 +176,8 @@ def biologically_effective_degree_days(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.cold_spell_days)
 def cold_spell_days(
-    ds: xarray.Dataset | Any,
     tas: xarray.DataArray | str = 'tas',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '-10 degC',
     window: int = 5,
@@ -201,8 +201,6 @@ def cold_spell_days(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tas : xarray.DataArray | str
         Mean daily temperature.
     thresh : Any
@@ -217,6 +215,8 @@ def cold_spell_days(
     resample_before_rl : bool
         Determines if the resampling should take place before or after the run length
         encoding (or a similar algorithm) is applied to runs.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -239,9 +239,9 @@ def cold_spell_days(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.cold_spell_duration_index)
 def cold_spell_duration_index(
-    ds: xarray.Dataset | Any,
     tasmin: xarray.DataArray | str = 'tasmin',
     tasmin_per: xarray.DataArray | str = 'tasmin_per',
+    ds: xarray.Dataset | Any = None,
     *,
     window: int = 6,
     freq: str = 'YS',
@@ -266,8 +266,6 @@ def cold_spell_duration_index(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tasmin : xarray.DataArray | str
         Minimum daily temperature.
     tasmin_per : xarray.DataArray | str
@@ -288,6 +286,8 @@ def cold_spell_duration_index(
         computationally expensive, and it might provide the wrong results.
     op : Literal['<', '<=', 'lt', 'le']
         Comparison operation. Default: "<".
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -311,8 +311,8 @@ def cold_spell_duration_index(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.cold_spell_frequency)
 def cold_spell_frequency(
-    ds: xarray.Dataset | Any,
     tas: xarray.DataArray | str = 'tas',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '-10 degC',
     window: int = 5,
@@ -336,8 +336,6 @@ def cold_spell_frequency(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tas : xarray.DataArray | str
         Mean daily temperature.
     thresh : Any
@@ -351,6 +349,8 @@ def cold_spell_frequency(
         Comparison operation. Default: "<".
     resample_before_rl : bool
         Determines if the resampling should take place before or after the run.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -373,8 +373,8 @@ def cold_spell_frequency(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.cold_spell_max_length)
 def cold_spell_max_length(
-    ds: xarray.Dataset | Any,
     tas: xarray.DataArray | str = 'tas',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '-10 degC',
     window: int = 1,
@@ -398,8 +398,6 @@ def cold_spell_max_length(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tas : xarray.DataArray | str
         Mean daily temperature.
     thresh : Any
@@ -414,6 +412,8 @@ def cold_spell_max_length(
     resample_before_rl : bool
         Determines if the resampling should take place before or after the run length
         encoding (or a similar algorithm) is applied to runs.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -436,8 +436,8 @@ def cold_spell_max_length(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.cold_spell_total_length)
 def cold_spell_total_length(
-    ds: xarray.Dataset | Any,
     tas: xarray.DataArray | str = 'tas',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '-10 degC',
     window: int = 3,
@@ -461,8 +461,6 @@ def cold_spell_total_length(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tas : xarray.DataArray | str
         Mean daily temperature.
     thresh : Any
@@ -477,6 +475,8 @@ def cold_spell_total_length(
     resample_before_rl : bool
         Determines if the resampling should take place before or after the run length
         encoding (or a similar algorithm) is applied to runs.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -499,8 +499,8 @@ def cold_spell_total_length(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.consecutive_frost_days)
 def consecutive_frost_days(
-    ds: xarray.Dataset | Any,
     tasmin: xarray.DataArray | str = 'tasmin',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '0 degC',
     freq: str = 'YS-JUL',
@@ -521,8 +521,6 @@ def consecutive_frost_days(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tasmin : xarray.DataArray | str
         Minimum daily temperature.
     thresh : Any
@@ -532,6 +530,8 @@ def consecutive_frost_days(
     resample_before_rl : bool
         Determines if the resampling should take place before or after the run length
         encoding (or a similar algorithm) is applied to runs.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -552,8 +552,8 @@ def consecutive_frost_days(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.maximum_consecutive_frost_free_days)
 def maximum_consecutive_frost_free_days(
-    ds: xarray.Dataset | Any,
     tasmin: xarray.DataArray | str = 'tasmin',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '0 degC',
     freq: str = 'YS',
@@ -575,8 +575,6 @@ def maximum_consecutive_frost_free_days(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tasmin : xarray.DataArray | str
         Minimum daily temperature.
     thresh : Any
@@ -586,6 +584,8 @@ def maximum_consecutive_frost_free_days(
     resample_before_rl : bool
         Determines if the resampling should take place before or after the run length
         encoding (or a similar algorithm) is applied to runs.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -606,9 +606,9 @@ def maximum_consecutive_frost_free_days(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.cool_night_index)
 def cool_night_index(
-    ds: xarray.Dataset | Any,
     tasmin: xarray.DataArray | str = 'tasmin',
     lat: xarray.DataArray | str | None = None,
+    ds: xarray.Dataset | Any = None,
     *,
     freq: Literal['YS', 'YS-JAN'] = 'YS',
     **kwargs: Any,
@@ -628,8 +628,6 @@ def cool_night_index(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tasmin : xarray.DataArray | str
         Minimum daily temperature.
     lat : xarray.DataArray | str | None
@@ -637,6 +635,8 @@ def cool_night_index(
         "latitude" field must be available within the passed DataArray.
     freq : Literal['YS', 'YS-JAN']
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -656,8 +656,8 @@ def cool_night_index(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.cooling_degree_days)
 def cooling_degree_days(
-    ds: xarray.Dataset | Any,
     tas: xarray.DataArray | str = 'tas',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '18.0 degC',
     freq: str = 'YS',
@@ -678,14 +678,14 @@ def cooling_degree_days(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tas : xarray.DataArray | str
         Mean daily temperature.
     thresh : Any
         Temperature threshold above which air is cooled.
     freq : str
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -705,10 +705,10 @@ def cooling_degree_days(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.cooling_degree_days_approximation)
 def cooling_degree_days_approximation(
-    ds: xarray.Dataset | Any,
     tasmax: xarray.DataArray | str = 'tasmax',
     tasmin: xarray.DataArray | str = 'tasmin',
     tas: xarray.DataArray | str = 'tas',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '18.0 degC',
     freq: str = 'YS',
@@ -731,8 +731,6 @@ def cooling_degree_days_approximation(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tasmax : xarray.DataArray | str
         Maximum daily temperature.
     tasmin : xarray.DataArray | str
@@ -743,6 +741,8 @@ def cooling_degree_days_approximation(
         Temperature threshold above which air is cooled.
     freq : str
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -764,9 +764,9 @@ def cooling_degree_days_approximation(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.corn_heat_units)
 def corn_heat_units(
-    ds: xarray.Dataset | Any,
     tasmin: xarray.DataArray | str = 'tasmin',
     tasmax: xarray.DataArray | str = 'tasmax',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh_tasmin: Any = '4.44 degC',
     thresh_tasmax: Any = '10 degC',
@@ -787,8 +787,6 @@ def corn_heat_units(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tasmin : xarray.DataArray | str
         Minimum daily temperature.
     tasmax : xarray.DataArray | str
@@ -797,6 +795,8 @@ def corn_heat_units(
         The minimum temperature threshold needed for corn growth.
     thresh_tasmax : Any
         The maximum temperature threshold needed for corn growth.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -817,8 +817,8 @@ def corn_heat_units(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.chill_portions)
 def chill_portions(
-    ds: xarray.Dataset | Any,
     tas: xarray.DataArray | str = 'tas',
+    ds: xarray.Dataset | Any = None,
     *,
     freq: str = 'YS',
     **kwargs: Any,
@@ -845,12 +845,12 @@ def chill_portions(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tas : xarray.DataArray | str
         Hourly temperature.
     freq : str
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -869,8 +869,8 @@ def chill_portions(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.chill_units)
 def chill_units(
-    ds: xarray.Dataset | Any,
     tas: xarray.DataArray | str = 'tas',
+    ds: xarray.Dataset | Any = None,
     *,
     positive_only: bool = False,
     freq: str = 'YS',
@@ -894,14 +894,14 @@ def chill_units(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tas : xarray.DataArray | str
         Hourly temperature.
     positive_only : bool
         If `True`, only positive daily chill units are aggregated.
     freq : str
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -921,8 +921,8 @@ def chill_units(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.degree_days_exceedance_date)
 def degree_days_exceedance_date(
-    ds: xarray.Dataset | Any,
     tas: xarray.DataArray | str = 'tas',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '0 degC',
     sum_thresh: Any = '25 K days',
@@ -947,8 +947,6 @@ def degree_days_exceedance_date(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tas : xarray.DataArray | str
         Mean daily temperature.
     thresh : Any
@@ -967,6 +965,8 @@ def degree_days_exceedance_date(
         assigned. Default (None) assigns "NaN".
     freq : str
         Resampling frequency. If `after_date` is given, `freq` should be annual.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -990,9 +990,9 @@ def degree_days_exceedance_date(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.daily_freezethaw_cycles)
 def daily_freezethaw_cycles(
-    ds: xarray.Dataset | Any,
     tasmin: xarray.DataArray | str = 'tasmin',
     tasmax: xarray.DataArray | str = 'tasmax',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh_tasmin: Any = '0 degC',
     thresh_tasmax: Any = '0 degC',
@@ -1018,8 +1018,6 @@ def daily_freezethaw_cycles(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tasmin : xarray.DataArray | str
         Minimum daily temperature.
     tasmax : xarray.DataArray | str
@@ -1037,6 +1035,8 @@ def daily_freezethaw_cycles(
     resample_before_rl : bool
         Determines if the resampling should take place before or after the run length
         encoding (or a similar algorithm) is applied to runs.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -1061,9 +1061,9 @@ def daily_freezethaw_cycles(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.daily_temperature_range)
 def daily_temperature_range(
-    ds: xarray.Dataset | Any,
     tasmin: xarray.DataArray | str = 'tasmin',
     tasmax: xarray.DataArray | str = 'tasmax',
+    ds: xarray.Dataset | Any = None,
     *,
     freq: str = 'YS',
     **kwargs: Any,
@@ -1082,14 +1082,14 @@ def daily_temperature_range(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tasmin : xarray.DataArray | str
         Minimum daily temperature.
     tasmax : xarray.DataArray | str
         Maximum daily temperature.
     freq : str
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -1109,9 +1109,9 @@ def daily_temperature_range(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.max_daily_temperature_range)
 def max_daily_temperature_range(
-    ds: xarray.Dataset | Any,
     tasmin: xarray.DataArray | str = 'tasmin',
     tasmax: xarray.DataArray | str = 'tasmax',
+    ds: xarray.Dataset | Any = None,
     *,
     freq: str = 'YS',
     **kwargs: Any,
@@ -1130,14 +1130,14 @@ def max_daily_temperature_range(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tasmin : xarray.DataArray | str
         Minimum daily temperature.
     tasmax : xarray.DataArray | str
         Maximum daily temperature.
     freq : str
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -1157,9 +1157,9 @@ def max_daily_temperature_range(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.daily_temperature_range_variability)
 def daily_temperature_range_variability(
-    ds: xarray.Dataset | Any,
     tasmin: xarray.DataArray | str = 'tasmin',
     tasmax: xarray.DataArray | str = 'tasmax',
+    ds: xarray.Dataset | Any = None,
     *,
     freq: str = 'YS',
     **kwargs: Any,
@@ -1178,14 +1178,14 @@ def daily_temperature_range_variability(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tasmin : xarray.DataArray | str
         Minimum daily temperature.
     tasmax : xarray.DataArray | str
         Maximum daily temperature.
     freq : str
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -1205,9 +1205,9 @@ def daily_temperature_range_variability(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.extreme_temperature_range)
 def extreme_temperature_range(
-    ds: xarray.Dataset | Any,
     tasmin: xarray.DataArray | str = 'tasmin',
     tasmax: xarray.DataArray | str = 'tasmax',
+    ds: xarray.Dataset | Any = None,
     *,
     freq: str = 'YS',
     **kwargs: Any,
@@ -1226,14 +1226,14 @@ def extreme_temperature_range(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tasmin : xarray.DataArray | str
         Minimum daily temperature.
     tasmax : xarray.DataArray | str
         Maximum daily temperature.
     freq : str
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -1253,9 +1253,9 @@ def extreme_temperature_range(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.fire_season)
 def fire_season(
-    ds: xarray.Dataset | Any,
     tas: xarray.DataArray | str = 'tas',
     snd: xarray.DataArray | str | None = None,
+    ds: xarray.Dataset | Any = None,
     *,
     method: str = 'WF93',
     freq: str | None = None,
@@ -1281,8 +1281,6 @@ def fire_season(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tas : xarray.DataArray | str
         Daily surface temperature, cffdrs recommends using maximum daily temperature.
     snd : xarray.DataArray | str | None
@@ -1306,6 +1304,8 @@ def fire_season(
     snow_thresh : Any
         Minimal snow depth level to end a fire season, only used with method "LA08". Must be
         scalar.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -1331,8 +1331,8 @@ def fire_season(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.first_day_tg_above)
 def first_day_tg_above(
-    ds: xarray.Dataset | Any,
     tas: xarray.DataArray | str = 'tas',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '0 degC',
     op: Literal['>', 'gt', '>=', 'ge'] = '>',
@@ -1356,8 +1356,6 @@ def first_day_tg_above(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tas : xarray.DataArray | str
         Daily temperature.
     thresh : Any
@@ -1371,6 +1369,8 @@ def first_day_tg_above(
         Minimum number of days with temperature above the threshold needed for evaluation.
     freq : str
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -1393,8 +1393,8 @@ def first_day_tg_above(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.first_day_tg_below)
 def first_day_tg_below(
-    ds: xarray.Dataset | Any,
     tas: xarray.DataArray | str = 'tas',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '0 degC',
     op: Literal['<', 'lt', '<=', 'le'] = '<',
@@ -1418,8 +1418,6 @@ def first_day_tg_below(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tas : xarray.DataArray | str
         Daily temperature.
     thresh : Any
@@ -1433,6 +1431,8 @@ def first_day_tg_below(
         Minimum number of days with temperature below the threshold needed for evaluation.
     freq : str
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -1455,8 +1455,8 @@ def first_day_tg_below(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.first_day_tn_above)
 def first_day_tn_above(
-    ds: xarray.Dataset | Any,
     tasmin: xarray.DataArray | str = 'tasmin',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '0 degC',
     op: Literal['>', 'gt', '>=', 'ge'] = '>',
@@ -1480,8 +1480,6 @@ def first_day_tn_above(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tasmin : xarray.DataArray | str
         Minimum surface temperature.
     thresh : Any
@@ -1495,6 +1493,8 @@ def first_day_tn_above(
         Minimum number of days with temperature above the threshold needed for evaluation.
     freq : str
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -1517,8 +1517,8 @@ def first_day_tn_above(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.first_day_tn_below)
 def first_day_tn_below(
-    ds: xarray.Dataset | Any,
     tasmin: xarray.DataArray | str = 'tasmin',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '0 degC',
     op: Literal['<', 'lt', '<=', 'le'] = '<',
@@ -1542,8 +1542,6 @@ def first_day_tn_below(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tasmin : xarray.DataArray | str
         Minimum surface temperature.
     thresh : Any
@@ -1557,6 +1555,8 @@ def first_day_tn_below(
         Minimum number of days with temperature below the threshold needed for evaluation.
     freq : str
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -1579,8 +1579,8 @@ def first_day_tn_below(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.first_day_tx_above)
 def first_day_tx_above(
-    ds: xarray.Dataset | Any,
     tasmax: xarray.DataArray | str = 'tasmax',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '0 degC',
     op: Literal['>', 'gt', '>=', 'ge'] = '>',
@@ -1604,8 +1604,6 @@ def first_day_tx_above(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tasmax : xarray.DataArray | str
         Maximum surface temperature.
     thresh : Any
@@ -1619,6 +1617,8 @@ def first_day_tx_above(
         Minimum number of days with temperature above the threshold needed for evaluation.
     freq : str
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -1641,8 +1641,8 @@ def first_day_tx_above(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.first_day_tx_below)
 def first_day_tx_below(
-    ds: xarray.Dataset | Any,
     tasmax: xarray.DataArray | str = 'tasmax',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '0 degC',
     op: Literal['<', 'lt', '<=', 'le'] = '<',
@@ -1666,8 +1666,6 @@ def first_day_tx_below(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tasmax : xarray.DataArray | str
         Maximum surface temperature.
     thresh : Any
@@ -1681,6 +1679,8 @@ def first_day_tx_below(
         Minimum number of days with temperature below the threshold needed for evaluation.
     freq : str
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -1703,9 +1703,9 @@ def first_day_tx_below(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.freezethaw_spell_frequency)
 def freezethaw_spell_frequency(
-    ds: xarray.Dataset | Any,
     tasmin: xarray.DataArray | str = 'tasmin',
     tasmax: xarray.DataArray | str = 'tasmax',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh_tasmin: Any = '0 degC',
     thresh_tasmax: Any = '0 degC',
@@ -1732,8 +1732,6 @@ def freezethaw_spell_frequency(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tasmin : xarray.DataArray | str
         Minimum daily temperature.
     tasmax : xarray.DataArray | str
@@ -1753,6 +1751,8 @@ def freezethaw_spell_frequency(
     resample_before_rl : bool
         Determines if the resampling should take place before or after the run length
         encoding (or a similar algorithm) is applied to runs.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -1778,9 +1778,9 @@ def freezethaw_spell_frequency(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.freezethaw_spell_max_length)
 def freezethaw_spell_max_length(
-    ds: xarray.Dataset | Any,
     tasmin: xarray.DataArray | str = 'tasmin',
     tasmax: xarray.DataArray | str = 'tasmax',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh_tasmin: Any = '0 degC',
     thresh_tasmax: Any = '0 degC',
@@ -1807,8 +1807,6 @@ def freezethaw_spell_max_length(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tasmin : xarray.DataArray | str
         Minimum daily temperature.
     tasmax : xarray.DataArray | str
@@ -1828,6 +1826,8 @@ def freezethaw_spell_max_length(
     resample_before_rl : bool
         Determines if the resampling should take place before or after the run length
         encoding (or a similar algorithm) is applied to runs.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -1853,9 +1853,9 @@ def freezethaw_spell_max_length(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.freezethaw_spell_mean_length)
 def freezethaw_spell_mean_length(
-    ds: xarray.Dataset | Any,
     tasmin: xarray.DataArray | str = 'tasmin',
     tasmax: xarray.DataArray | str = 'tasmax',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh_tasmin: Any = '0 degC',
     thresh_tasmax: Any = '0 degC',
@@ -1880,8 +1880,6 @@ def freezethaw_spell_mean_length(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tasmin : xarray.DataArray | str
         Minimum daily temperature.
     tasmax : xarray.DataArray | str
@@ -1897,6 +1895,8 @@ def freezethaw_spell_mean_length(
     resample_before_rl : bool
         Determines if the resampling should take place before or after the run length
         encoding (or a similar algorithm) is applied to runs.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -1920,8 +1920,8 @@ def freezethaw_spell_mean_length(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.freezing_degree_days)
 def freezing_degree_days(
-    ds: xarray.Dataset | Any,
     tas: xarray.DataArray | str = 'tas',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '0 degC',
     freq: str = 'YS',
@@ -1942,14 +1942,14 @@ def freezing_degree_days(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tas : xarray.DataArray | str
         Mean daily temperature.
     thresh : Any
         Threshold temperature on which to base evaluation.
     freq : str
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -1969,8 +1969,8 @@ def freezing_degree_days(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.freshet_start)
 def freshet_start(
-    ds: xarray.Dataset | Any,
     tas: xarray.DataArray | str = 'tas',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '0 degC',
     op: Literal['>', 'gt', '>=', 'ge'] = '>',
@@ -1994,8 +1994,6 @@ def freshet_start(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tas : xarray.DataArray | str
         Daily temperature.
     thresh : Any
@@ -2009,6 +2007,8 @@ def freshet_start(
         Minimum number of days with temperature above the threshold needed for evaluation.
     freq : str
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -2031,8 +2031,8 @@ def freshet_start(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.frost_days)
 def frost_days(
-    ds: xarray.Dataset | Any,
     tasmin: xarray.DataArray | str = 'tasmin',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '0 degC',
     freq: str = 'YS',
@@ -2052,14 +2052,14 @@ def frost_days(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tasmin : xarray.DataArray | str
         Minimum daily temperature.
     thresh : Any
         Freezing temperature.
     freq : str
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -2079,8 +2079,8 @@ def frost_days(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.frost_free_season_end)
 def frost_free_season_end(
-    ds: xarray.Dataset | Any,
     tasmin: xarray.DataArray | str = 'tasmin',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '0 degC',
     window: int = 5,
@@ -2104,8 +2104,6 @@ def frost_free_season_end(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tasmin : xarray.DataArray | str
         Minimum daily temperature.
     thresh : Any
@@ -2119,6 +2117,8 @@ def frost_free_season_end(
         How to compare tasmin and the threshold.
     freq : str
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -2141,8 +2141,8 @@ def frost_free_season_end(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.frost_free_season_length)
 def frost_free_season_length(
-    ds: xarray.Dataset | Any,
     tasmin: xarray.DataArray | str = 'tasmin',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '0 degC',
     window: int = 5,
@@ -2167,8 +2167,6 @@ def frost_free_season_length(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tasmin : xarray.DataArray | str
         Minimum daily temperature.
     thresh : Any
@@ -2182,6 +2180,8 @@ def frost_free_season_length(
         How to compare tasmin and the threshold.
     freq : str
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -2204,8 +2204,8 @@ def frost_free_season_length(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.frost_free_season_start)
 def frost_free_season_start(
-    ds: xarray.Dataset | Any,
     tasmin: xarray.DataArray | str = 'tasmin',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '0 degC',
     window: int = 5,
@@ -2229,8 +2229,6 @@ def frost_free_season_start(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tasmin : xarray.DataArray | str
         Minimum daily temperature.
     thresh : Any
@@ -2244,6 +2242,8 @@ def frost_free_season_start(
         How to compare tasmin and the threshold.
     freq : str
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -2266,8 +2266,8 @@ def frost_free_season_start(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.frost_free_spell_max_length)
 def frost_free_spell_max_length(
-    ds: xarray.Dataset | Any,
     tasmin: xarray.DataArray | str = 'tasmin',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '0.0 degC',
     window: int = 1,
@@ -2291,8 +2291,6 @@ def frost_free_spell_max_length(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tasmin : xarray.DataArray | str
         Minimum daily temperature.
     thresh : Any
@@ -2307,6 +2305,8 @@ def frost_free_spell_max_length(
     resample_before_rl : bool
         Determines if the resampling should take place before or after the run length
         encoding (or a similar algorithm) is applied to runs.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -2329,8 +2329,8 @@ def frost_free_spell_max_length(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.frost_season_length)
 def frost_season_length(
-    ds: xarray.Dataset | Any,
     tasmin: xarray.DataArray | str = 'tasmin',
+    ds: xarray.Dataset | Any = None,
     *,
     window: int = 5,
     mid_date: str | None = '01-01',
@@ -2355,8 +2355,6 @@ def frost_season_length(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tasmin : xarray.DataArray | str
         Minimum daily temperature.
     window : int
@@ -2371,6 +2369,8 @@ def frost_season_length(
         Resampling frequency.
     op : Literal['<', 'lt', '<=', 'le']
         Comparison operation. Default: "<".
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -2393,8 +2393,8 @@ def frost_season_length(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.growing_degree_days)
 def growing_degree_days(
-    ds: xarray.Dataset | Any,
     tas: xarray.DataArray | str = 'tas',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '4.0 degC',
     freq: str = 'YS',
@@ -2415,14 +2415,14 @@ def growing_degree_days(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tas : xarray.DataArray | str
         Mean daily temperature.
     thresh : Any
         Threshold temperature on which to base evaluation.
     freq : str
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -2442,8 +2442,8 @@ def growing_degree_days(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.growing_season_end)
 def growing_season_end(
-    ds: xarray.Dataset | Any,
     tas: xarray.DataArray | str = 'tas',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '5.0 degC',
     mid_date: str | None = '07-01',
@@ -2467,8 +2467,6 @@ def growing_season_end(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tas : xarray.DataArray | str
         Mean daily temperature.
     thresh : Any
@@ -2484,6 +2482,8 @@ def growing_season_end(
         Comparison operation. Default: ">". Note that this comparison is what defines the
         season. The end of the season happens when the condition is NOT met for `window`
         consecutive days.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -2506,8 +2506,8 @@ def growing_season_end(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.growing_season_length)
 def growing_season_length(
-    ds: xarray.Dataset | Any,
     tas: xarray.DataArray | str = 'tas',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '5.0 degC',
     window: int = 6,
@@ -2532,8 +2532,6 @@ def growing_season_length(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tas : xarray.DataArray | str
         Mean daily temperature.
     thresh : Any
@@ -2548,6 +2546,8 @@ def growing_season_length(
         Resampling frequency.
     op : Literal['>', 'gt', '>=', 'ge']
         Comparison operation. Default: ">=".
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -2570,8 +2570,8 @@ def growing_season_length(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.growing_season_start)
 def growing_season_start(
-    ds: xarray.Dataset | Any,
     tas: xarray.DataArray | str = 'tas',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '5.0 degC',
     mid_date: str | None = '07-01',
@@ -2595,8 +2595,6 @@ def growing_season_start(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tas : xarray.DataArray | str
         Mean daily temperature.
     thresh : Any
@@ -2610,6 +2608,8 @@ def growing_season_start(
         Resampling frequency.
     op : Literal['>', 'gt', '>=', 'ge']
         Comparison operation. Default: ">=".
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -2632,9 +2632,9 @@ def growing_season_start(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.heat_spell_frequency)
 def heat_spell_frequency(
-    ds: xarray.Dataset | Any,
     tasmin: xarray.DataArray | str = 'tasmin',
     tasmax: xarray.DataArray | str = 'tasmax',
+    ds: xarray.Dataset | Any = None,
     *,
     window: int = 3,
     win_reducer: Literal['min', 'max', 'sum', 'mean'] = 'mean',
@@ -2660,8 +2660,6 @@ def heat_spell_frequency(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tasmin : xarray.DataArray | str
         Minimum surface temperature.
     tasmax : xarray.DataArray | str
@@ -2683,6 +2681,8 @@ def heat_spell_frequency(
         Threshold for tasmin
     thresh_tasmax : Any
         Threshold for tasmax
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -2708,9 +2708,9 @@ def heat_spell_frequency(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.heat_spell_max_length)
 def heat_spell_max_length(
-    ds: xarray.Dataset | Any,
     tasmin: xarray.DataArray | str = 'tasmin',
     tasmax: xarray.DataArray | str = 'tasmax',
+    ds: xarray.Dataset | Any = None,
     *,
     window: int = 3,
     win_reducer: Literal['min', 'max', 'sum', 'mean'] = 'mean',
@@ -2736,8 +2736,6 @@ def heat_spell_max_length(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tasmin : xarray.DataArray | str
         Minimum surface temperature.
     tasmax : xarray.DataArray | str
@@ -2759,6 +2757,8 @@ def heat_spell_max_length(
         Threshold for tasmin
     thresh_tasmax : Any
         Threshold for tasmax
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -2784,9 +2784,9 @@ def heat_spell_max_length(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.heat_spell_total_length)
 def heat_spell_total_length(
-    ds: xarray.Dataset | Any,
     tasmin: xarray.DataArray | str = 'tasmin',
     tasmax: xarray.DataArray | str = 'tasmax',
+    ds: xarray.Dataset | Any = None,
     *,
     window: int = 3,
     win_reducer: Literal['min', 'max', 'sum', 'mean'] = 'mean',
@@ -2812,8 +2812,6 @@ def heat_spell_total_length(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tasmin : xarray.DataArray | str
         Minimum surface temperature.
     tasmax : xarray.DataArray | str
@@ -2835,6 +2833,8 @@ def heat_spell_total_length(
         Threshold for tasmin
     thresh_tasmax : Any
         Threshold for tasmax
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -2860,9 +2860,9 @@ def heat_spell_total_length(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.heat_wave_frequency)
 def heat_wave_frequency(
-    ds: xarray.Dataset | Any,
     tasmin: xarray.DataArray | str = 'tasmin',
     tasmax: xarray.DataArray | str = 'tasmax',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh_tasmin: Any = '22.0 degC',
     thresh_tasmax: Any = '30 degC',
@@ -2887,8 +2887,6 @@ def heat_wave_frequency(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tasmin : xarray.DataArray | str
         Minimum daily temperature.
     tasmax : xarray.DataArray | str
@@ -2906,6 +2904,8 @@ def heat_wave_frequency(
     resample_before_rl : bool
         Determines if the resampling should take place before or after the run length
         encoding (or a similar algorithm) is applied to runs.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -2930,8 +2930,8 @@ def heat_wave_frequency(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.heat_wave_index)
 def heat_wave_index(
-    ds: xarray.Dataset | Any,
     tasmax: xarray.DataArray | str = 'tasmax',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '25 degC',
     window: int = 5,
@@ -2955,8 +2955,6 @@ def heat_wave_index(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tasmax : xarray.DataArray | str
         Maximum daily temperature.
     thresh : Any
@@ -2971,6 +2969,8 @@ def heat_wave_index(
     resample_before_rl : bool
         Determines if the resampling should take place before or after the run length
         encoding (or a similar algorithm) is applied to runs.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -2993,9 +2993,9 @@ def heat_wave_index(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.heat_wave_max_length)
 def heat_wave_max_length(
-    ds: xarray.Dataset | Any,
     tasmin: xarray.DataArray | str = 'tasmin',
     tasmax: xarray.DataArray | str = 'tasmax',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh_tasmin: Any = '22.0 degC',
     thresh_tasmax: Any = '30 degC',
@@ -3020,8 +3020,6 @@ def heat_wave_max_length(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tasmin : xarray.DataArray | str
         Minimum daily temperature.
     tasmax : xarray.DataArray | str
@@ -3039,6 +3037,8 @@ def heat_wave_max_length(
     resample_before_rl : bool
         Determines if the resampling should take place before or after the run length
         encoding (or a similar algorithm) is applied to runs.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -3063,9 +3063,9 @@ def heat_wave_max_length(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.heat_wave_total_length)
 def heat_wave_total_length(
-    ds: xarray.Dataset | Any,
     tasmin: xarray.DataArray | str = 'tasmin',
     tasmax: xarray.DataArray | str = 'tasmax',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh_tasmin: Any = '22.0 degC',
     thresh_tasmax: Any = '30 degC',
@@ -3090,8 +3090,6 @@ def heat_wave_total_length(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tasmin : xarray.DataArray | str
         Minimum daily temperature.
     tasmax : xarray.DataArray | str
@@ -3109,6 +3107,8 @@ def heat_wave_total_length(
     resample_before_rl : bool
         Determines if the resampling should take place before or after the run length
         encoding (or a similar algorithm) is applied to runs.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -3133,8 +3133,8 @@ def heat_wave_total_length(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.heating_degree_days)
 def heating_degree_days(
-    ds: xarray.Dataset | Any,
     tas: xarray.DataArray | str = 'tas',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '17.0 degC',
     freq: str = 'YS',
@@ -3155,14 +3155,14 @@ def heating_degree_days(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tas : xarray.DataArray | str
         Mean daily temperature.
     thresh : Any
         Threshold temperature on which to base evaluation.
     freq : str
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -3182,10 +3182,10 @@ def heating_degree_days(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.heating_degree_days_approximation)
 def heating_degree_days_approximation(
-    ds: xarray.Dataset | Any,
     tasmax: xarray.DataArray | str = 'tasmax',
     tasmin: xarray.DataArray | str = 'tasmin',
     tas: xarray.DataArray | str = 'tas',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '17.0 degC',
     freq: str = 'YS',
@@ -3208,8 +3208,6 @@ def heating_degree_days_approximation(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tasmax : xarray.DataArray | str
         Maximum daily temperature.
     tasmin : xarray.DataArray | str
@@ -3220,6 +3218,8 @@ def heating_degree_days_approximation(
         Threshold temperature on which to base evaluation.
     freq : str
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -3241,8 +3241,8 @@ def heating_degree_days_approximation(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.hot_days)
 def hot_days(
-    ds: xarray.Dataset | Any,
     tasmax: xarray.DataArray | str = 'tasmax',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '25 degC',
     freq: str = 'YS',
@@ -3262,14 +3262,14 @@ def hot_days(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tasmax : xarray.DataArray | str
         Maximum daily temperature.
     thresh : Any
         Threshold temperature.
     freq : str
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -3289,8 +3289,8 @@ def hot_days(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.hot_spell_frequency)
 def hot_spell_frequency(
-    ds: xarray.Dataset | Any,
     tasmax: xarray.DataArray | str = 'tasmax',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '30 degC',
     window: int = 3,
@@ -3314,8 +3314,6 @@ def hot_spell_frequency(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tasmax : xarray.DataArray | str
         Maximum daily temperature.
     thresh : Any
@@ -3329,6 +3327,8 @@ def hot_spell_frequency(
         Comparison operation. Default: ">".
     resample_before_rl : bool
         Determines if the resampling should take place before or after the run.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -3351,8 +3351,8 @@ def hot_spell_frequency(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.hot_spell_max_length)
 def hot_spell_max_length(
-    ds: xarray.Dataset | Any,
     tasmax: xarray.DataArray | str = 'tasmax',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '30 degC',
     window: int = 1,
@@ -3376,8 +3376,6 @@ def hot_spell_max_length(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tasmax : xarray.DataArray | str
         Maximum daily temperature.
     thresh : Any
@@ -3391,6 +3389,8 @@ def hot_spell_max_length(
     resample_before_rl : bool
         Determines if the resampling should take place before or after the run length
         encoding (or a similar algorithm) is applied to runs.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -3413,8 +3413,8 @@ def hot_spell_max_length(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.hot_spell_max_magnitude)
 def hot_spell_max_magnitude(
-    ds: xarray.Dataset | Any,
     tasmax: xarray.DataArray | str = 'tasmax',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '25.0 degC',
     window: int = 3,
@@ -3437,8 +3437,6 @@ def hot_spell_max_magnitude(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tasmax : xarray.DataArray | str
         Maximum daily temperature.
     thresh : Any
@@ -3451,6 +3449,8 @@ def hot_spell_max_magnitude(
     resample_before_rl : bool
         Determines if the resampling should take place before or after the run length
         encoding (or a similar algorithm) is applied to runs.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -3472,8 +3472,8 @@ def hot_spell_max_magnitude(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.hot_spell_total_length)
 def hot_spell_total_length(
-    ds: xarray.Dataset | Any,
     tasmax: xarray.DataArray | str = 'tasmax',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '30 degC',
     window: int = 3,
@@ -3497,8 +3497,6 @@ def hot_spell_total_length(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tasmax : xarray.DataArray | str
         Maximum daily temperature.
     thresh : Any
@@ -3513,6 +3511,8 @@ def hot_spell_total_length(
     resample_before_rl : bool
         Determines if the resampling should take place before or after the run length
         encoding (or a similar algorithm) is applied to runs.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -3535,10 +3535,10 @@ def hot_spell_total_length(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.huglin_index)
 def huglin_index(
-    ds: xarray.Dataset | Any,
     tas: xarray.DataArray | str = 'tas',
     tasmax: xarray.DataArray | str = 'tasmax',
     lat: xarray.DataArray | str = 'lat',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '10 degC',
     method: str = 'jones',
@@ -3566,8 +3566,6 @@ def huglin_index(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tas : xarray.DataArray | str
         Mean daily temperature.
     tasmax : xarray.DataArray | str
@@ -3596,6 +3594,8 @@ def huglin_index(
         date is non-inclusive.
     freq : Literal['YS', 'YS-JAN', 'YS-JUL']
         Resampling frequency (default: "YS"; For Southern Hemisphere, should be "YS-JUL").
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -3621,8 +3621,8 @@ def huglin_index(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.ice_days)
 def ice_days(
-    ds: xarray.Dataset | Any,
     tasmax: xarray.DataArray | str = 'tasmax',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '0 degC',
     freq: str = 'YS',
@@ -3642,14 +3642,14 @@ def ice_days(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tasmax : xarray.DataArray | str
         Maximum daily temperature.
     thresh : Any
         Freezing temperature.
     freq : str
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -3669,8 +3669,8 @@ def ice_days(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.last_spring_frost)
 def last_spring_frost(
-    ds: xarray.Dataset | Any,
     tasmin: xarray.DataArray | str = 'tasmin',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '0 degC',
     op: Literal['<', 'lt', '<=', 'le'] = '<',
@@ -3694,8 +3694,6 @@ def last_spring_frost(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tasmin : xarray.DataArray | str
         Mean daily temperature.
     thresh : Any
@@ -3709,6 +3707,8 @@ def last_spring_frost(
         Minimum number of days with temperature below the threshold needed for evaluation.
     freq : str
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -3731,8 +3731,8 @@ def last_spring_frost(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.late_frost_days)
 def late_frost_days(
-    ds: xarray.Dataset | Any,
     tasmin: xarray.DataArray | str = 'tasmin',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '0 degC',
     freq: str = 'YS',
@@ -3753,14 +3753,14 @@ def late_frost_days(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tasmin : xarray.DataArray | str
         Minimum daily temperature.
     thresh : Any
         Freezing temperature.
     freq : str
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -3780,9 +3780,9 @@ def late_frost_days(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.latitude_temperature_index)
 def latitude_temperature_index(
-    ds: xarray.Dataset | Any,
     tas: xarray.DataArray | str = 'tas',
     lat: xarray.DataArray | str = 'lat',
+    ds: xarray.Dataset | Any = None,
     *,
     freq: str = 'YS',
     **kwargs: Any,
@@ -3805,8 +3805,6 @@ def latitude_temperature_index(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tas : xarray.DataArray | str
         Mean daily temperature.
     lat : xarray.DataArray | str
@@ -3814,6 +3812,8 @@ def latitude_temperature_index(
         within the passed DataArray.
     freq : str
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -3833,8 +3833,8 @@ def latitude_temperature_index(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.maximum_consecutive_warm_days)
 def maximum_consecutive_warm_days(
-    ds: xarray.Dataset | Any,
     tasmax: xarray.DataArray | str = 'tasmax',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '25 degC',
     freq: str = 'YS',
@@ -3856,8 +3856,6 @@ def maximum_consecutive_warm_days(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tasmax : xarray.DataArray | str
         Max daily temperature.
     thresh : Any
@@ -3867,6 +3865,8 @@ def maximum_consecutive_warm_days(
     resample_before_rl : bool
         Determines if the resampling should take place before or after the run length
         encoding (or a similar algorithm) is applied to runs.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -3887,9 +3887,9 @@ def maximum_consecutive_warm_days(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.tg10p)
 def tg10p(
-    ds: xarray.Dataset | Any,
     tas: xarray.DataArray | str = 'tas',
     tas_per: xarray.DataArray | str = 'tas_per',
+    ds: xarray.Dataset | Any = None,
     *,
     freq: str = 'YS',
     bootstrap: bool = False,
@@ -3910,8 +3910,6 @@ def tg10p(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tas : xarray.DataArray | str
         Mean daily temperature.
     tas_per : xarray.DataArray | str
@@ -3927,6 +3925,8 @@ def tg10p(
         results. Note that bootstrapping is computationally expensive.
     op : Literal['>', '>=', 'gt', 'ge']
         Comparison operation. Default: "<".
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -3948,9 +3948,9 @@ def tg10p(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.tg90p)
 def tg90p(
-    ds: xarray.Dataset | Any,
     tas: xarray.DataArray | str = 'tas',
     tas_per: xarray.DataArray | str = 'tas_per',
+    ds: xarray.Dataset | Any = None,
     *,
     freq: str = 'YS',
     bootstrap: bool = False,
@@ -3971,8 +3971,6 @@ def tg90p(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tas : xarray.DataArray | str
         Mean daily temperature.
     tas_per : xarray.DataArray | str
@@ -3988,6 +3986,8 @@ def tg90p(
         results. Note that bootstrapping is computationally expensive.
     op : Literal['>', '>=', 'gt', 'ge']
         Comparison operation. Default: ">".
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -4009,8 +4009,8 @@ def tg90p(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.tg_days_above)
 def tg_days_above(
-    ds: xarray.Dataset | Any,
     tas: xarray.DataArray | str = 'tas',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '10.0 degC',
     freq: str = 'YS',
@@ -4031,8 +4031,6 @@ def tg_days_above(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tas : xarray.DataArray | str
         Mean daily temperature.
     thresh : Any
@@ -4041,6 +4039,8 @@ def tg_days_above(
         Resampling frequency.
     op : Literal['<', 'lt', '<=', 'le']
         Comparison operation. Default: ">".
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -4061,8 +4061,8 @@ def tg_days_above(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.tg_days_below)
 def tg_days_below(
-    ds: xarray.Dataset | Any,
     tas: xarray.DataArray | str = 'tas',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '10.0 degC',
     freq: str = 'YS',
@@ -4083,8 +4083,6 @@ def tg_days_below(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tas : xarray.DataArray | str
         Mean daily temperature.
     thresh : Any
@@ -4093,6 +4091,8 @@ def tg_days_below(
         Resampling frequency.
     op : Literal['<', 'lt', '<=', 'le']
         Comparison operation. Default: "<".
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -4113,8 +4113,8 @@ def tg_days_below(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.tg_max)
 def tg_max(
-    ds: xarray.Dataset | Any,
     tas: xarray.DataArray | str = 'tas',
+    ds: xarray.Dataset | Any = None,
     *,
     freq: str = 'YS',
     **kwargs: Any,
@@ -4133,12 +4133,12 @@ def tg_max(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tas : xarray.DataArray | str
         Mean daily temperature.
     freq : str
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -4157,8 +4157,8 @@ def tg_max(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.tg_mean)
 def tg_mean(
-    ds: xarray.Dataset | Any,
     tas: xarray.DataArray | str = 'tas',
+    ds: xarray.Dataset | Any = None,
     *,
     freq: str = 'YS',
     **kwargs: Any,
@@ -4177,12 +4177,12 @@ def tg_mean(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tas : xarray.DataArray | str
         Mean daily temperature.
     freq : str
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -4201,8 +4201,8 @@ def tg_mean(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.tg_min)
 def tg_min(
-    ds: xarray.Dataset | Any,
     tas: xarray.DataArray | str = 'tas',
+    ds: xarray.Dataset | Any = None,
     *,
     freq: str = 'YS',
     **kwargs: Any,
@@ -4221,12 +4221,12 @@ def tg_min(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tas : xarray.DataArray | str
         Mean daily temperature.
     freq : str
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -4245,8 +4245,8 @@ def tg_min(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.thawing_degree_days)
 def thawing_degree_days(
-    ds: xarray.Dataset | Any,
     tas: xarray.DataArray | str = 'tas',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '0 degC',
     freq: str = 'YS',
@@ -4267,14 +4267,14 @@ def thawing_degree_days(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tas : xarray.DataArray | str
         Mean daily temperature.
     thresh : Any
         Threshold temperature on which to base evaluation.
     freq : str
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -4294,9 +4294,9 @@ def thawing_degree_days(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.tn10p)
 def tn10p(
-    ds: xarray.Dataset | Any,
     tasmin: xarray.DataArray | str = 'tasmin',
     tasmin_per: xarray.DataArray | str = 'tasmin_per',
+    ds: xarray.Dataset | Any = None,
     *,
     freq: str = 'YS',
     bootstrap: bool = False,
@@ -4317,8 +4317,6 @@ def tn10p(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tasmin : xarray.DataArray | str
         Mean daily temperature.
     tasmin_per : xarray.DataArray | str
@@ -4334,6 +4332,8 @@ def tn10p(
         results. Note that bootstrapping is computationally expensive.
     op : Literal['<', '<=', 'lt', 'le']
         Comparison operation. Default: "<".
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -4355,9 +4355,9 @@ def tn10p(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.tn90p)
 def tn90p(
-    ds: xarray.Dataset | Any,
     tasmin: xarray.DataArray | str = 'tasmin',
     tasmin_per: xarray.DataArray | str = 'tasmin_per',
+    ds: xarray.Dataset | Any = None,
     *,
     freq: str = 'YS',
     bootstrap: bool = False,
@@ -4378,8 +4378,6 @@ def tn90p(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tasmin : xarray.DataArray | str
         Minimum daily temperature.
     tasmin_per : xarray.DataArray | str
@@ -4395,6 +4393,8 @@ def tn90p(
         results. Note that bootstrapping is computationally expensive.
     op : Literal['>', '>=', 'gt', 'ge']
         Comparison operation. Default: ">".
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -4416,8 +4416,8 @@ def tn90p(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.tn_days_above)
 def tn_days_above(
-    ds: xarray.Dataset | Any,
     tasmin: xarray.DataArray | str = 'tasmin',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '20.0 degC',
     freq: str = 'YS',
@@ -4438,8 +4438,6 @@ def tn_days_above(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tasmin : xarray.DataArray | str
         Minimum daily temperature.
     thresh : Any
@@ -4448,6 +4446,8 @@ def tn_days_above(
         Resampling frequency.
     op : Literal['>', 'gt', '>=', 'ge']
         Comparison operation. Default: ">".
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -4468,8 +4468,8 @@ def tn_days_above(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.tn_days_below)
 def tn_days_below(
-    ds: xarray.Dataset | Any,
     tasmin: xarray.DataArray | str = 'tasmin',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '-10.0 degC',
     freq: str = 'YS',
@@ -4490,8 +4490,6 @@ def tn_days_below(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tasmin : xarray.DataArray | str
         Minimum daily temperature.
     thresh : Any
@@ -4500,6 +4498,8 @@ def tn_days_below(
         Resampling frequency.
     op : Literal['<', 'lt', '<=', 'le']
         Comparison operation. Default: "<".
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -4520,8 +4520,8 @@ def tn_days_below(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.tn_max)
 def tn_max(
-    ds: xarray.Dataset | Any,
     tasmin: xarray.DataArray | str = 'tasmin',
+    ds: xarray.Dataset | Any = None,
     *,
     freq: str = 'YS',
     **kwargs: Any,
@@ -4540,12 +4540,12 @@ def tn_max(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tasmin : xarray.DataArray | str
         Minimum daily temperature.
     freq : str
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -4564,8 +4564,8 @@ def tn_max(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.tn_mean)
 def tn_mean(
-    ds: xarray.Dataset | Any,
     tasmin: xarray.DataArray | str = 'tasmin',
+    ds: xarray.Dataset | Any = None,
     *,
     freq: str = 'YS',
     **kwargs: Any,
@@ -4584,12 +4584,12 @@ def tn_mean(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tasmin : xarray.DataArray | str
         Minimum daily temperature.
     freq : str
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -4608,8 +4608,8 @@ def tn_mean(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.tn_min)
 def tn_min(
-    ds: xarray.Dataset | Any,
     tasmin: xarray.DataArray | str = 'tasmin',
+    ds: xarray.Dataset | Any = None,
     *,
     freq: str = 'YS',
     **kwargs: Any,
@@ -4628,12 +4628,12 @@ def tn_min(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tasmin : xarray.DataArray | str
         Minimum daily temperature.
     freq : str
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -4652,8 +4652,8 @@ def tn_min(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.tropical_nights)
 def tropical_nights(
-    ds: xarray.Dataset | Any,
     tasmin: xarray.DataArray | str = 'tasmin',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '20.0 degC',
     freq: str = 'YS',
@@ -4674,8 +4674,6 @@ def tropical_nights(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tasmin : xarray.DataArray | str
         Minimum daily temperature.
     thresh : Any
@@ -4684,6 +4682,8 @@ def tropical_nights(
         Resampling frequency.
     op : Literal['>', 'gt', '>=', 'ge']
         Comparison operation. Default: ">".
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -4704,9 +4704,9 @@ def tropical_nights(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.tx10p)
 def tx10p(
-    ds: xarray.Dataset | Any,
     tasmax: xarray.DataArray | str = 'tasmax',
     tasmax_per: xarray.DataArray | str = 'tasmax_per',
+    ds: xarray.Dataset | Any = None,
     *,
     freq: str = 'YS',
     bootstrap: bool = False,
@@ -4727,8 +4727,6 @@ def tx10p(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tasmax : xarray.DataArray | str
         Maximum daily temperature.
     tasmax_per : xarray.DataArray | str
@@ -4744,6 +4742,8 @@ def tx10p(
         results. Note that bootstrapping is computationally expensive.
     op : Literal['<', '<=', 'lt', 'le']
         Comparison operation. Default: "<".
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -4765,9 +4765,9 @@ def tx10p(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.tx90p)
 def tx90p(
-    ds: xarray.Dataset | Any,
     tasmax: xarray.DataArray | str = 'tasmax',
     tasmax_per: xarray.DataArray | str = 'tasmax_per',
+    ds: xarray.Dataset | Any = None,
     *,
     freq: str = 'YS',
     bootstrap: bool = False,
@@ -4788,8 +4788,6 @@ def tx90p(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tasmax : xarray.DataArray | str
         Maximum daily temperature.
     tasmax_per : xarray.DataArray | str
@@ -4805,6 +4803,8 @@ def tx90p(
         results. Note that bootstrapping is computationally expensive.
     op : Literal['<', '<=', 'lt', 'le']
         Comparison operation. Default: ">".
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -4826,8 +4826,8 @@ def tx90p(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.tx_days_above)
 def tx_days_above(
-    ds: xarray.Dataset | Any,
     tasmax: xarray.DataArray | str = 'tasmax',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '25.0 degC',
     freq: str = 'YS',
@@ -4848,8 +4848,6 @@ def tx_days_above(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tasmax : xarray.DataArray | str
         Maximum daily temperature.
     thresh : Any
@@ -4858,6 +4856,8 @@ def tx_days_above(
         Resampling frequency.
     op : Literal['>', 'gt', '>=', 'ge']
         Comparison operation. Default: ">".
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -4878,8 +4878,8 @@ def tx_days_above(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.tx_days_below)
 def tx_days_below(
-    ds: xarray.Dataset | Any,
     tasmax: xarray.DataArray | str = 'tasmax',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '25.0 degC',
     freq: str = 'YS',
@@ -4900,8 +4900,6 @@ def tx_days_below(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tasmax : xarray.DataArray | str
         Maximum daily temperature.
     thresh : Any
@@ -4910,6 +4908,8 @@ def tx_days_below(
         Resampling frequency.
     op : Literal['<', 'lt', '<=', 'le']
         Comparison operation. Default: "<".
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -4930,8 +4930,8 @@ def tx_days_below(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.tx_max)
 def tx_max(
-    ds: xarray.Dataset | Any,
     tasmax: xarray.DataArray | str = 'tasmax',
+    ds: xarray.Dataset | Any = None,
     *,
     freq: str = 'YS',
     **kwargs: Any,
@@ -4950,12 +4950,12 @@ def tx_max(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tasmax : xarray.DataArray | str
         Maximum daily temperature.
     freq : str
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -4974,8 +4974,8 @@ def tx_max(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.tx_mean)
 def tx_mean(
-    ds: xarray.Dataset | Any,
     tasmax: xarray.DataArray | str = 'tasmax',
+    ds: xarray.Dataset | Any = None,
     *,
     freq: str = 'YS',
     **kwargs: Any,
@@ -4994,12 +4994,12 @@ def tx_mean(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tasmax : xarray.DataArray | str
         Maximum daily temperature.
     freq : str
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -5018,8 +5018,8 @@ def tx_mean(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.tx_min)
 def tx_min(
-    ds: xarray.Dataset | Any,
     tasmax: xarray.DataArray | str = 'tasmax',
+    ds: xarray.Dataset | Any = None,
     *,
     freq: str = 'YS',
     **kwargs: Any,
@@ -5038,12 +5038,12 @@ def tx_min(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tasmax : xarray.DataArray | str
         Maximum daily temperature.
     freq : str
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -5062,9 +5062,9 @@ def tx_min(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.tx_tn_days_above)
 def tx_tn_days_above(
-    ds: xarray.Dataset | Any,
     tasmin: xarray.DataArray | str = 'tasmin',
     tasmax: xarray.DataArray | str = 'tasmax',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh_tasmin: Any = '22 degC',
     thresh_tasmax: Any = '30 degC',
@@ -5086,8 +5086,6 @@ def tx_tn_days_above(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tasmin : xarray.DataArray | str
         Minimum daily temperature.
     tasmax : xarray.DataArray | str
@@ -5100,6 +5098,8 @@ def tx_tn_days_above(
         Resampling frequency.
     op : Literal['>', '>=', 'gt', 'ge']
         Comparison operation. Default: ">".
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -5122,8 +5122,8 @@ def tx_tn_days_above(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.usda_hardiness_zones)
 def usda_hardiness_zones(
-    ds: xarray.Dataset | Any,
     tasmin: xarray.DataArray | str = 'tasmin',
+    ds: xarray.Dataset | Any = None,
     *,
     window: int = 30,
     freq: str = 'YS',
@@ -5147,14 +5147,14 @@ def usda_hardiness_zones(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tasmin : xarray.DataArray | str
         Minimum temperature.
     window : int
         The length of the averaging window, in years.
     freq : str
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -5174,9 +5174,9 @@ def usda_hardiness_zones(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.warm_spell_duration_index)
 def warm_spell_duration_index(
-    ds: xarray.Dataset | Any,
     tasmax: xarray.DataArray | str = 'tasmax',
     tasmax_per: xarray.DataArray | str = 'tasmax_per',
+    ds: xarray.Dataset | Any = None,
     *,
     window: int = 6,
     freq: str = 'YS',
@@ -5201,8 +5201,6 @@ def warm_spell_duration_index(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tasmax : xarray.DataArray | str
         Maximum daily temperature.
     tasmax_per : xarray.DataArray | str
@@ -5223,6 +5221,8 @@ def warm_spell_duration_index(
         results. Note that bootstrapping is computationally expensive.
     op : Literal['>', '>=', 'gt', 'ge']
         Comparison operation. Default: ">".
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 

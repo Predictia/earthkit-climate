@@ -20,8 +20,8 @@ from earthkit.utils.decorators.format_handlers import format_handler
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.antecedent_precipitation_index)
 def antecedent_precipitation_index(
-    ds: xarray.Dataset | Any,
     pr: xarray.DataArray | str = 'pr',
+    ds: xarray.Dataset | Any = None,
     *,
     window: int = 7,
     p_exp: float = 0.935,
@@ -42,14 +42,14 @@ def antecedent_precipitation_index(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     pr : xarray.DataArray | str
         Daily precipitation data.
     window : int
         Window for the days of precipitation data to be weighted and summed, default is 7.
     p_exp : float
         Weighting exponent, default is 0.935.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -69,8 +69,8 @@ def antecedent_precipitation_index(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.maximum_consecutive_dry_days)
 def maximum_consecutive_dry_days(
-    ds: xarray.Dataset | Any,
     pr: xarray.DataArray | str = 'pr',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '1 mm/day',
     freq: str = 'YS',
@@ -92,8 +92,6 @@ def maximum_consecutive_dry_days(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     pr : xarray.DataArray | str
         Mean daily precipitation flux.
     thresh : Any
@@ -103,6 +101,8 @@ def maximum_consecutive_dry_days(
     resample_before_rl : bool
         Determines if the resampling should take place before or after the run length
         encoding (or a similar algorithm) is applied to runs.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -123,7 +123,6 @@ def maximum_consecutive_dry_days(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.cffwis_indices)
 def cffwis_indices(
-    ds: xarray.Dataset | Any,
     tas: xarray.DataArray | str = 'tas',
     pr: xarray.DataArray | str = 'pr',
     sfcWind: xarray.DataArray | str = 'sfcWind',
@@ -134,6 +133,7 @@ def cffwis_indices(
     dmc0: xarray.DataArray | str | None = None,
     dc0: xarray.DataArray | str | None = None,
     season_mask: xarray.DataArray | str | None = None,
+    ds: xarray.Dataset | Any = None,
     *,
     season_method: str | None = None,
     overwintering: bool = False,
@@ -162,8 +162,6 @@ def cffwis_indices(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tas : xarray.DataArray | str
         Noon temperature.
     pr : xarray.DataArray | str
@@ -198,6 +196,8 @@ def cffwis_indices(
         If True (default), gridpoints where the fire season is active on the first timestep
         go through a start_up phase for that time step. Otherwise, previous codes must be
         given as a continuing fire season is assumed for those points.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -228,11 +228,11 @@ def cffwis_indices(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.cold_and_dry_days)
 def cold_and_dry_days(
-    ds: xarray.Dataset | Any,
     tas: xarray.DataArray | str = 'tas',
     pr: xarray.DataArray | str = 'pr',
     tas_per: xarray.DataArray | str = 'tas_per',
     pr_per: xarray.DataArray | str = 'pr_per',
+    ds: xarray.Dataset | Any = None,
     *,
     freq: str = 'YS',
     **kwargs: Any,
@@ -252,8 +252,6 @@ def cold_and_dry_days(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tas : xarray.DataArray | str
         Mean daily temperature values.
     pr : xarray.DataArray | str
@@ -264,6 +262,8 @@ def cold_and_dry_days(
         First quartile of daily total precipitation computed by month.
     freq : str
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -285,11 +285,11 @@ def cold_and_dry_days(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.cold_and_wet_days)
 def cold_and_wet_days(
-    ds: xarray.Dataset | Any,
     tas: xarray.DataArray | str = 'tas',
     pr: xarray.DataArray | str = 'pr',
     tas_per: xarray.DataArray | str = 'tas_per',
     pr_per: xarray.DataArray | str = 'pr_per',
+    ds: xarray.Dataset | Any = None,
     *,
     freq: str = 'YS',
     **kwargs: Any,
@@ -309,8 +309,6 @@ def cold_and_wet_days(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tas : xarray.DataArray | str
         Mean daily temperature values.
     pr : xarray.DataArray | str
@@ -321,6 +319,8 @@ def cold_and_wet_days(
         Third quartile of daily total precipitation computed by month.
     freq : str
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -342,8 +342,8 @@ def cold_and_wet_days(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.maximum_consecutive_wet_days)
 def maximum_consecutive_wet_days(
-    ds: xarray.Dataset | Any,
     pr: xarray.DataArray | str = 'pr',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '1 mm/day',
     freq: str = 'YS',
@@ -365,8 +365,6 @@ def maximum_consecutive_wet_days(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     pr : xarray.DataArray | str
         Mean daily precipitation flux.
     thresh : Any
@@ -376,6 +374,8 @@ def maximum_consecutive_wet_days(
     resample_before_rl : bool
         Determines if the resampling should take place before or after the run length
         encoding (or a similar algorithm) is applied to runs.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -396,9 +396,9 @@ def maximum_consecutive_wet_days(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.days_over_precip_doy_thresh)
 def days_over_precip_doy_thresh(
-    ds: xarray.Dataset | Any,
     pr: xarray.DataArray | str = 'pr',
     pr_per: xarray.DataArray | str = 'pr_per',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '1 mm/day',
     freq: str = 'YS',
@@ -421,8 +421,6 @@ def days_over_precip_doy_thresh(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     pr : xarray.DataArray | str
         Mean daily precipitation flux.
     pr_per : xarray.DataArray | str
@@ -441,6 +439,8 @@ def days_over_precip_doy_thresh(
         results. Note that bootstrapping is computationally expensive.
     op : Literal['>', '>=', 'gt', 'ge']
         Comparison operation. Default: ">".
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -463,9 +463,9 @@ def days_over_precip_doy_thresh(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.days_over_precip_thresh)
 def days_over_precip_thresh(
-    ds: xarray.Dataset | Any,
     pr: xarray.DataArray | str = 'pr',
     pr_per: xarray.DataArray | str = 'pr_per',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '1 mm/day',
     freq: str = 'YS',
@@ -488,8 +488,6 @@ def days_over_precip_thresh(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     pr : xarray.DataArray | str
         Mean daily precipitation flux.
     pr_per : xarray.DataArray | str
@@ -508,6 +506,8 @@ def days_over_precip_thresh(
         results. Note that bootstrapping is computationally expensive.
     op : Literal['>', '>=', 'gt', 'ge']
         Comparison operation. Default: ">".
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -530,8 +530,8 @@ def days_over_precip_thresh(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.days_with_snow)
 def days_with_snow(
-    ds: xarray.Dataset | Any,
     prsn: xarray.DataArray | str = 'prsn',
+    ds: xarray.Dataset | Any = None,
     *,
     low: Any = '0 kg m-2 s-1',
     high: Any = '1E6 kg m-2 s-1',
@@ -552,8 +552,6 @@ def days_with_snow(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     prsn : xarray.DataArray | str
         Snowfall flux.
     low : Any
@@ -562,6 +560,8 @@ def days_with_snow(
         Maximum threshold snowfall flux or liquid water equivalent snowfall rate.
     freq : str
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -582,13 +582,13 @@ def days_with_snow(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.drought_code)
 def drought_code(
-    ds: xarray.Dataset | Any,
     tas: xarray.DataArray | str = 'tas',
     pr: xarray.DataArray | str = 'pr',
     lat: xarray.DataArray | str = 'lat',
     snd: xarray.DataArray | str | None = None,
     dc0: xarray.DataArray | str | None = None,
     season_mask: xarray.DataArray | str | None = None,
+    ds: xarray.Dataset | Any = None,
     *,
     season_method: str | None = None,
     overwintering: bool = False,
@@ -611,8 +611,6 @@ def drought_code(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tas : xarray.DataArray | str
         Noon temperature.
     pr : xarray.DataArray | str
@@ -639,6 +637,8 @@ def drought_code(
         If True (default), grid points where the fire season is active on the first timestep
         go through a start_up phase for that time step. Otherwise, previous codes must be
         given as a continuing fire season is assumed for those points.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -665,9 +665,9 @@ def drought_code(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.griffiths_drought_factor)
 def griffiths_drought_factor(
-    ds: xarray.Dataset | Any,
     pr: xarray.DataArray | str = 'pr',
     smd: xarray.DataArray | str = 'smd',
+    ds: xarray.Dataset | Any = None,
     *,
     limiting_func: str = 'xlim',
     **kwargs: Any,
@@ -688,8 +688,6 @@ def griffiths_drought_factor(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     pr : xarray.DataArray | str
         Total rainfall over previous 24 hours [mm/day].
     smd : xarray.DataArray | str
@@ -699,6 +697,8 @@ def griffiths_drought_factor(
         (14) in :cite:t:`ffdi-finkele_2006`. If "discrete", use equation Eq (13) in
         :cite:t:`ffdi-finkele_2006`, but with the lower limit of each category bound
         adjusted to match the upper limit of the previous bound.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -718,7 +718,6 @@ def griffiths_drought_factor(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.duff_moisture_code)
 def duff_moisture_code(
-    ds: xarray.Dataset | Any,
     tas: xarray.DataArray | str = 'tas',
     pr: xarray.DataArray | str = 'pr',
     hurs: xarray.DataArray | str = 'hurs',
@@ -726,6 +725,7 @@ def duff_moisture_code(
     snd: xarray.DataArray | str | None = None,
     dmc0: xarray.DataArray | str | None = None,
     season_mask: xarray.DataArray | str | None = None,
+    ds: xarray.Dataset | Any = None,
     *,
     season_method: str | None = None,
     dry_start: str | None = None,
@@ -748,8 +748,6 @@ def duff_moisture_code(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tas : xarray.DataArray | str
         Noon temperature.
     pr : xarray.DataArray | str
@@ -775,6 +773,8 @@ def duff_moisture_code(
         If True (default), grid points where the fire season is active on the first timestep
         go through a start_up phase for that time step. Otherwise, previous codes must be
         given as a continuing fire season is assumed for those points.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -801,8 +801,8 @@ def duff_moisture_code(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.dry_days)
 def dry_days(
-    ds: xarray.Dataset | Any,
     pr: xarray.DataArray | str = 'pr',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '0.2 mm/d',
     freq: str = 'YS',
@@ -823,8 +823,6 @@ def dry_days(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     pr : xarray.DataArray | str
         Daily precipitation.
     thresh : Any
@@ -833,6 +831,8 @@ def dry_days(
         Resampling frequency.
     op : Literal['<', 'lt', '<=', 'le']
         Comparison operation. Default: "<".
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -853,8 +853,8 @@ def dry_days(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.dry_spell_frequency)
 def dry_spell_frequency(
-    ds: xarray.Dataset | Any,
     pr: xarray.DataArray | str = 'pr',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '1.0 mm',
     window: int = 3,
@@ -878,8 +878,6 @@ def dry_spell_frequency(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     pr : xarray.DataArray | str
         Daily precipitation.
     thresh : Any
@@ -898,6 +896,8 @@ def dry_spell_frequency(
         checks that the maximal daily precipitation amount within the window is less than
         the threshold. This is the same as verifying that each individual day is below the
         threshold.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -920,8 +920,8 @@ def dry_spell_frequency(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.dry_spell_max_length)
 def dry_spell_max_length(
-    ds: xarray.Dataset | Any,
     pr: xarray.DataArray | str = 'pr',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '1.0 mm',
     window: int = 1,
@@ -945,8 +945,6 @@ def dry_spell_max_length(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     pr : xarray.DataArray | str
         Daily precipitation.
     thresh : Any
@@ -960,6 +958,8 @@ def dry_spell_max_length(
     resample_before_rl : bool
         Determines if the resampling should take place before or after the run length
         encoding (or a similar algorithm) is applied to runs.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -982,8 +982,8 @@ def dry_spell_max_length(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.dry_spell_total_length)
 def dry_spell_total_length(
-    ds: xarray.Dataset | Any,
     pr: xarray.DataArray | str = 'pr',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '1.0 mm',
     window: int = 3,
@@ -1007,8 +1007,6 @@ def dry_spell_total_length(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     pr : xarray.DataArray | str
         Daily precipitation.
     thresh : Any
@@ -1026,6 +1024,8 @@ def dry_spell_total_length(
     resample_before_rl : bool
         Determines if the resampling should take place before or after the run length
         encoding (or a similar algorithm) is applied to runs.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -1048,10 +1048,10 @@ def dry_spell_total_length(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.dryness_index)
 def dryness_index(
-    ds: xarray.Dataset | Any,
     pr: xarray.DataArray | str = 'pr',
     evspsblpot: xarray.DataArray | str = 'evspsblpot',
     lat: xarray.DataArray | str | None = None,
+    ds: xarray.Dataset | Any = None,
     *,
     wo: Any = '200 mm',
     freq: Literal['YS', 'YS-JAN'] = 'YS',
@@ -1073,8 +1073,6 @@ def dryness_index(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     pr : xarray.DataArray | str
         Precipitation.
     evspsblpot : xarray.DataArray | str
@@ -1086,6 +1084,8 @@ def dryness_index(
         The initial soil water reserve accessible to root systems [length]. Default: 200 mm.
     freq : Literal['YS', 'YS-JAN']
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -1107,11 +1107,11 @@ def dryness_index(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.mcarthur_forest_fire_danger_index)
 def mcarthur_forest_fire_danger_index(
-    ds: xarray.Dataset | Any,
     drought_factor: xarray.DataArray | str = 'drought_factor',
     tasmax: xarray.DataArray | str = 'tasmax',
     hurs: xarray.DataArray | str = 'hurs',
     sfcWind: xarray.DataArray | str = 'sfcWind',
+    ds: xarray.Dataset | Any = None,
     **kwargs: Any,
 ) -> Any:
     """
@@ -1128,8 +1128,6 @@ def mcarthur_forest_fire_danger_index(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     drought_factor : xarray.DataArray | str
         The drought factor, often the daily Griffiths drought factor (see
         :py:func:`griffiths_drought_factor`).
@@ -1147,6 +1145,8 @@ def mcarthur_forest_fire_danger_index(
         or similar. Different applications have used different inputs here, including the
         mid-afternoon wind speed at a height of 10m, and the daily mean wind speed at a
         height of 10m.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -1167,8 +1167,8 @@ def mcarthur_forest_fire_danger_index(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.first_snowfall)
 def first_snowfall(
-    ds: xarray.Dataset | Any,
     prsn: xarray.DataArray | str = 'prsn',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '1 mm/day',
     freq: str = 'YS-JUL',
@@ -1189,8 +1189,6 @@ def first_snowfall(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     prsn : xarray.DataArray | str
         Snowfall flux.
     thresh : Any
@@ -1198,6 +1196,8 @@ def first_snowfall(
         mm/day).
     freq : str
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -1217,9 +1217,9 @@ def first_snowfall(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.fraction_over_precip_doy_thresh)
 def fraction_over_precip_doy_thresh(
-    ds: xarray.Dataset | Any,
     pr: xarray.DataArray | str = 'pr',
     pr_per: xarray.DataArray | str = 'pr_per',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '1 mm/day',
     freq: str = 'YS',
@@ -1243,8 +1243,6 @@ def fraction_over_precip_doy_thresh(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     pr : xarray.DataArray | str
         Mean daily precipitation flux.
     pr_per : xarray.DataArray | str
@@ -1263,6 +1261,8 @@ def fraction_over_precip_doy_thresh(
         results. Note that bootstrapping is computationally expensive.
     op : Literal['>', '>=', 'gt', 'ge']
         Comparison operation. Default: ">".
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -1285,9 +1285,9 @@ def fraction_over_precip_doy_thresh(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.fraction_over_precip_thresh)
 def fraction_over_precip_thresh(
-    ds: xarray.Dataset | Any,
     pr: xarray.DataArray | str = 'pr',
     pr_per: xarray.DataArray | str = 'pr_per',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '1 mm/day',
     freq: str = 'YS',
@@ -1311,8 +1311,6 @@ def fraction_over_precip_thresh(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     pr : xarray.DataArray | str
         Mean daily precipitation flux.
     pr_per : xarray.DataArray | str
@@ -1331,6 +1329,8 @@ def fraction_over_precip_thresh(
         results. Note that bootstrapping is computationally expensive.
     op : Literal['>', '>=', 'gt', 'ge']
         Comparison operation. Default: ">".
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -1353,9 +1353,9 @@ def fraction_over_precip_thresh(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.high_precip_low_temp)
 def high_precip_low_temp(
-    ds: xarray.Dataset | Any,
     pr: xarray.DataArray | str = 'pr',
     tas: xarray.DataArray | str = 'tas',
+    ds: xarray.Dataset | Any = None,
     *,
     pr_thresh: Any = '0.4 mm/d',
     tas_thresh: Any = '-0.2 degC',
@@ -1377,8 +1377,6 @@ def high_precip_low_temp(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     pr : xarray.DataArray | str
         Mean daily precipitation flux.
     tas : xarray.DataArray | str
@@ -1389,6 +1387,8 @@ def high_precip_low_temp(
         Temperature threshold not to exceed.
     freq : str
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -1410,11 +1410,11 @@ def high_precip_low_temp(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.keetch_byram_drought_index)
 def keetch_byram_drought_index(
-    ds: xarray.Dataset | Any,
     pr: xarray.DataArray | str = 'pr',
     tasmax: xarray.DataArray | str = 'tasmax',
     pr_annual: xarray.DataArray | str = 'pr_annual',
     kbdi0: xarray.DataArray | str | None = None,
+    ds: xarray.Dataset | Any = None,
     **kwargs: Any,
 ) -> Any:
     """
@@ -1435,8 +1435,6 @@ def keetch_byram_drought_index(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     pr : xarray.DataArray | str
         Total rainfall over previous 24 hours [mm/day].
     tasmax : xarray.DataArray | str
@@ -1446,6 +1444,8 @@ def keetch_byram_drought_index(
     kbdi0 : xarray.DataArray | str | None
         Previous KBDI values used to initialise the KBDI calculation [mm/day]. Defaults to
         0.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -1466,8 +1466,8 @@ def keetch_byram_drought_index(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.last_snowfall)
 def last_snowfall(
-    ds: xarray.Dataset | Any,
     prsn: xarray.DataArray | str = 'prsn',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '1 mm/day',
     freq: str = 'YS-JUL',
@@ -1488,8 +1488,6 @@ def last_snowfall(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     prsn : xarray.DataArray | str
         Snowfall flux.
     thresh : Any
@@ -1497,6 +1495,8 @@ def last_snowfall(
         mm/day).
     freq : str
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -1516,9 +1516,9 @@ def last_snowfall(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.liquid_precip_ratio)
 def liquid_precip_ratio(
-    ds: xarray.Dataset | Any,
     pr: xarray.DataArray | str = 'pr',
     tas: xarray.DataArray | str = 'tas',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '0 degC',
     freq: str = 'QS-DEC',
@@ -1540,8 +1540,6 @@ def liquid_precip_ratio(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     pr : xarray.DataArray | str
         Mean daily precipitation flux.
     tas : xarray.DataArray | str
@@ -1550,6 +1548,8 @@ def liquid_precip_ratio(
         Threshold temperature under which precipitation is assumed to be solid.
     freq : str
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -1570,9 +1570,9 @@ def liquid_precip_ratio(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.liquid_precip_average)
 def liquid_precip_average(
-    ds: xarray.Dataset | Any,
     pr: xarray.DataArray | str = 'pr',
     tas: xarray.DataArray | str = 'tas',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '0 degC',
     freq: str = 'YS',
@@ -1593,8 +1593,6 @@ def liquid_precip_average(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     pr : xarray.DataArray | str
         Mean daily precipitation flux.
     tas : xarray.DataArray | str
@@ -1603,6 +1601,8 @@ def liquid_precip_average(
         Threshold of `tas` over which the precipication is assumed to be liquid rain.
     freq : str
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -1623,9 +1623,9 @@ def liquid_precip_average(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.liquid_precip_accumulation)
 def liquid_precip_accumulation(
-    ds: xarray.Dataset | Any,
     pr: xarray.DataArray | str = 'pr',
     tas: xarray.DataArray | str = 'tas',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '0 degC',
     freq: str = 'YS',
@@ -1646,8 +1646,6 @@ def liquid_precip_accumulation(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     pr : xarray.DataArray | str
         Mean daily precipitation flux.
     tas : xarray.DataArray | str
@@ -1656,6 +1654,8 @@ def liquid_precip_accumulation(
         Threshold of `tas` over which the precipication is assumed to be liquid rain.
     freq : str
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -1676,8 +1676,8 @@ def liquid_precip_accumulation(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.max_n_day_precipitation_amount)
 def max_n_day_precipitation_amount(
-    ds: xarray.Dataset | Any,
     pr: xarray.DataArray | str = 'pr',
+    ds: xarray.Dataset | Any = None,
     *,
     window: int = 1,
     freq: str = 'YS',
@@ -1697,14 +1697,14 @@ def max_n_day_precipitation_amount(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     pr : xarray.DataArray | str
         Daily precipitation values.
     window : int
         Window size in days.
     freq : str
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -1724,8 +1724,8 @@ def max_n_day_precipitation_amount(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.max_pr_intensity)
 def max_pr_intensity(
-    ds: xarray.Dataset | Any,
     pr: xarray.DataArray | str = 'pr',
+    ds: xarray.Dataset | Any = None,
     *,
     window: int = 1,
     freq: str = 'YS',
@@ -1745,14 +1745,14 @@ def max_pr_intensity(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     pr : xarray.DataArray | str
         Hourly precipitation values.
     window : int
         Window size in hours.
     freq : str
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -1772,8 +1772,8 @@ def max_pr_intensity(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.precip_average)
 def precip_average(
-    ds: xarray.Dataset | Any,
     pr: xarray.DataArray | str = 'pr',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '0 degC',
     freq: str = 'YS',
@@ -1796,14 +1796,14 @@ def precip_average(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     pr : xarray.DataArray | str
         Mean daily precipitation flux.
     thresh : Any
         Threshold of `tas` over which the precipication is assumed to be liquid rain.
     freq : str
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -1823,8 +1823,8 @@ def precip_average(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.precip_accumulation)
 def precip_accumulation(
-    ds: xarray.Dataset | Any,
     pr: xarray.DataArray | str = 'pr',
+    ds: xarray.Dataset | Any = None,
     *,
     freq: str = 'YS',
     **kwargs: Any,
@@ -1846,12 +1846,12 @@ def precip_accumulation(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     pr : xarray.DataArray | str
         Mean daily precipitation flux.
     freq : str
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -1870,9 +1870,9 @@ def precip_accumulation(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.rain_on_frozen_ground_days)
 def rain_on_frozen_ground_days(
-    ds: xarray.Dataset | Any,
     pr: xarray.DataArray | str = 'pr',
     tas: xarray.DataArray | str = 'tas',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '1 mm/d',
     window: int = 7,
@@ -1895,8 +1895,6 @@ def rain_on_frozen_ground_days(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     pr : xarray.DataArray | str
         Mean daily precipitation flux.
     tas : xarray.DataArray | str
@@ -1908,6 +1906,8 @@ def rain_on_frozen_ground_days(
         frozen.
     freq : str
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -1929,8 +1929,8 @@ def rain_on_frozen_ground_days(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.rain_season)
 def rain_season(
-    ds: xarray.Dataset | Any,
     pr: xarray.DataArray | str = 'pr',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh_wet_start: Any = '25.0 mm',
     window_wet_start: int = 3,
@@ -1967,8 +1967,6 @@ def rain_season(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     pr : xarray.DataArray | str
         Precipitation data.
     thresh_wet_start : Any
@@ -2016,6 +2014,8 @@ def rain_season(
         Last day of year when season can end ("mm-dd").
     freq : Any
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -2047,9 +2047,9 @@ def rain_season(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.rprctot)
 def rprctot(
-    ds: xarray.Dataset | Any,
     pr: xarray.DataArray | str = 'pr',
     prc: xarray.DataArray | str = 'prc',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '1.0 mm/day',
     freq: str = 'YS',
@@ -2071,8 +2071,6 @@ def rprctot(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     pr : xarray.DataArray | str
         Daily precipitation.
     prc : xarray.DataArray | str
@@ -2083,6 +2081,8 @@ def rprctot(
         Resampling frequency.
     op : Literal['>', 'gt', '>=', 'ge']
         Comparison operation. Default: ">=".
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -2104,8 +2104,8 @@ def rprctot(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.max_1day_precipitation_amount)
 def max_1day_precipitation_amount(
-    ds: xarray.Dataset | Any,
     pr: xarray.DataArray | str = 'pr',
+    ds: xarray.Dataset | Any = None,
     *,
     freq: str = 'YS',
     **kwargs: Any,
@@ -2124,12 +2124,12 @@ def max_1day_precipitation_amount(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     pr : xarray.DataArray | str
         Daily precipitation values.
     freq : str
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -2148,8 +2148,8 @@ def max_1day_precipitation_amount(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.daily_pr_intensity)
 def daily_pr_intensity(
-    ds: xarray.Dataset | Any,
     pr: xarray.DataArray | str = 'pr',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '1 mm/day',
     freq: str = 'YS',
@@ -2170,8 +2170,6 @@ def daily_pr_intensity(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     pr : xarray.DataArray | str
         Daily precipitation.
     thresh : Any
@@ -2180,6 +2178,8 @@ def daily_pr_intensity(
         Resampling frequency.
     op : Literal['>', 'gt', '>=', 'ge']
         Comparison operation. Default: ">=".
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -2200,8 +2200,8 @@ def daily_pr_intensity(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.snowfall_frequency)
 def snowfall_frequency(
-    ds: xarray.Dataset | Any,
     prsn: xarray.DataArray | str = 'prsn',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '1 mm/day',
     freq: str = 'YS-JUL',
@@ -2222,8 +2222,6 @@ def snowfall_frequency(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     prsn : xarray.DataArray | str
         Snowfall flux.
     thresh : Any
@@ -2231,6 +2229,8 @@ def snowfall_frequency(
         mm/day).
     freq : str
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -2250,8 +2250,8 @@ def snowfall_frequency(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.snowfall_intensity)
 def snowfall_intensity(
-    ds: xarray.Dataset | Any,
     prsn: xarray.DataArray | str = 'prsn',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '1 mm/day',
     freq: str = 'YS-JUL',
@@ -2272,8 +2272,6 @@ def snowfall_intensity(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     prsn : xarray.DataArray | str
         Snowfall flux.
     thresh : Any
@@ -2281,6 +2279,8 @@ def snowfall_intensity(
         mm/day).
     freq : str
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -2300,9 +2300,9 @@ def snowfall_intensity(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.solid_precip_average)
 def solid_precip_average(
-    ds: xarray.Dataset | Any,
     pr: xarray.DataArray | str = 'pr',
     tas: xarray.DataArray | str = 'tas',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '0 degC',
     freq: str = 'YS',
@@ -2323,8 +2323,6 @@ def solid_precip_average(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     pr : xarray.DataArray | str
         Mean daily precipitation flux.
     tas : xarray.DataArray | str
@@ -2333,6 +2331,8 @@ def solid_precip_average(
         Threshold of `tas` over which the precipication is assumed to be liquid rain.
     freq : str
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -2353,9 +2353,9 @@ def solid_precip_average(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.solid_precip_accumulation)
 def solid_precip_accumulation(
-    ds: xarray.Dataset | Any,
     pr: xarray.DataArray | str = 'pr',
     tas: xarray.DataArray | str = 'tas',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '0 degC',
     freq: str = 'YS',
@@ -2376,8 +2376,6 @@ def solid_precip_accumulation(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     pr : xarray.DataArray | str
         Mean daily precipitation flux.
     tas : xarray.DataArray | str
@@ -2386,6 +2384,8 @@ def solid_precip_accumulation(
         Threshold of `tas` over which the precipication is assumed to be liquid rain.
     freq : str
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -2406,11 +2406,11 @@ def solid_precip_accumulation(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.warm_and_dry_days)
 def warm_and_dry_days(
-    ds: xarray.Dataset | Any,
     tas: xarray.DataArray | str = 'tas',
     pr: xarray.DataArray | str = 'pr',
     tas_per: xarray.DataArray | str = 'tas_per',
     pr_per: xarray.DataArray | str = 'pr_per',
+    ds: xarray.Dataset | Any = None,
     *,
     freq: str = 'YS',
     **kwargs: Any,
@@ -2430,8 +2430,6 @@ def warm_and_dry_days(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tas : xarray.DataArray | str
         Mean daily temperature values.
     pr : xarray.DataArray | str
@@ -2442,6 +2440,8 @@ def warm_and_dry_days(
         First quartile of daily total precipitation computed by month.
     freq : str
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -2463,11 +2463,11 @@ def warm_and_dry_days(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.warm_and_wet_days)
 def warm_and_wet_days(
-    ds: xarray.Dataset | Any,
     tas: xarray.DataArray | str = 'tas',
     pr: xarray.DataArray | str = 'pr',
     tas_per: xarray.DataArray | str = 'tas_per',
     pr_per: xarray.DataArray | str = 'pr_per',
+    ds: xarray.Dataset | Any = None,
     *,
     freq: str = 'YS',
     **kwargs: Any,
@@ -2487,8 +2487,6 @@ def warm_and_wet_days(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     tas : xarray.DataArray | str
         Mean daily temperature values.
     pr : xarray.DataArray | str
@@ -2499,6 +2497,8 @@ def warm_and_wet_days(
         Third quartile of daily total precipitation computed by month.
     freq : str
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -2520,9 +2520,9 @@ def warm_and_wet_days(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.water_cycle_intensity)
 def water_cycle_intensity(
-    ds: xarray.Dataset | Any,
     pr: xarray.DataArray | str = 'pr',
     evspsbl: xarray.DataArray | str = 'evspsbl',
+    ds: xarray.Dataset | Any = None,
     *,
     freq: Any = 'YS',
     **kwargs: Any,
@@ -2541,14 +2541,14 @@ def water_cycle_intensity(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     pr : xarray.DataArray | str
         Precipitation flux.
     evspsbl : xarray.DataArray | str
         Actual evapotranspiration flux.
     freq : Any
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -2568,8 +2568,8 @@ def water_cycle_intensity(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.wet_precip_accumulation)
 def wet_precip_accumulation(
-    ds: xarray.Dataset | Any,
     pr: xarray.DataArray | str = 'pr',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '1 mm/day',
     freq: str = 'YS',
@@ -2590,14 +2590,14 @@ def wet_precip_accumulation(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     pr : xarray.DataArray | str
         Total precipitation flux [mm d-1], [mm week-1], [mm month-1] or similar.
     thresh : Any
         Threshold over which precipitation starts being cumulated.
     freq : str
         Resampling frequency.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -2617,8 +2617,8 @@ def wet_precip_accumulation(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.wet_spell_frequency)
 def wet_spell_frequency(
-    ds: xarray.Dataset | Any,
     pr: xarray.DataArray | str = 'pr',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '1.0 mm',
     window: int = 3,
@@ -2643,8 +2643,6 @@ def wet_spell_frequency(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     pr : xarray.DataArray | str
         Daily precipitation.
     thresh : Any
@@ -2663,6 +2661,8 @@ def wet_spell_frequency(
         checks that the maximal daily precipitation amount within the window is more than
         the threshold. This is the same as verifying that each individual day is above the
         threshold.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -2685,8 +2685,8 @@ def wet_spell_frequency(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.wet_spell_max_length)
 def wet_spell_max_length(
-    ds: xarray.Dataset | Any,
     pr: xarray.DataArray | str = 'pr',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '1.0 mm',
     window: int = 1,
@@ -2711,8 +2711,6 @@ def wet_spell_max_length(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     pr : xarray.DataArray | str
         Daily precipitation.
     thresh : Any
@@ -2729,6 +2727,8 @@ def wet_spell_max_length(
     resample_before_rl : bool
         Determines if the resampling should take place before or after the run length
         encoding (or a similar algorithm) is applied to runs.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -2751,8 +2751,8 @@ def wet_spell_max_length(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.wet_spell_total_length)
 def wet_spell_total_length(
-    ds: xarray.Dataset | Any,
     pr: xarray.DataArray | str = 'pr',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '1.0 mm',
     window: int = 3,
@@ -2777,8 +2777,6 @@ def wet_spell_total_length(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     pr : xarray.DataArray | str
         Daily precipitation.
     thresh : Any
@@ -2795,6 +2793,8 @@ def wet_spell_total_length(
     resample_before_rl : bool
         Determines if the resampling should take place before or after the run length
         encoding (or a similar algorithm) is applied to runs.
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -2817,8 +2817,8 @@ def wet_spell_total_length(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.wetdays)
 def wetdays(
-    ds: xarray.Dataset | Any,
     pr: xarray.DataArray | str = 'pr',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '1.0 mm/day',
     freq: str = 'YS',
@@ -2839,8 +2839,6 @@ def wetdays(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     pr : xarray.DataArray | str
         Daily precipitation.
     thresh : Any
@@ -2849,6 +2847,8 @@ def wetdays(
         Resampling frequency.
     op : Literal['>', 'gt', '>=', 'ge']
         Comparison operation. Default: ">=".
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
@@ -2869,8 +2869,8 @@ def wetdays(
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.wetdays_prop)
 def wetdays_prop(
-    ds: xarray.Dataset | Any,
     pr: xarray.DataArray | str = 'pr',
+    ds: xarray.Dataset | Any = None,
     *,
     thresh: Any = '1.0 mm/day',
     freq: str = 'YS',
@@ -2891,8 +2891,6 @@ def wetdays_prop(
 
     Parameters
     ----------
-    ds : xarray.Dataset | Any
-        Input dataset.
     pr : xarray.DataArray | str
         Daily precipitation.
     thresh : Any
@@ -2901,6 +2899,8 @@ def wetdays_prop(
         Resampling frequency.
     op : Literal['>', 'gt', '>=', 'ge']
         Comparison operation. Default: ">=".
+    ds : xarray.Dataset | Any
+        Input dataset.
     **kwargs : Any
         Additional keyword arguments.
 
