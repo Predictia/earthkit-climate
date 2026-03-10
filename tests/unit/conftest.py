@@ -82,7 +82,7 @@ def common_mocks(mocker: MockerFixture, dummy_precip_ds: xr.Dataset) -> dict:
 
     mock_ensure_units = mocker.patch(
         "earthkit.climate.utils.units.ensure_units",
-        side_effect=lambda ds, var, units, strict=False: ds.assign_attrs({"ensured": True}),
+        side_effect=lambda ds, var, units, strict=False: ds,
     )
 
     mock_add_prov = mocker.patch(
