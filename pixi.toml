@@ -35,7 +35,7 @@ docs-build = "rm -rf docs/_api docs/_build && sphinx-build -M html docs docs/_bu
 [pypi-dependencies]
 earthkit-climate = {path = ".", editable = true}
 earthkit-data = ">=0.17.0"
-earthkit-plots = ">=0.5.0"
+earthkit-plots = ">=0.5.0,<0.6"
 earthkit-utils = {git = "https://github.com/ecmwf/earthkit-utils.git", branch = "develop"}
 
 [tasks]
