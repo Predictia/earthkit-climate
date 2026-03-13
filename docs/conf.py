@@ -45,7 +45,10 @@ autodoc_typehints = "none"
 
 # autoapi configuration
 autoapi_dirs = ["../src/earthkit/climate"]
-autoapi_ignore = ["*/version.py"]
+autoapi_ignore = [
+    "*/version.py",
+    "*/utils/*",
+]
 autoapi_options = [
     "members",
     "inherited-members",
@@ -55,6 +58,7 @@ autoapi_options = [
     "imported-members",
 ]
 autoapi_root = "_api"
+autoapi_own_page_level = "function"
 
 # napoleon configuration
 napoleon_google_docstring = False

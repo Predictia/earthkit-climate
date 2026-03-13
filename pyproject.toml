@@ -55,42 +55,6 @@ docs = [
 [tool.coverage.run]
 branch = true
 
-[tool.pixi.dependencies]
-ipykernel = ">=7.1.0,<8"
-pre-commit = "*"
-pytest = "*"
-pytest-cov = "*"
-pytest-mock = ">=3.15.1,<4"
-python = "3.12.*"
-
-# ---- Pixi environments ----
-[tool.pixi.environments]
-dev = {features = ["dev"]}
-docs = {features = ["docs"]}
-
-[tool.pixi.feature.docs.dependencies]
-nbsphinx = ">=0.9.8,<0.10"
-pandoc = "*"
-sphinx = "*"
-sphinx-autoapi = ">=3.6.1,<4"
-sphinx-rtd-theme = ">=3.0.2,<4"
-
-[tool.pixi.feature.docs.tasks]
-docs-build = "rm -rf docs/_api docs/_build && sphinx-build -M html docs docs/_build"
-
-[tool.pixi.pypi-dependencies]
-earthkit-plots = ">=0.5.0"
-
-[tool.pixi.tasks]
-qa = "pre-commit run --all-files"
-type-check = "python -m mypy . --no-namespace-packages"
-unit-tests = "python -m pytest -vv --cov=. --cov-report=html --doctest-glob='*.md' --doctest-glob='*.rst'"
-
-# ---- Pixi CONFIGURATION ----
-[tool.pixi.workspace]
-channels = ["conda-forge"]
-platforms = ["win-64", "linux-64", "osx-64", "osx-arm64"]
-
 [tool.pytest.ini_options]
 addopts = "-vv --cov=. --cov-report=html --doctest-glob='*.md' --doctest-glob='*.rst'"
 
