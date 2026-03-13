@@ -58,6 +58,7 @@ autoapi_options = [
     "imported-members",
 ]
 autoapi_root = "_api"
+autoapi_own_page_level = "function"
 
 # napoleon configuration
 napoleon_google_docstring = False
