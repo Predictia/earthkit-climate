@@ -49,7 +49,7 @@ docs = [
   "roman-numerals-py>=3.1.0,<4",
   "sphinx",
   "sphinx-autoapi",
-  "sphinx-rtd-theme"
+  "furo"
 ]
 
 [tool.coverage.run]

@@ -22,6 +22,7 @@ pytest = "*"
 pytest-cov = "*"
 pytest-mock = "*"
 ruff = "*"
+nbformat = ">=5.10.4,<6"
 
 [feature.docs.dependencies]
 nbsphinx = ">=0.9.8,<0.10"
@@ -29,9 +30,11 @@ pandoc = "*"
 sphinx = "*"
 sphinx-autoapi = ">=3.6.1,<4"
 sphinx-rtd-theme = ">=3.0.2,<4"
+furo = "*"
+
 
 [feature.docs.tasks]
-docs-build = "rm -rf docs/_api docs/_build && sphinx-build -M html docs docs/_build"
+docs-build = "rm -rf docs/_build && sphinx-build -M html docs docs/_build"
 
 [pypi-dependencies]
 earthkit-climate = {path = ".", editable = true}
