@@ -145,7 +145,9 @@ def generate_docstring(indicator: Any, xclim_func_name: str) -> str:
         sections.append(units_section)
 
     link_prefix = f"This function wraps `xclim.indicators.atmos.{xclim_func_name}"
-    link_url = f"<https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.{xclim_func_name}>`_."
+    link_url = (
+        f"<https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.{xclim_func_name}>`_."
+    )
     sections.append(f"{link_prefix}\n    {link_url}")
 
     # Parameters section
@@ -270,9 +272,7 @@ def format_call_params(indicator: Any) -> str:
         call_args.append("**kwargs")
 
         # If the total length is likely to exceed 88 chars (indent=4 + total), or many parameters
-        total_len = (
-            sum(len(arg) for arg in call_args) + 2 * len(call_args) + 30
-        )  # 30 for the 'return xclim...' part
+        total_len = sum(len(arg) for arg in call_args) + 2 * len(call_args) + 30  # 30 for the 'return xclim...' part
         if len(call_args) > 3 or total_len > 80:
             return "\n        " + ",\n        ".join(call_args) + ",\n    "
 
@@ -320,9 +320,7 @@ def generate_module_content(category: str, indicators: List[Any]) -> str:
 
         # Indent the docstring correctly
         lines = docstring.split("\n")
-        indented_doc = (
-            lines[0] + "\n" + "\n".join([("    " + line if line.strip() else "") for line in lines[1:]])
-        )
+        indented_doc = lines[0] + "\n" + "\n".join([("    " + line if line.strip() else "") for line in lines[1:]])
 
         signature_params = format_signature_params(ind)
         call_params = format_call_params(ind)
@@ -335,11 +333,10 @@ def generate_module_content(category: str, indicators: List[Any]) -> str:
             xclim_obj_ref=xclim_obj_ref,
             docstring=indented_doc,
         )
+
         functions_code.append(code)
 
-    return MODULE_TEMPLATE.format(
-        category_title=category.capitalize(), functions_code="".join(functions_code)
-    )
+    return MODULE_TEMPLATE.format(category_title=category.capitalize(), functions_code="".join(functions_code))
 
 
 def main():

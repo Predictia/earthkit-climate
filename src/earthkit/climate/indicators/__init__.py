@@ -5,3 +5,10 @@
 # In applying this licence, ECMWF does not waive the privileges and immunities
 # granted to it by virtue of its status as an intergovernmental organisation nor
 # does it submit to any jurisdiction.
+
+"""
+:py:mod:`earthkit.climate.indicators` leverages indicator definitions from
+``xclim``, which provide metadata and validation facilities (health checks) of
+the input and include attributes for CF metadata (cell methods), references,
+keywords, and more.
+"""
