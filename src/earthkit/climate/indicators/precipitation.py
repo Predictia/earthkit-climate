@@ -8,6 +8,8 @@
 
 """Precipitation indices."""
 
+"""Precipitation indices."""
+
 from typing import Any, Literal
 
 import xarray
@@ -20,7 +22,7 @@ from earthkit.utils.decorators.format_handlers import format_handler
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.antecedent_precipitation_index)
 def antecedent_precipitation_index(
-    pr: xarray.DataArray | str = 'pr',
+    pr: xarray.DataArray | str = "pr",
     ds: xarray.Dataset | Any = None,
     *,
     window: int = 7,
@@ -66,14 +68,15 @@ def antecedent_precipitation_index(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.maximum_consecutive_dry_days)
 def maximum_consecutive_dry_days(
-    pr: xarray.DataArray | str = 'pr',
+    pr: xarray.DataArray | str = "pr",
     ds: xarray.Dataset | Any = None,
     *,
-    thresh: Any = '1 mm/day',
-    freq: str = 'YS',
+    thresh: Any = "1 mm/day",
+    freq: str = "YS",
     resample_before_rl: bool = True,
     **kwargs: Any,
 ) -> Any:
@@ -120,14 +123,15 @@ def maximum_consecutive_dry_days(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.cffwis_indices)
 def cffwis_indices(
-    tas: xarray.DataArray | str = 'tas',
-    pr: xarray.DataArray | str = 'pr',
-    sfcWind: xarray.DataArray | str = 'sfcWind',
-    hurs: xarray.DataArray | str = 'hurs',
-    lat: xarray.DataArray | str = 'lat',
+    tas: xarray.DataArray | str = "tas",
+    pr: xarray.DataArray | str = "pr",
+    sfcWind: xarray.DataArray | str = "sfcWind",
+    hurs: xarray.DataArray | str = "hurs",
+    lat: xarray.DataArray | str = "lat",
     snd: xarray.DataArray | str | None = None,
     ffmc0: xarray.DataArray | str | None = None,
     dmc0: xarray.DataArray | str | None = None,
@@ -225,16 +229,17 @@ def cffwis_indices(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.cold_and_dry_days)
 def cold_and_dry_days(
-    tas: xarray.DataArray | str = 'tas',
-    pr: xarray.DataArray | str = 'pr',
-    tas_per: xarray.DataArray | str = 'tas_per',
-    pr_per: xarray.DataArray | str = 'pr_per',
+    tas: xarray.DataArray | str = "tas",
+    pr: xarray.DataArray | str = "pr",
+    tas_per: xarray.DataArray | str = "tas_per",
+    pr_per: xarray.DataArray | str = "pr_per",
     ds: xarray.Dataset | Any = None,
     *,
-    freq: str = 'YS',
+    freq: str = "YS",
     **kwargs: Any,
 ) -> Any:
     """
@@ -282,16 +287,17 @@ def cold_and_dry_days(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.cold_and_wet_days)
 def cold_and_wet_days(
-    tas: xarray.DataArray | str = 'tas',
-    pr: xarray.DataArray | str = 'pr',
-    tas_per: xarray.DataArray | str = 'tas_per',
-    pr_per: xarray.DataArray | str = 'pr_per',
+    tas: xarray.DataArray | str = "tas",
+    pr: xarray.DataArray | str = "pr",
+    tas_per: xarray.DataArray | str = "tas_per",
+    pr_per: xarray.DataArray | str = "pr_per",
     ds: xarray.Dataset | Any = None,
     *,
-    freq: str = 'YS',
+    freq: str = "YS",
     **kwargs: Any,
 ) -> Any:
     """
@@ -339,14 +345,15 @@ def cold_and_wet_days(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.maximum_consecutive_wet_days)
 def maximum_consecutive_wet_days(
-    pr: xarray.DataArray | str = 'pr',
+    pr: xarray.DataArray | str = "pr",
     ds: xarray.Dataset | Any = None,
     *,
-    thresh: Any = '1 mm/day',
-    freq: str = 'YS',
+    thresh: Any = "1 mm/day",
+    freq: str = "YS",
     resample_before_rl: bool = True,
     **kwargs: Any,
 ) -> Any:
@@ -393,17 +400,18 @@ def maximum_consecutive_wet_days(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.days_over_precip_doy_thresh)
 def days_over_precip_doy_thresh(
-    pr: xarray.DataArray | str = 'pr',
-    pr_per: xarray.DataArray | str = 'pr_per',
+    pr: xarray.DataArray | str = "pr",
+    pr_per: xarray.DataArray | str = "pr_per",
     ds: xarray.Dataset | Any = None,
     *,
-    thresh: Any = '1 mm/day',
-    freq: str = 'YS',
+    thresh: Any = "1 mm/day",
+    freq: str = "YS",
     bootstrap: bool = False,
-    op: Literal['>', '>=', 'gt', 'ge'] = '>',
+    op: Literal[">", ">=", "gt", "ge"] = ">",
     **kwargs: Any,
 ) -> Any:
     """
@@ -460,17 +468,18 @@ def days_over_precip_doy_thresh(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.days_over_precip_thresh)
 def days_over_precip_thresh(
-    pr: xarray.DataArray | str = 'pr',
-    pr_per: xarray.DataArray | str = 'pr_per',
+    pr: xarray.DataArray | str = "pr",
+    pr_per: xarray.DataArray | str = "pr_per",
     ds: xarray.Dataset | Any = None,
     *,
-    thresh: Any = '1 mm/day',
-    freq: str = 'YS',
+    thresh: Any = "1 mm/day",
+    freq: str = "YS",
     bootstrap: bool = False,
-    op: Literal['>', '>=', 'gt', 'ge'] = '>',
+    op: Literal[">", ">=", "gt", "ge"] = ">",
     **kwargs: Any,
 ) -> Any:
     """
@@ -527,15 +536,16 @@ def days_over_precip_thresh(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.days_with_snow)
 def days_with_snow(
-    prsn: xarray.DataArray | str = 'prsn',
+    prsn: xarray.DataArray | str = "prsn",
     ds: xarray.Dataset | Any = None,
     *,
-    low: Any = '0 kg m-2 s-1',
-    high: Any = '1E6 kg m-2 s-1',
-    freq: str = 'YS-JUL',
+    low: Any = "0 kg m-2 s-1",
+    high: Any = "1E6 kg m-2 s-1",
+    freq: str = "YS-JUL",
     **kwargs: Any,
 ) -> Any:
     """
@@ -579,12 +589,13 @@ def days_with_snow(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.drought_code)
 def drought_code(
-    tas: xarray.DataArray | str = 'tas',
-    pr: xarray.DataArray | str = 'pr',
-    lat: xarray.DataArray | str = 'lat',
+    tas: xarray.DataArray | str = "tas",
+    pr: xarray.DataArray | str = "pr",
+    lat: xarray.DataArray | str = "lat",
     snd: xarray.DataArray | str | None = None,
     dc0: xarray.DataArray | str | None = None,
     season_mask: xarray.DataArray | str | None = None,
@@ -662,14 +673,15 @@ def drought_code(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.griffiths_drought_factor)
 def griffiths_drought_factor(
-    pr: xarray.DataArray | str = 'pr',
-    smd: xarray.DataArray | str = 'smd',
+    pr: xarray.DataArray | str = "pr",
+    smd: xarray.DataArray | str = "smd",
     ds: xarray.Dataset | Any = None,
     *,
-    limiting_func: str = 'xlim',
+    limiting_func: str = "xlim",
     **kwargs: Any,
 ) -> Any:
     """
@@ -715,13 +727,14 @@ def griffiths_drought_factor(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.duff_moisture_code)
 def duff_moisture_code(
-    tas: xarray.DataArray | str = 'tas',
-    pr: xarray.DataArray | str = 'pr',
-    hurs: xarray.DataArray | str = 'hurs',
-    lat: xarray.DataArray | str = 'lat',
+    tas: xarray.DataArray | str = "tas",
+    pr: xarray.DataArray | str = "pr",
+    hurs: xarray.DataArray | str = "hurs",
+    lat: xarray.DataArray | str = "lat",
     snd: xarray.DataArray | str | None = None,
     dmc0: xarray.DataArray | str | None = None,
     season_mask: xarray.DataArray | str | None = None,
@@ -798,15 +811,16 @@ def duff_moisture_code(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.dry_days)
 def dry_days(
-    pr: xarray.DataArray | str = 'pr',
+    pr: xarray.DataArray | str = "pr",
     ds: xarray.Dataset | Any = None,
     *,
-    thresh: Any = '0.2 mm/d',
-    freq: str = 'YS',
-    op: Literal['<', 'lt', '<=', 'le'] = '<',
+    thresh: Any = "0.2 mm/d",
+    freq: str = "YS",
+    op: Literal["<", "lt", "<=", "le"] = "<",
     **kwargs: Any,
 ) -> Any:
     """
@@ -850,17 +864,18 @@ def dry_days(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.dry_spell_frequency)
 def dry_spell_frequency(
-    pr: xarray.DataArray | str = 'pr',
+    pr: xarray.DataArray | str = "pr",
     ds: xarray.Dataset | Any = None,
     *,
-    thresh: Any = '1.0 mm',
+    thresh: Any = "1.0 mm",
     window: int = 3,
-    freq: str = 'YS',
+    freq: str = "YS",
     resample_before_rl: bool = True,
-    op: Literal['sum', 'max', 'min', 'mean'] = 'sum',
+    op: Literal["sum", "max", "min", "mean"] = "sum",
     **kwargs: Any,
 ) -> Any:
     """
@@ -917,16 +932,17 @@ def dry_spell_frequency(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.dry_spell_max_length)
 def dry_spell_max_length(
-    pr: xarray.DataArray | str = 'pr',
+    pr: xarray.DataArray | str = "pr",
     ds: xarray.Dataset | Any = None,
     *,
-    thresh: Any = '1.0 mm',
+    thresh: Any = "1.0 mm",
     window: int = 1,
-    op: Literal['max', 'sum'] = 'sum',
-    freq: str = 'YS',
+    op: Literal["max", "sum"] = "sum",
+    freq: str = "YS",
     resample_before_rl: bool = True,
     **kwargs: Any,
 ) -> Any:
@@ -979,16 +995,17 @@ def dry_spell_max_length(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.dry_spell_total_length)
 def dry_spell_total_length(
-    pr: xarray.DataArray | str = 'pr',
+    pr: xarray.DataArray | str = "pr",
     ds: xarray.Dataset | Any = None,
     *,
-    thresh: Any = '1.0 mm',
+    thresh: Any = "1.0 mm",
     window: int = 3,
-    op: Literal['sum', 'max', 'min', 'mean'] = 'sum',
-    freq: str = 'YS',
+    op: Literal["sum", "max", "min", "mean"] = "sum",
+    freq: str = "YS",
     resample_before_rl: bool = True,
     **kwargs: Any,
 ) -> Any:
@@ -1045,16 +1062,17 @@ def dry_spell_total_length(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.dryness_index)
 def dryness_index(
-    pr: xarray.DataArray | str = 'pr',
-    evspsblpot: xarray.DataArray | str = 'evspsblpot',
+    pr: xarray.DataArray | str = "pr",
+    evspsblpot: xarray.DataArray | str = "evspsblpot",
     lat: xarray.DataArray | str | None = None,
     ds: xarray.Dataset | Any = None,
     *,
-    wo: Any = '200 mm',
-    freq: Literal['YS', 'YS-JAN'] = 'YS',
+    wo: Any = "200 mm",
+    freq: Literal["YS", "YS-JAN"] = "YS",
     **kwargs: Any,
 ) -> Any:
     """
@@ -1104,13 +1122,14 @@ def dryness_index(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.mcarthur_forest_fire_danger_index)
 def mcarthur_forest_fire_danger_index(
-    drought_factor: xarray.DataArray | str = 'drought_factor',
-    tasmax: xarray.DataArray | str = 'tasmax',
-    hurs: xarray.DataArray | str = 'hurs',
-    sfcWind: xarray.DataArray | str = 'sfcWind',
+    drought_factor: xarray.DataArray | str = "drought_factor",
+    tasmax: xarray.DataArray | str = "tasmax",
+    hurs: xarray.DataArray | str = "hurs",
+    sfcWind: xarray.DataArray | str = "sfcWind",
     ds: xarray.Dataset | Any = None,
     **kwargs: Any,
 ) -> Any:
@@ -1164,14 +1183,15 @@ def mcarthur_forest_fire_danger_index(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.first_snowfall)
 def first_snowfall(
-    prsn: xarray.DataArray | str = 'prsn',
+    prsn: xarray.DataArray | str = "prsn",
     ds: xarray.Dataset | Any = None,
     *,
-    thresh: Any = '1 mm/day',
-    freq: str = 'YS-JUL',
+    thresh: Any = "1 mm/day",
+    freq: str = "YS-JUL",
     **kwargs: Any,
 ) -> Any:
     """
@@ -1214,17 +1234,18 @@ def first_snowfall(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.fraction_over_precip_doy_thresh)
 def fraction_over_precip_doy_thresh(
-    pr: xarray.DataArray | str = 'pr',
-    pr_per: xarray.DataArray | str = 'pr_per',
+    pr: xarray.DataArray | str = "pr",
+    pr_per: xarray.DataArray | str = "pr_per",
     ds: xarray.Dataset | Any = None,
     *,
-    thresh: Any = '1 mm/day',
-    freq: str = 'YS',
+    thresh: Any = "1 mm/day",
+    freq: str = "YS",
     bootstrap: bool = False,
-    op: Literal['>', '>=', 'gt', 'ge'] = '>',
+    op: Literal[">", ">=", "gt", "ge"] = ">",
     **kwargs: Any,
 ) -> Any:
     """
@@ -1282,17 +1303,18 @@ def fraction_over_precip_doy_thresh(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.fraction_over_precip_thresh)
 def fraction_over_precip_thresh(
-    pr: xarray.DataArray | str = 'pr',
-    pr_per: xarray.DataArray | str = 'pr_per',
+    pr: xarray.DataArray | str = "pr",
+    pr_per: xarray.DataArray | str = "pr_per",
     ds: xarray.Dataset | Any = None,
     *,
-    thresh: Any = '1 mm/day',
-    freq: str = 'YS',
+    thresh: Any = "1 mm/day",
+    freq: str = "YS",
     bootstrap: bool = False,
-    op: Literal['>', '>=', 'gt', 'ge'] = '>',
+    op: Literal[">", ">=", "gt", "ge"] = ">",
     **kwargs: Any,
 ) -> Any:
     """
@@ -1350,16 +1372,17 @@ def fraction_over_precip_thresh(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.high_precip_low_temp)
 def high_precip_low_temp(
-    pr: xarray.DataArray | str = 'pr',
-    tas: xarray.DataArray | str = 'tas',
+    pr: xarray.DataArray | str = "pr",
+    tas: xarray.DataArray | str = "tas",
     ds: xarray.Dataset | Any = None,
     *,
-    pr_thresh: Any = '0.4 mm/d',
-    tas_thresh: Any = '-0.2 degC',
-    freq: str = 'YS',
+    pr_thresh: Any = "0.4 mm/d",
+    tas_thresh: Any = "-0.2 degC",
+    freq: str = "YS",
     **kwargs: Any,
 ) -> Any:
     """
@@ -1407,12 +1430,13 @@ def high_precip_low_temp(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.keetch_byram_drought_index)
 def keetch_byram_drought_index(
-    pr: xarray.DataArray | str = 'pr',
-    tasmax: xarray.DataArray | str = 'tasmax',
-    pr_annual: xarray.DataArray | str = 'pr_annual',
+    pr: xarray.DataArray | str = "pr",
+    tasmax: xarray.DataArray | str = "tasmax",
+    pr_annual: xarray.DataArray | str = "pr_annual",
     kbdi0: xarray.DataArray | str | None = None,
     ds: xarray.Dataset | Any = None,
     **kwargs: Any,
@@ -1463,14 +1487,15 @@ def keetch_byram_drought_index(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.last_snowfall)
 def last_snowfall(
-    prsn: xarray.DataArray | str = 'prsn',
+    prsn: xarray.DataArray | str = "prsn",
     ds: xarray.Dataset | Any = None,
     *,
-    thresh: Any = '1 mm/day',
-    freq: str = 'YS-JUL',
+    thresh: Any = "1 mm/day",
+    freq: str = "YS-JUL",
     **kwargs: Any,
 ) -> Any:
     """
@@ -1513,15 +1538,16 @@ def last_snowfall(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.liquid_precip_ratio)
 def liquid_precip_ratio(
-    pr: xarray.DataArray | str = 'pr',
-    tas: xarray.DataArray | str = 'tas',
+    pr: xarray.DataArray | str = "pr",
+    tas: xarray.DataArray | str = "tas",
     ds: xarray.Dataset | Any = None,
     *,
-    thresh: Any = '0 degC',
-    freq: str = 'QS-DEC',
+    thresh: Any = "0 degC",
+    freq: str = "QS-DEC",
     **kwargs: Any,
 ) -> Any:
     """
@@ -1567,15 +1593,16 @@ def liquid_precip_ratio(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.liquid_precip_average)
 def liquid_precip_average(
-    pr: xarray.DataArray | str = 'pr',
-    tas: xarray.DataArray | str = 'tas',
+    pr: xarray.DataArray | str = "pr",
+    tas: xarray.DataArray | str = "tas",
     ds: xarray.Dataset | Any = None,
     *,
-    thresh: Any = '0 degC',
-    freq: str = 'YS',
+    thresh: Any = "0 degC",
+    freq: str = "YS",
     **kwargs: Any,
 ) -> Any:
     """
@@ -1620,15 +1647,16 @@ def liquid_precip_average(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.liquid_precip_accumulation)
 def liquid_precip_accumulation(
-    pr: xarray.DataArray | str = 'pr',
-    tas: xarray.DataArray | str = 'tas',
+    pr: xarray.DataArray | str = "pr",
+    tas: xarray.DataArray | str = "tas",
     ds: xarray.Dataset | Any = None,
     *,
-    thresh: Any = '0 degC',
-    freq: str = 'YS',
+    thresh: Any = "0 degC",
+    freq: str = "YS",
     **kwargs: Any,
 ) -> Any:
     """
@@ -1673,14 +1701,15 @@ def liquid_precip_accumulation(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.max_n_day_precipitation_amount)
 def max_n_day_precipitation_amount(
-    pr: xarray.DataArray | str = 'pr',
+    pr: xarray.DataArray | str = "pr",
     ds: xarray.Dataset | Any = None,
     *,
     window: int = 1,
-    freq: str = 'YS',
+    freq: str = "YS",
     **kwargs: Any,
 ) -> Any:
     """
@@ -1721,14 +1750,15 @@ def max_n_day_precipitation_amount(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.max_pr_intensity)
 def max_pr_intensity(
-    pr: xarray.DataArray | str = 'pr',
+    pr: xarray.DataArray | str = "pr",
     ds: xarray.Dataset | Any = None,
     *,
     window: int = 1,
-    freq: str = 'YS',
+    freq: str = "YS",
     **kwargs: Any,
 ) -> Any:
     """
@@ -1769,14 +1799,15 @@ def max_pr_intensity(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.precip_average)
 def precip_average(
-    pr: xarray.DataArray | str = 'pr',
+    pr: xarray.DataArray | str = "pr",
     ds: xarray.Dataset | Any = None,
     *,
-    thresh: Any = '0 degC',
-    freq: str = 'YS',
+    thresh: Any = "0 degC",
+    freq: str = "YS",
     **kwargs: Any,
 ) -> Any:
     """
@@ -1820,13 +1851,14 @@ def precip_average(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.precip_accumulation)
 def precip_accumulation(
-    pr: xarray.DataArray | str = 'pr',
+    pr: xarray.DataArray | str = "pr",
     ds: xarray.Dataset | Any = None,
     *,
-    freq: str = 'YS',
+    freq: str = "YS",
     **kwargs: Any,
 ) -> Any:
     """
@@ -1867,16 +1899,17 @@ def precip_accumulation(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.rain_on_frozen_ground_days)
 def rain_on_frozen_ground_days(
-    pr: xarray.DataArray | str = 'pr',
-    tas: xarray.DataArray | str = 'tas',
+    pr: xarray.DataArray | str = "pr",
+    tas: xarray.DataArray | str = "tas",
     ds: xarray.Dataset | Any = None,
     *,
-    thresh: Any = '1 mm/d',
+    thresh: Any = "1 mm/d",
     window: int = 7,
-    freq: str = 'YS',
+    freq: str = "YS",
     **kwargs: Any,
 ) -> Any:
     """
@@ -1926,26 +1959,27 @@ def rain_on_frozen_ground_days(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.rain_season)
 def rain_season(
-    pr: xarray.DataArray | str = 'pr',
+    pr: xarray.DataArray | str = "pr",
     ds: xarray.Dataset | Any = None,
     *,
-    thresh_wet_start: Any = '25.0 mm',
+    thresh_wet_start: Any = "25.0 mm",
     window_wet_start: int = 3,
     window_not_dry_start: int = 30,
-    thresh_dry_start: Any = '1.0 mm',
+    thresh_dry_start: Any = "1.0 mm",
     window_dry_start: int = 7,
-    method_dry_start: str = 'per_day',
-    date_min_start: str = '05-01',
-    date_max_start: str = '12-31',
-    thresh_dry_end: Any = '0.0 mm',
+    method_dry_start: str = "per_day",
+    date_min_start: str = "05-01",
+    date_max_start: str = "12-31",
+    thresh_dry_end: Any = "0.0 mm",
     window_dry_end: int = 20,
-    method_dry_end: str = 'per_day',
-    date_min_end: str = '09-01',
-    date_max_end: str = '12-31',
-    freq: Any = 'YS-JAN',
+    method_dry_end: str = "per_day",
+    date_min_end: str = "09-01",
+    date_max_end: str = "12-31",
+    freq: Any = "YS-JAN",
     **kwargs: Any,
 ) -> Any:
     """
@@ -2044,16 +2078,17 @@ def rain_season(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.rprctot)
 def rprctot(
-    pr: xarray.DataArray | str = 'pr',
-    prc: xarray.DataArray | str = 'prc',
+    pr: xarray.DataArray | str = "pr",
+    prc: xarray.DataArray | str = "prc",
     ds: xarray.Dataset | Any = None,
     *,
-    thresh: Any = '1.0 mm/day',
-    freq: str = 'YS',
-    op: Literal['>', 'gt', '>=', 'ge'] = '>=',
+    thresh: Any = "1.0 mm/day",
+    freq: str = "YS",
+    op: Literal[">", "gt", ">=", "ge"] = ">=",
     **kwargs: Any,
 ) -> Any:
     """
@@ -2101,13 +2136,14 @@ def rprctot(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.max_1day_precipitation_amount)
 def max_1day_precipitation_amount(
-    pr: xarray.DataArray | str = 'pr',
+    pr: xarray.DataArray | str = "pr",
     ds: xarray.Dataset | Any = None,
     *,
-    freq: str = 'YS',
+    freq: str = "YS",
     **kwargs: Any,
 ) -> Any:
     """
@@ -2145,15 +2181,16 @@ def max_1day_precipitation_amount(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.daily_pr_intensity)
 def daily_pr_intensity(
-    pr: xarray.DataArray | str = 'pr',
+    pr: xarray.DataArray | str = "pr",
     ds: xarray.Dataset | Any = None,
     *,
-    thresh: Any = '1 mm/day',
-    freq: str = 'YS',
-    op: Literal['>', 'gt', '>=', 'ge'] = '>=',
+    thresh: Any = "1 mm/day",
+    freq: str = "YS",
+    op: Literal[">", "gt", ">=", "ge"] = ">=",
     **kwargs: Any,
 ) -> Any:
     """
@@ -2197,14 +2234,15 @@ def daily_pr_intensity(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.snowfall_frequency)
 def snowfall_frequency(
-    prsn: xarray.DataArray | str = 'prsn',
+    prsn: xarray.DataArray | str = "prsn",
     ds: xarray.Dataset | Any = None,
     *,
-    thresh: Any = '1 mm/day',
-    freq: str = 'YS-JUL',
+    thresh: Any = "1 mm/day",
+    freq: str = "YS-JUL",
     **kwargs: Any,
 ) -> Any:
     """
@@ -2247,14 +2285,15 @@ def snowfall_frequency(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.snowfall_intensity)
 def snowfall_intensity(
-    prsn: xarray.DataArray | str = 'prsn',
+    prsn: xarray.DataArray | str = "prsn",
     ds: xarray.Dataset | Any = None,
     *,
-    thresh: Any = '1 mm/day',
-    freq: str = 'YS-JUL',
+    thresh: Any = "1 mm/day",
+    freq: str = "YS-JUL",
     **kwargs: Any,
 ) -> Any:
     """
@@ -2297,15 +2336,16 @@ def snowfall_intensity(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.solid_precip_average)
 def solid_precip_average(
-    pr: xarray.DataArray | str = 'pr',
-    tas: xarray.DataArray | str = 'tas',
+    pr: xarray.DataArray | str = "pr",
+    tas: xarray.DataArray | str = "tas",
     ds: xarray.Dataset | Any = None,
     *,
-    thresh: Any = '0 degC',
-    freq: str = 'YS',
+    thresh: Any = "0 degC",
+    freq: str = "YS",
     **kwargs: Any,
 ) -> Any:
     """
@@ -2350,15 +2390,16 @@ def solid_precip_average(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.solid_precip_accumulation)
 def solid_precip_accumulation(
-    pr: xarray.DataArray | str = 'pr',
-    tas: xarray.DataArray | str = 'tas',
+    pr: xarray.DataArray | str = "pr",
+    tas: xarray.DataArray | str = "tas",
     ds: xarray.Dataset | Any = None,
     *,
-    thresh: Any = '0 degC',
-    freq: str = 'YS',
+    thresh: Any = "0 degC",
+    freq: str = "YS",
     **kwargs: Any,
 ) -> Any:
     """
@@ -2403,16 +2444,17 @@ def solid_precip_accumulation(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.warm_and_dry_days)
 def warm_and_dry_days(
-    tas: xarray.DataArray | str = 'tas',
-    pr: xarray.DataArray | str = 'pr',
-    tas_per: xarray.DataArray | str = 'tas_per',
-    pr_per: xarray.DataArray | str = 'pr_per',
+    tas: xarray.DataArray | str = "tas",
+    pr: xarray.DataArray | str = "pr",
+    tas_per: xarray.DataArray | str = "tas_per",
+    pr_per: xarray.DataArray | str = "pr_per",
     ds: xarray.Dataset | Any = None,
     *,
-    freq: str = 'YS',
+    freq: str = "YS",
     **kwargs: Any,
 ) -> Any:
     """
@@ -2460,16 +2502,17 @@ def warm_and_dry_days(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.warm_and_wet_days)
 def warm_and_wet_days(
-    tas: xarray.DataArray | str = 'tas',
-    pr: xarray.DataArray | str = 'pr',
-    tas_per: xarray.DataArray | str = 'tas_per',
-    pr_per: xarray.DataArray | str = 'pr_per',
+    tas: xarray.DataArray | str = "tas",
+    pr: xarray.DataArray | str = "pr",
+    tas_per: xarray.DataArray | str = "tas_per",
+    pr_per: xarray.DataArray | str = "pr_per",
     ds: xarray.Dataset | Any = None,
     *,
-    freq: str = 'YS',
+    freq: str = "YS",
     **kwargs: Any,
 ) -> Any:
     """
@@ -2517,14 +2560,15 @@ def warm_and_wet_days(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.water_cycle_intensity)
 def water_cycle_intensity(
-    pr: xarray.DataArray | str = 'pr',
-    evspsbl: xarray.DataArray | str = 'evspsbl',
+    pr: xarray.DataArray | str = "pr",
+    evspsbl: xarray.DataArray | str = "evspsbl",
     ds: xarray.Dataset | Any = None,
     *,
-    freq: Any = 'YS',
+    freq: Any = "YS",
     **kwargs: Any,
 ) -> Any:
     """
@@ -2565,14 +2609,15 @@ def water_cycle_intensity(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.wet_precip_accumulation)
 def wet_precip_accumulation(
-    pr: xarray.DataArray | str = 'pr',
+    pr: xarray.DataArray | str = "pr",
     ds: xarray.Dataset | Any = None,
     *,
-    thresh: Any = '1 mm/day',
-    freq: str = 'YS',
+    thresh: Any = "1 mm/day",
+    freq: str = "YS",
     **kwargs: Any,
 ) -> Any:
     """
@@ -2614,17 +2659,18 @@ def wet_precip_accumulation(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.wet_spell_frequency)
 def wet_spell_frequency(
-    pr: xarray.DataArray | str = 'pr',
+    pr: xarray.DataArray | str = "pr",
     ds: xarray.Dataset | Any = None,
     *,
-    thresh: Any = '1.0 mm',
+    thresh: Any = "1.0 mm",
     window: int = 3,
-    freq: str = 'YS',
+    freq: str = "YS",
     resample_before_rl: bool = True,
-    op: Literal['sum', 'min', 'max', 'mean'] = 'sum',
+    op: Literal["sum", "min", "max", "mean"] = "sum",
     **kwargs: Any,
 ) -> Any:
     """
@@ -2682,16 +2728,17 @@ def wet_spell_frequency(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.wet_spell_max_length)
 def wet_spell_max_length(
-    pr: xarray.DataArray | str = 'pr',
+    pr: xarray.DataArray | str = "pr",
     ds: xarray.Dataset | Any = None,
     *,
-    thresh: Any = '1.0 mm',
+    thresh: Any = "1.0 mm",
     window: int = 1,
-    op: Literal['min', 'sum', 'max', 'mean'] = 'sum',
-    freq: str = 'YS',
+    op: Literal["min", "sum", "max", "mean"] = "sum",
+    freq: str = "YS",
     resample_before_rl: bool = True,
     **kwargs: Any,
 ) -> Any:
@@ -2748,16 +2795,17 @@ def wet_spell_max_length(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.wet_spell_total_length)
 def wet_spell_total_length(
-    pr: xarray.DataArray | str = 'pr',
+    pr: xarray.DataArray | str = "pr",
     ds: xarray.Dataset | Any = None,
     *,
-    thresh: Any = '1.0 mm',
+    thresh: Any = "1.0 mm",
     window: int = 3,
-    op: Literal['min', 'sum', 'max', 'mean'] = 'sum',
-    freq: str = 'YS',
+    op: Literal["min", "sum", "max", "mean"] = "sum",
+    freq: str = "YS",
     resample_before_rl: bool = True,
     **kwargs: Any,
 ) -> Any:
@@ -2814,15 +2862,16 @@ def wet_spell_total_length(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.wetdays)
 def wetdays(
-    pr: xarray.DataArray | str = 'pr',
+    pr: xarray.DataArray | str = "pr",
     ds: xarray.Dataset | Any = None,
     *,
-    thresh: Any = '1.0 mm/day',
-    freq: str = 'YS',
-    op: Literal['>', 'gt', '>=', 'ge'] = '>=',
+    thresh: Any = "1.0 mm/day",
+    freq: str = "YS",
+    op: Literal[">", "gt", ">=", "ge"] = ">=",
     **kwargs: Any,
 ) -> Any:
     """
@@ -2866,15 +2915,16 @@ def wetdays(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.wetdays_prop)
 def wetdays_prop(
-    pr: xarray.DataArray | str = 'pr',
+    pr: xarray.DataArray | str = "pr",
     ds: xarray.Dataset | Any = None,
     *,
-    thresh: Any = '1.0 mm/day',
-    freq: str = 'YS',
-    op: Literal['>', 'gt', '>=', 'ge'] = '>=',
+    thresh: Any = "1.0 mm/day",
+    freq: str = "YS",
+    op: Literal[">", "gt", ">=", "ge"] = ">=",
     **kwargs: Any,
 ) -> Any:
     """
@@ -2917,4 +2967,3 @@ def wetdays_prop(
         ds=ds,
         **kwargs,
     )
-
