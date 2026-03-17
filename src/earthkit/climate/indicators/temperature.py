@@ -69,6 +69,7 @@ def australian_hardiness_zones(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.biologically_effective_degree_days)
 def biologically_effective_degree_days(
@@ -173,6 +174,7 @@ def biologically_effective_degree_days(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.cold_spell_days)
 def cold_spell_days(
@@ -235,6 +237,7 @@ def cold_spell_days(
         ds=ds,
         **kwargs,
     )
+
 
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.cold_spell_duration_index)
@@ -308,6 +311,7 @@ def cold_spell_duration_index(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.cold_spell_frequency)
 def cold_spell_frequency(
@@ -369,6 +373,7 @@ def cold_spell_frequency(
         ds=ds,
         **kwargs,
     )
+
 
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.cold_spell_max_length)
@@ -433,6 +438,7 @@ def cold_spell_max_length(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.cold_spell_total_length)
 def cold_spell_total_length(
@@ -496,6 +502,7 @@ def cold_spell_total_length(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.consecutive_frost_days)
 def consecutive_frost_days(
@@ -548,6 +555,7 @@ def consecutive_frost_days(
         ds=ds,
         **kwargs,
     )
+
 
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.maximum_consecutive_frost_free_days)
@@ -603,6 +611,7 @@ def maximum_consecutive_frost_free_days(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.cool_night_index)
 def cool_night_index(
@@ -653,6 +662,7 @@ def cool_night_index(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.cooling_degree_days)
 def cooling_degree_days(
@@ -701,6 +711,7 @@ def cooling_degree_days(
         ds=ds,
         **kwargs,
     )
+
 
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.cooling_degree_days_approximation)
@@ -761,6 +772,7 @@ def cooling_degree_days_approximation(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.corn_heat_units)
 def corn_heat_units(
@@ -814,6 +826,7 @@ def corn_heat_units(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.chill_portions)
 def chill_portions(
@@ -866,6 +879,7 @@ def chill_portions(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.chill_units)
 def chill_units(
@@ -917,6 +931,7 @@ def chill_units(
         ds=ds,
         **kwargs,
     )
+
 
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.degree_days_exceedance_date)
@@ -986,6 +1001,7 @@ def degree_days_exceedance_date(
         ds=ds,
         **kwargs,
     )
+
 
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.daily_freezethaw_cycles)
@@ -1058,6 +1074,7 @@ def daily_freezethaw_cycles(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.daily_temperature_range)
 def daily_temperature_range(
@@ -1105,6 +1122,7 @@ def daily_temperature_range(
         ds=ds,
         **kwargs,
     )
+
 
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.max_daily_temperature_range)
@@ -1154,6 +1172,7 @@ def max_daily_temperature_range(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.daily_temperature_range_variability)
 def daily_temperature_range_variability(
@@ -1202,6 +1221,7 @@ def daily_temperature_range_variability(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.extreme_temperature_range)
 def extreme_temperature_range(
@@ -1249,6 +1269,7 @@ def extreme_temperature_range(
         ds=ds,
         **kwargs,
     )
+
 
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.fire_season)
@@ -1328,6 +1349,7 @@ def fire_season(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.first_day_tg_above)
 def first_day_tg_above(
@@ -1389,6 +1411,7 @@ def first_day_tg_above(
         ds=ds,
         **kwargs,
     )
+
 
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.first_day_tg_below)
@@ -1452,6 +1475,7 @@ def first_day_tg_below(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.first_day_tn_above)
 def first_day_tn_above(
@@ -1513,6 +1537,7 @@ def first_day_tn_above(
         ds=ds,
         **kwargs,
     )
+
 
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.first_day_tn_below)
@@ -1576,6 +1601,7 @@ def first_day_tn_below(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.first_day_tx_above)
 def first_day_tx_above(
@@ -1638,6 +1664,7 @@ def first_day_tx_above(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.first_day_tx_below)
 def first_day_tx_below(
@@ -1699,6 +1726,7 @@ def first_day_tx_below(
         ds=ds,
         **kwargs,
     )
+
 
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.freezethaw_spell_frequency)
@@ -1775,6 +1803,7 @@ def freezethaw_spell_frequency(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.freezethaw_spell_max_length)
 def freezethaw_spell_max_length(
@@ -1850,6 +1879,7 @@ def freezethaw_spell_max_length(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.freezethaw_spell_mean_length)
 def freezethaw_spell_mean_length(
@@ -1917,6 +1947,7 @@ def freezethaw_spell_mean_length(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.freezing_degree_days)
 def freezing_degree_days(
@@ -1965,6 +1996,7 @@ def freezing_degree_days(
         ds=ds,
         **kwargs,
     )
+
 
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.freshet_start)
@@ -2028,6 +2060,7 @@ def freshet_start(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.frost_days)
 def frost_days(
@@ -2075,6 +2108,7 @@ def frost_days(
         ds=ds,
         **kwargs,
     )
+
 
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.frost_free_season_end)
@@ -2137,6 +2171,7 @@ def frost_free_season_end(
         ds=ds,
         **kwargs,
     )
+
 
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.frost_free_season_length)
@@ -2201,6 +2236,7 @@ def frost_free_season_length(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.frost_free_season_start)
 def frost_free_season_start(
@@ -2262,6 +2298,7 @@ def frost_free_season_start(
         ds=ds,
         **kwargs,
     )
+
 
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.frost_free_spell_max_length)
@@ -2325,6 +2362,7 @@ def frost_free_spell_max_length(
         ds=ds,
         **kwargs,
     )
+
 
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.frost_season_length)
@@ -2390,6 +2428,7 @@ def frost_season_length(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.growing_degree_days)
 def growing_degree_days(
@@ -2438,6 +2477,7 @@ def growing_degree_days(
         ds=ds,
         **kwargs,
     )
+
 
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.growing_season_end)
@@ -2503,6 +2543,7 @@ def growing_season_end(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.growing_season_length)
 def growing_season_length(
@@ -2567,6 +2608,7 @@ def growing_season_length(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.growing_season_start)
 def growing_season_start(
@@ -2628,6 +2670,7 @@ def growing_season_start(
         ds=ds,
         **kwargs,
     )
+
 
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.heat_spell_frequency)
@@ -2705,6 +2748,7 @@ def heat_spell_frequency(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.heat_spell_max_length)
 def heat_spell_max_length(
@@ -2780,6 +2824,7 @@ def heat_spell_max_length(
         thresh_tasmax=thresh_tasmax,
         **kwargs,
     )
+
 
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.heat_spell_total_length)
@@ -2857,6 +2902,7 @@ def heat_spell_total_length(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.heat_wave_frequency)
 def heat_wave_frequency(
@@ -2927,6 +2973,7 @@ def heat_wave_frequency(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.heat_wave_index)
 def heat_wave_index(
@@ -2989,6 +3036,7 @@ def heat_wave_index(
         ds=ds,
         **kwargs,
     )
+
 
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.heat_wave_max_length)
@@ -3060,6 +3108,7 @@ def heat_wave_max_length(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.heat_wave_total_length)
 def heat_wave_total_length(
@@ -3130,6 +3179,7 @@ def heat_wave_total_length(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.heating_degree_days)
 def heating_degree_days(
@@ -3178,6 +3228,7 @@ def heating_degree_days(
         ds=ds,
         **kwargs,
     )
+
 
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.heating_degree_days_approximation)
@@ -3238,6 +3289,7 @@ def heating_degree_days_approximation(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.hot_days)
 def hot_days(
@@ -3285,6 +3337,7 @@ def hot_days(
         ds=ds,
         **kwargs,
     )
+
 
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.hot_spell_frequency)
@@ -3348,6 +3401,7 @@ def hot_spell_frequency(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.hot_spell_max_length)
 def hot_spell_max_length(
@@ -3410,6 +3464,7 @@ def hot_spell_max_length(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.hot_spell_max_magnitude)
 def hot_spell_max_magnitude(
@@ -3468,6 +3523,7 @@ def hot_spell_max_magnitude(
         ds=ds,
         **kwargs,
     )
+
 
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.hot_spell_total_length)
@@ -3531,6 +3587,7 @@ def hot_spell_total_length(
         ds=ds,
         **kwargs,
     )
+
 
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.huglin_index)
@@ -3618,6 +3675,7 @@ def huglin_index(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.ice_days)
 def ice_days(
@@ -3665,6 +3723,7 @@ def ice_days(
         ds=ds,
         **kwargs,
     )
+
 
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.last_spring_frost)
@@ -3728,6 +3787,7 @@ def last_spring_frost(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.late_frost_days)
 def late_frost_days(
@@ -3776,6 +3836,7 @@ def late_frost_days(
         ds=ds,
         **kwargs,
     )
+
 
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.latitude_temperature_index)
@@ -3830,6 +3891,7 @@ def latitude_temperature_index(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.maximum_consecutive_warm_days)
 def maximum_consecutive_warm_days(
@@ -3883,6 +3945,7 @@ def maximum_consecutive_warm_days(
         ds=ds,
         **kwargs,
     )
+
 
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.tg10p)
@@ -3945,6 +4008,7 @@ def tg10p(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.tg90p)
 def tg90p(
@@ -4006,6 +4070,7 @@ def tg90p(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.tg_days_above)
 def tg_days_above(
@@ -4057,6 +4122,7 @@ def tg_days_above(
         ds=ds,
         **kwargs,
     )
+
 
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.tg_days_below)
@@ -4110,6 +4176,7 @@ def tg_days_below(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.tg_max)
 def tg_max(
@@ -4153,6 +4220,7 @@ def tg_max(
         ds=ds,
         **kwargs,
     )
+
 
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.tg_mean)
@@ -4198,6 +4266,7 @@ def tg_mean(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.tg_min)
 def tg_min(
@@ -4241,6 +4310,7 @@ def tg_min(
         ds=ds,
         **kwargs,
     )
+
 
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.thawing_degree_days)
@@ -4290,6 +4360,7 @@ def thawing_degree_days(
         ds=ds,
         **kwargs,
     )
+
 
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.tn10p)
@@ -4352,6 +4423,7 @@ def tn10p(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.tn90p)
 def tn90p(
@@ -4413,6 +4485,7 @@ def tn90p(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.tn_days_above)
 def tn_days_above(
@@ -4464,6 +4537,7 @@ def tn_days_above(
         ds=ds,
         **kwargs,
     )
+
 
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.tn_days_below)
@@ -4517,6 +4591,7 @@ def tn_days_below(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.tn_max)
 def tn_max(
@@ -4560,6 +4635,7 @@ def tn_max(
         ds=ds,
         **kwargs,
     )
+
 
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.tn_mean)
@@ -4605,6 +4681,7 @@ def tn_mean(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.tn_min)
 def tn_min(
@@ -4648,6 +4725,7 @@ def tn_min(
         ds=ds,
         **kwargs,
     )
+
 
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.tropical_nights)
@@ -4700,6 +4778,7 @@ def tropical_nights(
         ds=ds,
         **kwargs,
     )
+
 
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.tx10p)
@@ -4762,6 +4841,7 @@ def tx10p(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.tx90p)
 def tx90p(
@@ -4823,6 +4903,7 @@ def tx90p(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.tx_days_above)
 def tx_days_above(
@@ -4874,6 +4955,7 @@ def tx_days_above(
         ds=ds,
         **kwargs,
     )
+
 
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.tx_days_below)
@@ -4927,6 +5009,7 @@ def tx_days_below(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.tx_max)
 def tx_max(
@@ -4970,6 +5053,7 @@ def tx_max(
         ds=ds,
         **kwargs,
     )
+
 
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.tx_mean)
@@ -5015,6 +5099,7 @@ def tx_mean(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.tx_min)
 def tx_min(
@@ -5058,6 +5143,7 @@ def tx_min(
         ds=ds,
         **kwargs,
     )
+
 
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.tx_tn_days_above)
@@ -5119,6 +5205,7 @@ def tx_tn_days_above(
         **kwargs,
     )
 
+
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.usda_hardiness_zones)
 def usda_hardiness_zones(
@@ -5170,6 +5257,7 @@ def usda_hardiness_zones(
         ds=ds,
         **kwargs,
     )
+
 
 @format_handler()
 # @metadata_handler(xclim.indicators.atmos.warm_spell_duration_index)
@@ -5242,4 +5330,3 @@ def warm_spell_duration_index(
         ds=ds,
         **kwargs,
     )
-

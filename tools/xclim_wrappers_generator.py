@@ -333,10 +333,11 @@ def generate_module_content(category: str, indicators: List[Any]) -> str:
             xclim_obj_ref=xclim_obj_ref,
             docstring=indented_doc,
         )
-
         functions_code.append(code)
 
-    return MODULE_TEMPLATE.format(category_title=category.capitalize(), functions_code="".join(functions_code))
+    return MODULE_TEMPLATE.format(
+        category_title=category.capitalize(), functions_code="\n".join(functions_code)
+    ).rstrip() + "\n"
 
 
 def main():
