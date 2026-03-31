@@ -1,5 +1,5 @@
 [dependencies]
-earthkit-data = ">=0.17.0"
+earthkit-data = ">=0.17.0,<1"
 flox = ">=0.11.0,<0.12"
 numpy = ">=1.22"
 python = "3.12.*"

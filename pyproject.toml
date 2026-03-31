@@ -20,7 +20,7 @@ classifiers = [
   "Topic :: Scientific/Engineering"
 ]
 dependencies = [
-  "earthkit-data>=0.17",
+  "earthkit-data>=0.17,<1",
   "numpy>=1.22",
   "xarray>=2023.1",
   "xclim>=0.59.1",
