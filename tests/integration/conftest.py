@@ -75,14 +75,12 @@ def get_indicator_configs(
 
     # Optimized views (Chunk -1)
     tasmax_opt = tasmax_ssp.chunk({"time": -1})
-    tasmin_opt = tasmin_ssp.chunk({"time": -1})
-    pr_opt = pr_ssp.chunk({"time": -1})
 
     return [
         {
-            "name": "WSDI",
-            "ek_func": ek_temp.warm_spell_duration_index,
-            "xi_func": xclim.indicators.atmos.warm_spell_duration_index,
+            "name": "TX90P",
+            "ek_func": ek_temp.tx90p,
+            "xi_func": xclim.indicators.atmos.tx90p,
             "ek_args": {
                 "lazy": {"ds": xr.merge([tasmax_ssp, per_90]), "freq": "MS"},
                 "optimized": {
@@ -100,16 +98,16 @@ def get_indicator_configs(
             },
         },
         {
-            "name": "CWD",
-            "ek_func": ek_pr.maximum_consecutive_wet_days,
-            "xi_func": xclim.indicators.atmos.maximum_consecutive_wet_days,
+            "name": "PRCPTOT",
+            "ek_func": ek_pr.precip_accumulation,
+            "xi_func": xclim.indicators.atmos.precip_accumulation,
             "ek_args": {
                 "lazy": {"ds": pr_ssp, "freq": "MS"},
-                "optimized": {"ds": pr_opt, "freq": "MS"},
+                "optimized": {"ds": pr_ssp, "freq": "MS"},
             },
             "xi_args": {
                 "lazy": {"pr": pr_ssp, "freq": "MS"},
-                "optimized": {"pr": pr_opt, "freq": "MS"},
+                "optimized": {"pr": pr_ssp, "freq": "MS"},
             },
         },
         {
@@ -118,11 +116,11 @@ def get_indicator_configs(
             "xi_func": xclim.indicators.atmos.daily_temperature_range,
             "ek_args": {
                 "lazy": {"ds": xr.merge([tasmax_ssp, tasmin_ssp]), "freq": "MS"},
-                "optimized": {"ds": xr.merge([tasmax_opt, tasmin_opt]), "freq": "MS"},
+                "optimized": {"ds": xr.merge([tasmax_ssp, tasmin_ssp]), "freq": "MS"},
             },
             "xi_args": {
                 "lazy": {"tasmax": tasmax_ssp, "tasmin": tasmin_ssp, "freq": "MS"},
-                "optimized": {"tasmax": tasmax_opt, "tasmin": tasmin_opt, "freq": "MS"},
+                "optimized": {"tasmax": tasmax_ssp, "tasmin": tasmin_ssp, "freq": "MS"},
             },
         },
         {
@@ -135,13 +133,13 @@ def get_indicator_configs(
                     "freq": "MS",
                 },
                 "optimized": {
-                    "ds": ((tasmax_opt + tasmin_opt) / 2).to_dataset(name="tas"),
+                    "ds": ((tasmax_ssp + tasmin_ssp) / 2).to_dataset(name="tas"),
                     "freq": "MS",
                 },
             },
             "xi_args": {
                 "lazy": {"tas": (tasmax_ssp + tasmin_ssp) / 2, "freq": "MS"},
-                "optimized": {"tas": (tasmax_opt + tasmin_opt) / 2, "freq": "MS"},
+                "optimized": {"tas": (tasmax_ssp + tasmin_ssp) / 2, "freq": "MS"},
             },
         },
         {
@@ -150,11 +148,11 @@ def get_indicator_configs(
             "xi_func": xclim.indicators.atmos.daily_pr_intensity,
             "ek_args": {
                 "lazy": {"ds": pr_ssp, "freq": "MS"},
-                "optimized": {"ds": pr_opt, "freq": "MS"},
+                "optimized": {"ds": pr_ssp, "freq": "MS"},
             },
             "xi_args": {
                 "lazy": {"pr": pr_ssp, "freq": "MS"},
-                "optimized": {"pr": pr_opt, "freq": "MS"},
+                "optimized": {"pr": pr_ssp, "freq": "MS"},
             },
         },
     ]
@@ -174,8 +172,8 @@ def data_cache() -> dict[str, xr.Dataset]:
 
 
 @pytest.fixture(
-    params=["WSDI", "CWD", "DTR", "HDD", "SDII"],
-    ids=["WSDI", "CWD", "DTR", "HDD", "SDII"],
+    params=["TX90P", "PRCPTOT", "DTR", "HDD", "SDII"],
+    ids=["TX90P", "PRCPTOT", "DTR", "HDD", "SDII"],
 )
 def indicator_config(
     request: pytest.FixtureRequest,
