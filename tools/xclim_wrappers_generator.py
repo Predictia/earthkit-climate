@@ -13,7 +13,7 @@ import inspect
 import textwrap
 from typing import Any, List
 
-import xclim.indicators.atmos
+import xclim.indicators
 
 MODULE_TEMPLATE = """# (C) Copyright 2025 - ECMWF and individual contributors.
 
@@ -25,39 +25,69 @@ MODULE_TEMPLATE = """# (C) Copyright 2025 - ECMWF and individual contributors.
 
 \"\"\"{category_title} indices.\"\"\"
 
-from typing import Any
+from typing import Any, Literal
 
 import xarray
-import xclim.indicators.atmos
+import xclim.indicators.{module_name}
+from earthkit.utils.decorators.format_handlers import format_handler
 
-import earthkit.climate.utils.conversions as conversions
-from earthkit.climate.api.wrapper import wrap_xclim_indicator
+# from earthkit.climate.utils.decorators import metadata_handler
 
 {functions_code}
 """
 
 FUNCTION_TEMPLATE = """
+@format_handler()
+# @metadata_handler({xclim_obj_ref})
 def {func_name}(
-    ds: conversions.EarthkitData | xarray.Dataset,
-    **kwargs: Any,
-) -> conversions.EarthkitData:
+{signature_params}
+) -> Any:
     \"\"\"
     {docstring}
     \"\"\"
-    wrapper = wrap_xclim_indicator(xclim.indicators.atmos.{xclim_func_name})
-    return wrapper(ds, **kwargs)
+    return {xclim_obj_ref}({call_params})
 """
 
 
-def generate_docstring(indicator: Any, xclim_func_name: str) -> str:
+def simplify_type(type_obj: Any) -> str:
+    """Simplify complex types to strings that can be used in the generated code."""
+    if type_obj == inspect.Parameter.empty:
+        return "Any"
+
+    type_str = str(type_obj)
+
+    # Common replacements
+    replacements = {
+        "xarray.core.dataarray.DataArray": "xarray.DataArray",
+        "xarray.core.dataset.Dataset": "xarray.Dataset",
+        "xarray.core.datatree.DataTree": "Any",
+        "Quantified": "Any",  # xclim specific, hard to import reliably
+        "DayOfYearStr": "str",
+        "DateStr": "str",
+        "rv_continuous": "Any",
+        "Indexer": "Any",
+    }
+
+    for old, new in replacements.items():
+        type_str = type_str.replace(old, new)
+
+    # Remove quotes
+    type_str = type_str.strip("'")
+
+    return type_str
+
+
+def generate_docstring(indicator: Any, module_name: str, xclim_func_name: str) -> str:
     """Generate a docstring for the wrapper function based on the xclim indicator.
 
     Parameters
     ----------
     indicator : xclim.core.indicator.Indicator
         The xclim indicator object.
+    module_name : str
+        The xclim module name (e.g. 'atmos', 'land').
     xclim_func_name : str
-         The name of the function in xclim.indicators.atmos.
+         The name of the function in xclim.indicators.<module_name>.
 
     Returns
     -------
@@ -117,38 +147,154 @@ def generate_docstring(indicator: Any, xclim_func_name: str) -> str:
     if units_section:
         sections.append(units_section)
 
-    sections.append(
-        f"This function wraps `xclim.indicators.atmos.{xclim_func_name} "
-        f"<https://xclim.readthedocs.io/en/stable/api_indicators.html#xclim.indicators.atmos.{xclim_func_name}>`_."
-    )
+    link_text = f"xclim.indicators.{module_name}.{xclim_func_name}"
+    link_url = f"https://xclim.readthedocs.io/en/stable/api_indicators.html#{link_text}"
+    sections.append(f"This function wraps `{link_text} <{link_url}>`_.")
 
-    # Static footer
-    footer = inspect.cleandoc(f"""
-        Parameters
-        ----------
-        ds : conversions.EarthkitData | xarray.Dataset
-            Input dataset. See xclim documentation for required variables.
-        **kwargs : Any
-            Additional keyword arguments forwarded to
-            :func:`xclim.indicators.atmos.{xclim_func_name}`.
+    # Parameters section
+    params_lines = [
+        "Parameters",
+        "----------",
+    ]
 
+    try:
+        sig = inspect.signature(indicator)
+        for name, param in sig.parameters.items():
+            if name == "ds":
+                continue
+
+            # Skip VAR parameters as they are handled by docstring **kwargs
+            if param.kind in (inspect.Parameter.VAR_KEYWORD, inspect.Parameter.VAR_POSITIONAL):
+                continue
+
+            # Try to get description from indicator.parameters
+            param_meta = indicator.parameters.get(name)
+            description = getattr(param_meta, "description", "") if param_meta else ""
+
+            type_hint = simplify_type(param.annotation)
+
+            params_lines.append(f"{name} : {type_hint}")
+            if description:
+                # Wrap description with hanging indent
+                wrapped_description = textwrap.fill(
+                    description, width=88, initial_indent="    ", subsequent_indent="    "
+                )
+                params_lines.append(wrapped_description)
+    except Exception:
+        pass
+
+    params_lines.append("ds : xarray.Dataset | Any")
+    params_lines.append("    Input dataset.")
+    params_lines.append("**kwargs : Any")
+    params_lines.append("    Additional keyword arguments.")
+
+    sections.append("\n".join(params_lines))
+
+    # Returns section
+    returns_section = inspect.cleandoc("""
         Returns
         -------
-        conversions.EarthkitData
-            The computed index as an Earthkit-compatible field.
+        Any
+            The computed index.
     """)
-    sections.append(footer)
+    sections.append(returns_section)
 
     return "\n\n".join(sections)
 
 
-def generate_module_content(category: str, indicators: List[Any]) -> str:
+def format_signature_params(indicator: Any) -> str:
+    """Format the parameters for the function signature."""
+    params = []
+
+    try:
+        sig = inspect.signature(indicator)
+
+        sig_params = list(sig.parameters.values())
+
+        pos_no_default = []
+        pos_with_default = []
+        kw_only = []
+
+        for p in sig_params:
+            if p.name == "ds":
+                continue
+
+            if p.kind in (inspect.Parameter.POSITIONAL_OR_KEYWORD, inspect.Parameter.POSITIONAL_ONLY):
+                if p.default == inspect.Parameter.empty:
+                    pos_no_default.append(p)
+                else:
+                    pos_with_default.append(p)
+            elif p.kind == inspect.Parameter.KEYWORD_ONLY:
+                kw_only.append(p)
+            # Skip VAR_KEYWORD and VAR_POSITIONAL as we add our own **kwargs
+
+        for p in pos_no_default:
+            type_hint = simplify_type(p.annotation)
+            params.append(f"    {p.name}: {type_hint},")
+
+        for p in pos_with_default:
+            type_hint = simplify_type(p.annotation)
+            default_val = repr(p.default)
+            if isinstance(p.default, str) and "'" in default_val and '"' not in default_val:
+                default_val = f'"{p.default}"'
+            params.append(f"    {p.name}: {type_hint} = {default_val},")
+
+        # Add ds here
+        params.append("    ds: xarray.Dataset | Any = None,")
+
+        if kw_only:
+            params.append("    *,")
+            for p in kw_only:
+                type_hint = simplify_type(p.annotation)
+                if p.default != inspect.Parameter.empty:
+                    default_val = repr(p.default)
+                    if isinstance(p.default, str) and "'" in default_val and '"' not in default_val:
+                        default_val = f'"{p.default}"'
+                    params.append(f"    {p.name}: {type_hint} = {default_val},")
+                else:
+                    params.append(f"    {p.name}: {type_hint},")
+
+    except Exception:
+        pass
+
+    params.append("    **kwargs: Any,")
+
+    return "\n".join(params)
+
+
+def format_call_params(indicator: Any) -> str:
+    """Format the parameters for the xclim call."""
+    try:
+        sig = inspect.signature(indicator)
+        call_args = []
+        for name, param in sig.parameters.items():
+            if name == "ds":
+                call_args.append("ds=ds")
+            elif param.kind in (inspect.Parameter.VAR_KEYWORD, inspect.Parameter.VAR_POSITIONAL):
+                continue  # Skip VAR parameters, they are covered by **kwargs
+            else:
+                call_args.append(f"{name}={name}")
+        call_args.append("**kwargs")
+
+        # If the total length is likely to exceed 88 chars (indent=4 + total), or many parameters
+        total_len = sum(len(arg) for arg in call_args) + 2 * len(call_args) + 30  # 30 for the 'return xclim...' part
+        if len(call_args) > 3 or total_len > 80:
+            return "\n        " + ",\n        ".join(call_args) + ",\n    "
+
+        return ", ".join(call_args)
+    except Exception:
+        return "ds=ds, **kwargs"
+
+
+def generate_module_content(category: str, module_name: str, indicators: List[Any]) -> str:
     """Generate the content for a python module containing wrapper functions.
 
     Parameters
     ----------
     category : str
         The category of indicators (e.g. 'precipitation', 'temperature').
+    module_name : str
+        The xclim module name (e.g. 'atmos', 'land').
     indicators : list
         List of xclim indicator objects to generate wrappers for.
 
@@ -162,10 +308,13 @@ def generate_module_content(category: str, indicators: List[Any]) -> str:
     # Sort indicators by name for consistent output
     indicators.sort(key=lambda x: x.identifier)
 
+    # Get the xclim module to find function names
+    xclim_module = getattr(xclim.indicators, module_name)
+
     for ind in indicators:
-        # We need the name of the attribute in xclim.indicators.atmos to generate the call
+        # We need the name of the attribute in xclim.indicators.<module_name> to generate the call
         xclim_func_name = None
-        for name, obj in inspect.getmembers(xclim.indicators.atmos):
+        for name, obj in inspect.getmembers(xclim_module):
             if obj is ind:
                 xclim_func_name = name
                 break
@@ -177,22 +326,50 @@ def generate_module_content(category: str, indicators: List[Any]) -> str:
         # Use the xclim variable name as the function name to match existing conventions
         func_name = xclim_func_name
 
-        docstring = generate_docstring(ind, xclim_func_name)
+        docstring = generate_docstring(ind, module_name, xclim_func_name)
 
         # Indent the docstring correctly
         lines = docstring.split("\n")
         indented_doc = lines[0] + "\n" + "\n".join([("    " + line if line.strip() else "") for line in lines[1:]])
 
-        code = FUNCTION_TEMPLATE.format(func_name=func_name, xclim_func_name=xclim_func_name, docstring=indented_doc)
+        signature_params = format_signature_params(ind)
+        call_params = format_call_params(ind)
+        xclim_obj_ref = f"xclim.indicators.{module_name}.{xclim_func_name}"
+
+        code = FUNCTION_TEMPLATE.format(
+            func_name=func_name,
+            signature_params=signature_params,
+            call_params=call_params,
+            xclim_obj_ref=xclim_obj_ref,
+            docstring=indented_doc,
+        )
         functions_code.append(code)
 
-    return MODULE_TEMPLATE.format(category_title=category.capitalize(), functions_code="".join(functions_code))
+    return (
+        MODULE_TEMPLATE.format(
+            category_title=category.capitalize(),
+            module_name=module_name,
+            functions_code="\n".join(functions_code),
+        ).rstrip()
+        + "\n"
+    )
 
 
-def main():
-    output_dir = importlib.resources.files("earthkit.climate.indicators")
-    # Discovery
-    module = xclim.indicators.atmos
+def generate_for_module(module_name: str, output_base_dir: Any):
+    """Generate wrappers for a specific xclim indicator module."""
+    try:
+        module = importlib.import_module(f"xclim.indicators.{module_name}")
+    except ImportError:
+        print(f"Skipping xclim.indicators.{module_name} (not found)")
+        return
+
+    # Use snake_case for directory names
+    dir_name = module_name
+    if module_name == "seaIce":
+        dir_name = "ocean"
+
+    output_dir = output_base_dir / dir_name
+    output_dir.mkdir(exist_ok=True, parents=True)
 
     # Get all potential indicators from __all__ if present
     if hasattr(module, "__all__"):
@@ -202,14 +379,19 @@ def main():
         names = [n for n, o in inspect.getmembers(module) if not n.startswith("_")]
 
     # Map internal xclim module names to our category names
+    # This mapping is mostly for 'atmos' where indicators are split
     module_to_category = {
         "_precip": "precipitation",
         "_temperature": "temperature",
-        # "_wind": "wind",
-        # "_synoptic": "synoptic",
+        "_wind": "wind",
+        "_synoptic": "synoptic",
+        "_conversion": "precipitation",  # Snow depth/water equivalent conversions
+        "_snow": "snow",
+        "_streamflow": "hydrology",
+        "_seaice": "sea_ice",
     }
 
-    indicators_map = {cat: [] for cat in module_to_category.values()}
+    indicators_map = {}
 
     for name in names:
         # We need the object to check type/attributes and pass to generation
@@ -222,18 +404,27 @@ def main():
         if not hasattr(obj, "identifier"):
             continue
 
-        # Check which module it comes from
-        # e.g. xclim.indicators.atmos._precip
+        # Check which submodule/category it comes from
+        # e.g. xclim.indicators.atmos._precip or xclim.indicators.land._snow
         obj_module = getattr(obj, "__module__", "")
         # Extract the last part of the module path
-        module_name = obj_module.split(".")[-1]
+        submodule_name = obj_module.split(".")[-1]
 
-        if module_name in module_to_category:
-            category = module_to_category[module_name]
-            indicators_map[category].append(obj)
+        if submodule_name in module_to_category:
+            category = module_to_category[submodule_name]
         else:
-            print(f"Skipping {name} from unknown module {module_name}")
-            continue
+            # Fallback based on keywords or other attributes
+            keywords = getattr(obj, "keywords", "")
+            if "precipitation" in keywords or "snow" in keywords or "rain" in keywords:
+                category = "precipitation"
+            elif "temperature" in keywords or "heat" in keywords or "cold" in keywords:
+                category = "temperature"
+            else:
+                category = module_name  # Use module name as fallback category
+
+        if category not in indicators_map:
+            indicators_map[category] = []
+        indicators_map[category].append(obj)
 
     for category, indicators in indicators_map.items():
         if not indicators:
@@ -243,11 +434,39 @@ def main():
         filepath = output_dir / filename
 
         print(f"Generating {filepath} with {len(indicators)} indicators...")
-        content = generate_module_content(category, indicators)
+        content = generate_module_content(category, module_name, indicators)
 
         with open(filepath, "w") as f:
             f.write(content)
         print(f"Written {filepath}")
+
+    # Create __init__.py for the module if it doesn't exist or needs update
+    init_path = output_dir / "__init__.py"
+    # For all modules, we want to expose all submodules
+    categories = sorted(indicators_map.keys())
+    init_content = "# (C) Copyright 2025 - ECMWF and individual contributors.\n\n"
+
+    title = module_name.capitalize()
+    if module_name == "seaIce":
+        title = "Sea ice"
+    init_content += f'"""{title} indicators."""\n\n'
+
+    for cat in categories:
+        init_content += f"from .{cat} import *  # noqa\n"
+
+    with open(init_path, "w") as f:
+        f.write(init_content)
+
+
+def main():
+    output_base_dir = importlib.resources.files("earthkit.climate.indicators")
+
+    # Categories to generate
+    # atmos covers most current ones, adding land and seaIce
+    xclim_modules = ["atmos", "land", "seaIce"]
+
+    for module_name in xclim_modules:
+        generate_for_module(module_name, output_base_dir)
 
 
 if __name__ == "__main__":

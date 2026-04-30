@@ -22,6 +22,8 @@ classifiers = [
 ]
 dependencies = [
   "earthkit-data>=0.17,<1",
+  "earthkit-utils>=0.3",
+  "flox>=0.11",
   "numpy>=1.22",
   "xarray>=2023.1",
   "xclim>=0.59.1",
@@ -31,8 +33,9 @@ description = "Tools for calculating climate indicies, climate change analysis a
 dynamic = ["readme", "version"]
 license = {file = "LICENSE"}
 name = "earthkit-climate"
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 optional-dependencies.dev = [
+  "cdsapi",
   "ipykernel",
   "ipython",
   "mypy",
@@ -40,6 +43,7 @@ optional-dependencies.dev = [
   "pytest",
   "pytest-cov",
   "pytest-mock",
+  "pytest-xdist",
   "ruff"
 ]
 optional-dependencies.docs = [
@@ -52,9 +56,14 @@ optional-dependencies.docs = [
 
 [tool.coverage.run]
 branch = true
+source = ["src/earthkit/climate"]
 
 [tool.pytest.ini_options]
-addopts = "-vv --cov=. --cov-report=html --doctest-glob='*.md' --doctest-glob='*.rst'"
+addopts = "-vv --cov --cov-report=html --doctest-glob='*.md' --doctest-glob='*.rst' -m 'not integration' -n auto"
+markers = [
+  "integration: marks tests as slow integration tests (skipped by default)"
+]
+testpaths = ["tests/unit"]
 
 [tool.ruff]
 line-length = 120
