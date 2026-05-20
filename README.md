@@ -67,13 +67,12 @@ earthkit-climate/
 ├── docs/                      # Sphinx-based documentation
 ├── src/earthkit/
 │   ├── climate/
-│   │   ├── api/               # API wrapper logic
 │   │   ├── indicators/        # Climate indices (precipitation, temperature, etc.)
 │   │   └── utils/             # Type conversions, percentiles, provenance
 ├── tests/
 │   ├── unit/                  # Unit tests
+│   ├── integration/           # Integration tests
 └── tools/                     # Scripts for code generation, etc.
-
 ```
 
 ## License
