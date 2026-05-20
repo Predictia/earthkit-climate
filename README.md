@@ -33,10 +33,10 @@
 
 ## Quick Start
 
-Install the package in editable mode:
+Install the package from PyPI:
 
 ```bash
-pip install -e .
+pip install earthkit-climate
 ```
 
 Example usage:
