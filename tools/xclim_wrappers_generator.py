@@ -29,7 +29,7 @@ from typing import Any, Literal
 
 import xarray
 import xclim.indicators.{module_name}
-from earthkit.utils.decorators.format_handlers import format_handler
+from earthkit.utils.decorators import format_handler
 
 # from earthkit.climate.utils.decorators import metadata_handler
 

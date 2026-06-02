@@ -12,7 +12,7 @@ from typing import Any
 
 import xarray
 import xclim.indicators.seaIce
-from earthkit.utils.decorators.format_handlers import format_handler
+from earthkit.utils.decorators import format_handler
 
 # from earthkit.climate.utils.decorators import metadata_handler
 
