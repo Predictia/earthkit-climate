@@ -6,13 +6,15 @@
 # granted to it by virtue of its status as an intergovernmental organisation nor
 # does it submit to any jurisdiction.
 
-from typing import Any, Callable, Dict
+"""Tests for snow indicators."""
+
+from typing import Any, Callable
 
 import pytest
 import xarray
 from pytest_mock import MockerFixture
 
-from earthkit.climate.indicators import snow
+from earthkit.climate.land import snow
 
 INDICATORS = [
     (snow.blowing_snow, "blowing_snow", {"val": "test"}),
@@ -40,11 +42,29 @@ INDICATORS = [
 def test_snow_indicator(
     mocker: MockerFixture,
     dummy_snow_ds: xarray.Dataset,
-    earthkit_fn: Callable,
+    earthkit_fn: Callable[..., Any],
     xclim_name: str,
-    kwargs: Dict[str, Any],
-):
-    """Test that the earthkit function wraps the xclim function correctly."""
+    kwargs: dict[str, Any],
+) -> None:
+    """Test that the earthkit function wraps the xclim function correctly.
+
+    Parameters
+    ----------
+    mocker : MockerFixture
+        Mocking utility from pytest-mock.
+    dummy_snow_ds : xarray.Dataset
+        A dummy dataset containing snow variables.
+    earthkit_fn : Callable[..., Any]
+        The earthkit wrapper function being tested.
+    xclim_name : str
+        The name of the underlying xclim function.
+    kwargs : dict[str, Any]
+        Arguments to pass to the function call.
+
+    Returns
+    -------
+    None
+    """
     xclim_func_name = xclim_name
 
     mock_path = f"xclim.indicators.land.{xclim_func_name}"

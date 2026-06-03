@@ -6,13 +6,15 @@
 # granted to it by virtue of its status as an intergovernmental organisation nor
 # does it submit to any jurisdiction.
 
-from typing import Any, Callable, Dict
+"""Tests for sea ice indicators."""
+
+from typing import Any, Callable
 
 import pytest
 import xarray
 from pytest_mock import MockerFixture
 
-from earthkit.climate.indicators import sea_ice
+from earthkit.climate.ocean import sea_ice
 
 INDICATORS = [
     (sea_ice.sea_ice_area, "sea_ice_area", {"val": "test"}),
@@ -24,11 +26,29 @@ INDICATORS = [
 def test_seaice_indicator(
     mocker: MockerFixture,
     dummy_sea_ice_ds: xarray.Dataset,
-    earthkit_fn: Callable,
+    earthkit_fn: Callable[..., Any],
     xclim_name: str,
-    kwargs: Dict[str, Any],
-):
-    """Test that the earthkit function wraps the xclim function correctly."""
+    kwargs: dict[str, Any],
+) -> None:
+    """Test that the earthkit function wraps the xclim function correctly.
+
+    Parameters
+    ----------
+    mocker : MockerFixture
+        Mocking utility from pytest-mock.
+    dummy_sea_ice_ds : xarray.Dataset
+        A dummy dataset containing sea ice variables.
+    earthkit_fn : Callable[..., Any]
+        The earthkit wrapper function being tested.
+    xclim_name : str
+        The name of the underlying xclim function.
+    kwargs : dict[str, Any]
+        Arguments to pass to the function call.
+
+    Returns
+    -------
+    None
+    """
     xclim_func_name = xclim_name
 
     mock_path = f"xclim.indicators.seaIce.{xclim_func_name}"

@@ -6,34 +6,45 @@
 # granted to it by virtue of its status as an intergovernmental organisation nor
 # does it submit to any jurisdiction.
 
-from typing import Callable
+"""Tests for synoptic indicators."""
+
+from typing import Any, Callable
 
 import pytest
 import xarray
 from pytest_mock import MockerFixture
 
-from earthkit.climate.indicators import wind
+from earthkit.climate.atmos import synoptic
 
 INDICATORS = [
-    (wind.calm_days, "calm_days"),
-    (wind.sfcWind_max, "sfcWind_max"),
-    (wind.sfcWind_mean, "sfcWind_mean"),
-    (wind.sfcWind_min, "sfcWind_min"),
-    (wind.sfcWindmax_max, "sfcWindmax_max"),
-    (wind.sfcWindmax_mean, "sfcWindmax_mean"),
-    (wind.sfcWindmax_min, "sfcWindmax_min"),
-    (wind.windy_days, "windy_days"),
+    (synoptic.jetstream_metric_woollings, "jetstream_metric_woollings"),
 ]
 
 
 @pytest.mark.parametrize("earthkit_fn, xclim_name", INDICATORS)
-def test_wind_indicator(
+def test_synoptic_indicator(
     mocker: MockerFixture,
-    dummy_wind_ds: xarray.Dataset,
-    earthkit_fn: Callable,
+    dummy_synoptic_ds: xarray.Dataset,
+    earthkit_fn: Callable[..., Any],
     xclim_name: str,
-):
-    """Test that the earthkit function wraps the xclim function correctly."""
+) -> None:
+    """Test that the earthkit function wraps the xclim function correctly.
+
+    Parameters
+    ----------
+    mocker : MockerFixture
+        Mocking utility from pytest-mock.
+    dummy_synoptic_ds : xarray.Dataset
+        A dummy dataset containing synoptic variables.
+    earthkit_fn : Callable[..., Any]
+        The earthkit wrapper function being tested.
+    xclim_name : str
+        The name of the underlying xclim function.
+
+    Returns
+    -------
+    None
+    """
     xclim_func_name = xclim_name
 
     mock_path = f"xclim.indicators.atmos.{xclim_func_name}"
@@ -43,7 +54,7 @@ def test_wind_indicator(
     # Use a dummy argument dictionary
     kwargs = {"arg1": "val1", "arg2": 2}
 
-    ds_in = dummy_wind_ds
+    ds_in = dummy_synoptic_ds
 
     # Call the earthkit function
     earthkit_fn(ds=ds_in, **kwargs)
