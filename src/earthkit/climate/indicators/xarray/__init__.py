@@ -6,4 +6,6 @@
 # granted to it by virtue of its status as an intergovernmental organisation nor
 # does it submit to any jurisdiction.
 
-from earthkit.climate.indicators.xarray import *  # noqa
+from earthkit.climate.indicators.xarray._xclim_atmos import *  # noqa
+from earthkit.climate.indicators.xarray._xclim_land import *  # noqa
+from earthkit.climate.indicators.xarray._xclim_seaice import *  # noqa
