@@ -67,9 +67,8 @@ earthkit-climate/
 ├── docs/                      # Sphinx-based documentation
 ├── src/earthkit/
 │   ├── climate/
-│   │   ├── atmos/             # Atmospheric indices (precipitation, temperature, etc.)
-│   │   ├── land/              # Land indices (hydrology, snow, etc.)
-│   │   ├── ocean/             # Ocean indices (sea ice, etc.)
+│   │   ├── indicators/        # Climate indicators
+│   │   │   ├── xarray/        # xarray-based implementations
 │   │   └── utils/             # Type conversions, percentiles, provenance
 ├── tests/
 │   ├── unit/                  # Unit tests
