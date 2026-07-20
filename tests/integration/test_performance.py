@@ -29,8 +29,7 @@ import earthkit.data
 import pytest
 import xarray as xr
 
-import earthkit.climate.atmos.precipitation as ek_pr
-import earthkit.climate.atmos.temperature as ek_temp
+import earthkit.climate as ekc
 from earthkit.climate.utils.percentile import percentile_doy
 
 warnings.filterwarnings("ignore")
@@ -176,7 +175,7 @@ def indicator_config(
         per_90.name = "tasmax_per"
         return {
             "name": name,
-            "ek_func": ek_temp.tx90p,
+            "ek_func": ekc.indicators.tx90p,
             "xi_func": xclim.indicators.atmos.tx90p,
             "ek_args": {
                 "ds": xr.merge([tasmax_opt, per_90]).chunk({"time": -1}),
@@ -192,7 +191,7 @@ def indicator_config(
     if name == "PRCPTOT":
         return {
             "name": name,
-            "ek_func": ek_pr.precip_accumulation,
+            "ek_func": ekc.indicators.precip_accumulation,
             "xi_func": xclim.indicators.atmos.precip_accumulation,
             "ek_args": {"ds": pr_opt, "freq": "MS"},
             "xi_args": {"pr": pr_opt, "freq": "MS"},
@@ -201,7 +200,7 @@ def indicator_config(
     if name == "DTR":
         return {
             "name": name,
-            "ek_func": ek_temp.daily_temperature_range,
+            "ek_func": ekc.indicators.daily_temperature_range,
             "xi_func": xclim.indicators.atmos.daily_temperature_range,
             "ek_args": {
                 "ds": xr.merge([tasmax_opt, tasmin_opt]),
@@ -218,7 +217,7 @@ def indicator_config(
         tas_opt = ((tasmax_opt + tasmin_opt) / 2).chunk({"time": -1})
         return {
             "name": name,
-            "ek_func": ek_temp.heating_degree_days,
+            "ek_func": ekc.indicators.heating_degree_days,
             "xi_func": xclim.indicators.atmos.heating_degree_days,
             "ek_args": {"ds": tas_opt.to_dataset(name="tas"), "freq": "MS"},
             "xi_args": {"tas": tas_opt, "freq": "MS"},
@@ -227,7 +226,7 @@ def indicator_config(
     if name == "SDII":
         return {
             "name": name,
-            "ek_func": ek_pr.daily_pr_intensity,
+            "ek_func": ekc.indicators.daily_pr_intensity,
             "xi_func": xclim.indicators.atmos.daily_pr_intensity,
             "ek_args": {"ds": pr_opt, "freq": "MS"},
             "xi_args": {"pr": pr_opt, "freq": "MS"},
