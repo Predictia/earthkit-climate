@@ -47,11 +47,9 @@ pip install earthkit-climate
 Example usage:
 
 ```python
-from earthkit.climate.indicators import precipitation, temperature
-from earthkit.climate.utils import conversions
-
-# Example: compute a precipitation index
-pr = precipitation.simple_daily_intensity(precip_data, freq="monthly")
+import earthkit.climate as ekc
+# Example: compute a precipitation indicator
+sdii = ekc.indicators.daily_pr_intensity(precip_data)
 ```
 
 ## Documentation
@@ -74,8 +72,10 @@ earthkit-climate/
 │   ├── climate/
 │   │   ├── indicators/        # Climate indicators
 │   │   │   ├── xarray/        # xarray-based implementations
-│   │   └── utils/             # Type conversions, percentiles, provenance
+│   │   └── utils/
+│   │   │   ├── climatology/
 ├── tests/
+│   ├── docs/                  # Documentation tests
 │   ├── unit/                  # Unit tests
 │   ├── integration/           # Integration tests
 └── tools/                     # Scripts for code generation, etc.

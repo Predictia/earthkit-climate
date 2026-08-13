@@ -21,5 +21,5 @@ Compute a precipitation indicator from xclim:
 
 .. code-block:: python
 
-   from earthkit.climate.indicators import precipitation
-   pr = precipitation.simple_daily_intensity(precip_data, freq="monthly")
+   import earthkit.climate as ekc
+   sdii = ekc.indicators.daily_pr_intensity(precip_data)
