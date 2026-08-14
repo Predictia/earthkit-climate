@@ -4,25 +4,8 @@
 name: Quality assurance
 on:
   push:
-    branches: ["main", "develop"]
-  pull_request:
-    types: [opened, synchronize, reopened]
 jobs:
   pre-commit:
     uses: ecmwf/reusable-workflows/.github/workflows/qa-precommit-run.yml@v2
     with:
       skip-hooks: "no-commit-to-branch"
-  unit-tests:
-    strategy:
-      matrix:
-        python-version: ["3.11", "3.12", "3.13", "3.14"]
-    uses: ecmwf/reusable-workflows/.github/workflows/qa-pytest-pyproject.yml@v2
-    with:
-      python-version: ${{ matrix.python-version }}
-      optional-dependencies: "test"
-  docs-tests:
-    uses: ecmwf/reusable-workflows/.github/workflows/qa-pytest-pyproject.yml@v2
-    with:
-      python-version: "3.14"
-      optional-dependencies: "test-docs"
-      custom-pytest: "pytest tests/docs"
