@@ -10,14 +10,13 @@ from typing import Any, Callable, Iterator, Optional
 
 import dask
 import dask.config
+import earthkit.climate.atmos.temperature as ek_temp
 import earthkit.data as ekd
 import fire
 import numpy as np
 import pandas as pd
 import psutil
 import xarray as xr
-
-import earthkit.climate.atmos.temperature as ek_temp
 
 os.environ.setdefault("DASK_DISTRIBUTED__ADMIN__TICK__LIMIT", "30s")
 
@@ -32,9 +31,9 @@ from conftest import _run_indicator
 
 
 def run_indicator(
-        func: Callable[..., Any],
-        kwargs: dict[str, Any],
-        use_flox: Optional[bool],
+    func: Callable[..., Any],
+    kwargs: dict[str, Any],
+    use_flox: Optional[bool],
 ) -> Any:
     return _run_indicator(func, kwargs, use_flox=use_flox)
 
@@ -121,8 +120,9 @@ def dask_preset_context(name: str) -> Iterator[dict[str, Any]]:
         available = ", ".join(sorted(DASK_PRESETS))
         raise ValueError(f"Unknown Dask preset {name!r}. Available presets: {available}") from exc
 
-    env_config = {f"DASK_{key.replace('.', '__').replace('-', '_').upper()}": str(value) for key, value in
-                  config.items()}
+    env_config = {
+        f"DASK_{key.replace('.', '__').replace('-', '_').upper()}": str(value) for key, value in config.items()
+    }
     previous_env = {key: os.environ.get(key) for key in env_config}
 
     try:
@@ -138,12 +138,12 @@ def dask_preset_context(name: str) -> Iterator[dict[str, Any]]:
 
 
 def cluster_options_for_preset(
-        preset: str,
-        n_workers: int,
-        threads_per_worker: int,
-        processes: bool,
-        memory_limit: str,
-        use_nanny: bool,
+    preset: str,
+    n_workers: int,
+    threads_per_worker: int,
+    processes: bool,
+    memory_limit: str,
+    use_nanny: bool,
 ) -> dict[str, Any]:
     preset_cluster = DASK_PRESETS[preset].get("cluster", {})
     worker_scale = float(preset_cluster.get("worker_scale", 1.0))
@@ -213,8 +213,7 @@ def format_chunks(obj: Any) -> str:
 def summarize_xarray_object(obj: Any) -> list[str]:
     if isinstance(obj, xr.Dataset):
         return [
-            f"{name}: chunks={format_chunks(var)}, tasks={graph_task_count(var)}"
-            for name, var in obj.data_vars.items()
+            f"{name}: chunks={format_chunks(var)}, tasks={graph_task_count(var)}" for name, var in obj.data_vars.items()
         ]
     if isinstance(obj, xr.DataArray):
         name = obj.name or "<unnamed>"
@@ -223,9 +222,9 @@ def summarize_xarray_object(obj: Any) -> list[str]:
 
 
 def print_graph_summary(
-        func: Callable[..., Any],
-        kwargs: dict[str, Any],
-        use_flox: Optional[bool],
+    func: Callable[..., Any],
+    kwargs: dict[str, Any],
+    use_flox: Optional[bool],
 ) -> tuple[int, str]:
     print("    inputs:")
     for arg_name, arg_value in kwargs.items():
@@ -265,7 +264,8 @@ def result_to_dataset(result: Any) -> xr.Dataset:
 
 def safe_filename(value: str) -> str:
     return (
-        value.replace(" ", "_")
+        value
+        .replace(" ", "_")
         .replace("/", "_")
         .replace("+", "plus")
         .replace("(", "")
@@ -325,14 +325,14 @@ def read_chunks_or_default(chunks: Optional[dict[str, int]]) -> dict[str, int]:
 
 
 def benchmark_indicator(
-        func: Callable[..., Any],
-        kwargs: dict[str, Any],
-        use_flox: Optional[bool],
-        n_repeats: int,
-        sink: str,
-        output_dir: Path,
-        output_prefix: str,
-        netcdf_engine: Optional[str],
+    func: Callable[..., Any],
+    kwargs: dict[str, Any],
+    use_flox: Optional[bool],
+    n_repeats: int,
+    sink: str,
+    output_dir: Path,
+    output_prefix: str,
+    netcdf_engine: Optional[str],
 ) -> dict[str, float]:
     times: list[float] = []
     memory_peaks: list[float] = []
@@ -384,8 +384,8 @@ def benchmark_indicator(
 
 
 def indicator_runtime_configs(
-        benchmark: dict[str, Any],
-        modes: Optional[list[str]],
+    benchmark: dict[str, Any],
+    modes: Optional[list[str]],
 ) -> list[dict[str, Any]]:
     configs = [
         {
@@ -419,18 +419,18 @@ def indicator_runtime_configs(
 
 
 def run_benchmark(
-        indicators: Optional[str | list[str]] = None,
-        presets: Optional[str | list[str]] = None,
-        chunks: Optional[str] = None,
-        modes: Optional[str | list[str]] = None,
-        n_workers: int = 4,
-        threads_per_worker: int = 1,
-        processes: bool = True,
-        use_nanny: bool = False,
-        memory_limit: str = "0",
-        sink: str = "netcdf",
-        netcdf_engine: Optional[str] = None,
-        n_repeats: int = 3,
+    indicators: Optional[str | list[str]] = None,
+    presets: Optional[str | list[str]] = None,
+    chunks: Optional[str] = None,
+    modes: Optional[str | list[str]] = None,
+    n_workers: int = 4,
+    threads_per_worker: int = 1,
+    processes: bool = True,
+    use_nanny: bool = False,
+    memory_limit: str = "0",
+    sink: str = "netcdf",
+    netcdf_engine: Optional[str] = None,
+    n_repeats: int = 3,
 ) -> None:
     """
     Run climate indicator benchmarks under Dask distributed scheduler presets.
@@ -522,18 +522,16 @@ def run_benchmark(
                             output_prefix=output_prefix,
                             netcdf_engine=netcdf_engine,
                         )
-                        results.append(
-                            {
-                                "Preset": preset,
-                                "Indicator": benchmark["name"],
-                                "Library": cfg["Library"],
-                                "Mode": cfg["Mode"],
-                                "Sink": sink,
-                                "Tasks": tasks,
-                                "Graph": graph_summary,
-                                **stats,
-                            }
-                        )
+                        results.append({
+                            "Preset": preset,
+                            "Indicator": benchmark["name"],
+                            "Library": cfg["Library"],
+                            "Mode": cfg["Mode"],
+                            "Sink": sink,
+                            "Tasks": tasks,
+                            "Graph": graph_summary,
+                            **stats,
+                        })
 
     df = pd.DataFrame(results)
     print("\nSummary")
