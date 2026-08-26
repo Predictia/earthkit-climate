@@ -1,8 +1,5 @@
-# Configuration file for the Sphinx documentation builder.
-#
-# This file only contains a selection of the most common options. For a full
-# list see the documentation:
-# https://www.sphinx-doc.org/en/master/usage/configuration.html
+# SPDX-FileCopyrightText: 2022 European Centre for Medium-Range Weather Forecasts (ECMWF)
+# SPDX-License-Identifier: Apache-2.0
 
 # -- Import and path setup ---------------------------------------------------
 
@@ -129,6 +126,7 @@ extlinks = {
 # intersphinx configuration, to automatically link to upstream documentation.
 intersphinx_mapping = {
     "xarray": ("https://docs.xarray.dev/en/stable/", None),
+    "earthkit-transforms": ("https://earthkit-transforms.readthedocs.io/en/stable/", None),
 }
 
 # Add any paths that contain templates here, relative to this directory.
