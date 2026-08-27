@@ -13,13 +13,14 @@ from typing import Any, Callable, Iterator, Optional
 
 import dask
 import dask.config
-import earthkit.climate.atmos.temperature as ek_temp
 import earthkit.data as ekd
 import fire
 import numpy as np
 import pandas as pd
 import psutil
 import xarray as xr
+
+import earthkit.climate as ekc
 
 os.environ.setdefault("DASK_DISTRIBUTED__ADMIN__TICK__LIMIT", "30s")
 
@@ -303,7 +304,7 @@ def get_dask_indicator_configs(
     return [
         {
             "name": "DDED",
-            "ek_func": ek_temp.degree_days_exceedance_date,
+            "ek_func": ekc.indicators.degree_days_exceedance_date,
             "ek_args": {
                 "lazy": {"ds": tas.to_dataset(name="tas"), "freq": "YS"},
                 "time_resampler": {"ds": tas_time_resampler.to_dataset(name="tas"), "freq": "YS"},
