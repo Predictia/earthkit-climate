@@ -13,6 +13,7 @@ The notebooks are designed to be used as a starting point for users to learn how
 .. toctree::
    :maxdepth: 1
 
+   custom_first_autumn_frost.ipynb
    frost_days_pyrenees.ipynb
    heatwave_evolution.ipynb
    tropical_nights_cooling_demand.ipynb
