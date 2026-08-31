@@ -7,12 +7,10 @@ import sys
 import tempfile
 import threading
 import time
-from contextlib import contextmanager
 from pathlib import Path
-from typing import Any, Callable, Iterator, Optional
+from typing import Any, Callable, Optional, cast
 
 import dask
-import dask.config
 import earthkit.data as ekd
 import fire
 import numpy as np
@@ -21,8 +19,6 @@ import psutil
 import xarray as xr
 
 import earthkit.climate as ekc
-
-os.environ.setdefault("DASK_DISTRIBUTED__ADMIN__TICK__LIMIT", "30s")
 
 try:
     from distributed import Client, LocalCluster, Worker
@@ -52,27 +48,13 @@ def chunk_with_time_resampler(obj: xr.Dataset, freq: str) -> xr.Dataset:
     return obj.chunk({"time": TimeResampler(freq)})
 
 
-DASK_PRESETS: dict[str, dict[str, Any]] = {
+_CLUSTER_PRESETS: dict[str, dict[str, Any]] = {
     "high-memory": {
-        "dask": {
-            "distributed.admin.tick.limit": "30s",
-        },
-        "cluster": {
-            "worker_scale": 1.0,
-        },
+        "worker_scale": 1.0,
     },
     "low-memory": {
-        "dask": {
-            "distributed.scheduler.worker-saturation": 0.7,
-            "distributed.worker.memory.target": 0.50,
-            "distributed.worker.memory.spill": 0.60,
-            "distributed.worker.memory.pause": 0.80,
-            "distributed.admin.tick.limit": "30s",
-        },
-        "cluster": {
-            "worker_scale": 0.5,
-            "threads_per_worker": 1,
-        },
+        "worker_scale": 0.5,
+        "threads_per_worker": 1,
     },
 }
 
@@ -116,31 +98,6 @@ class ResourceMonitor(threading.Thread):
         self.stop_event.set()
 
 
-@contextmanager
-def dask_preset_context(name: str) -> Iterator[dict[str, Any]]:
-    try:
-        config = DASK_PRESETS[name]["dask"]
-    except KeyError as exc:
-        available = ", ".join(sorted(DASK_PRESETS))
-        raise ValueError(f"Unknown Dask preset {name!r}. Available presets: {available}") from exc
-
-    env_config = {
-        f"DASK_{key.replace('.', '__').replace('-', '_').upper()}": str(value) for key, value in config.items()
-    }
-    previous_env = {key: os.environ.get(key) for key in env_config}
-
-    try:
-        os.environ.update(env_config)
-        with dask.config.set(config):
-            yield config
-    finally:
-        for key, value in previous_env.items():
-            if value is None:
-                os.environ.pop(key, None)
-            else:
-                os.environ[key] = value
-
-
 def cluster_options_for_preset(
     preset: str,
     n_workers: int,
@@ -149,7 +106,7 @@ def cluster_options_for_preset(
     memory_limit: str,
     use_nanny: bool,
 ) -> dict[str, Any]:
-    preset_cluster = DASK_PRESETS[preset].get("cluster", {})
+    preset_cluster = _CLUSTER_PRESETS[preset]
     worker_scale = float(preset_cluster.get("worker_scale", 1.0))
     preset_threads = int(preset_cluster.get("threads_per_worker", threads_per_worker))
 
@@ -167,7 +124,7 @@ def cluster_options_for_preset(
 
 def parse_presets(presets: Optional[str | list[str]]) -> list[str]:
     if presets is None:
-        return list(DASK_PRESETS)
+        return list(ekc.dask.PRESETS)
     if isinstance(presets, str):
         return [p.strip() for p in presets.split(",") if p.strip()]
     return presets
@@ -452,10 +409,12 @@ def run_benchmark(
     if sink not in {"compute", "netcdf"}:
         raise ValueError("sink must be 'compute' or 'netcdf'")
 
-    for preset in selected_presets:
-        if preset not in DASK_PRESETS:
-            available = ", ".join(sorted(DASK_PRESETS))
-            raise ValueError(f"Unknown Dask preset {preset!r}. Available presets: {available}")
+    validated_presets: list[ekc.dask.PresetName] = []
+    for preset_name in selected_presets:
+        if preset_name not in ekc.dask.PRESETS:
+            available = ", ".join(sorted(ekc.dask.PRESETS))
+            raise ValueError(f"Unknown Dask preset {preset_name!r}. Available presets: {available}")
+        validated_presets.append(cast(ekc.dask.PresetName, preset_name))
 
     print("\nDASK INDICATOR PERFORMANCE BENCHMARK")
     print("=" * 80)
@@ -468,7 +427,7 @@ def run_benchmark(
     )
     print(f"sink: {sink}")
     print(f"netcdf_engine: {netcdf_engine or 'xarray default'}")
-    print(f"presets: {', '.join(selected_presets)}")
+    print(f"presets: {', '.join(validated_presets)}")
 
     data_cache = load_sample_tasmax_data(read_chunks)
 
@@ -482,7 +441,7 @@ def run_benchmark(
         benchmarks = [b for b in benchmarks if b["name"] in selected_indicators]
 
     results: list[dict[str, Any]] = []
-    for preset in selected_presets:
+    for preset in validated_presets:
         print(f"\nPreset: {preset}")
         print("-" * 80)
         cluster_options = cluster_options_for_preset(
@@ -497,7 +456,7 @@ def run_benchmark(
             output_dir = Path(tmpdir)
             print(f"temporary output directory: {output_dir}")
             with (
-                dask_preset_context(preset) as config,
+                ekc.dask.preset(preset) as config,
                 LocalCluster(**cluster_options) as cluster,
                 Client(cluster) as client,
             ):
