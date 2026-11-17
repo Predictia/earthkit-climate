@@ -127,9 +127,11 @@ def _convert_temperature_output(da: xr.DataArray, target_units: str) -> xr.DataA
         out = da - 273.15
         out.attrs["units"] = "degC"
         return out
-    out = da.copy()
-    out.attrs["units"] = "K"
-    return out
+    if clean_target in {"k", "kelvin", "degk"}:
+        out = da.copy()
+        out.attrs["units"] = "K"
+        return out
+    raise ValueError(f"Unsupported output_units {target_units!r}. Supported units: 'K', 'degC'.")
 
 
 @wrap_indicator()
@@ -182,8 +184,8 @@ def universal_thermal_climate_index(
         rh_da = _ensure_percent(_resolve_dataarray(hurs, ds, "hurs"))
         td_da = xr.apply_ufunc(
             tf.calculate_dew_point_from_relative_humidity,
-            t2_da,
             rh_da,
+            t2_da,
             dask="parallelized",
             output_dtypes=[float],
         )
@@ -193,8 +195,8 @@ def universal_thermal_climate_index(
         rh_da = _ensure_percent(ds["hurs"])
         td_da = xr.apply_ufunc(
             tf.calculate_dew_point_from_relative_humidity,
-            t2_da,
             rh_da,
+            t2_da,
             dask="parallelized",
             output_dtypes=[float],
         )
@@ -327,8 +329,8 @@ def humidex(
         rh_da = _ensure_percent(_resolve_dataarray(hurs, ds, "hurs"))
         td_da = xr.apply_ufunc(
             tf.calculate_dew_point_from_relative_humidity,
-            t2_da,
             rh_da,
+            t2_da,
             dask="parallelized",
             output_dtypes=[float],
         )
@@ -338,8 +340,8 @@ def humidex(
         rh_da = _ensure_percent(ds["hurs"])
         td_da = xr.apply_ufunc(
             tf.calculate_dew_point_from_relative_humidity,
-            t2_da,
             rh_da,
+            t2_da,
             dask="parallelized",
             output_dtypes=[float],
         )
@@ -446,8 +448,8 @@ def heat_index(
         rh_da = _ensure_percent(_resolve_dataarray(hurs, ds, "hurs"))
         td_da = xr.apply_ufunc(
             tf.calculate_dew_point_from_relative_humidity,
-            t2_da,
             rh_da,
+            t2_da,
             dask="parallelized",
             output_dtypes=[float],
         )
@@ -457,8 +459,8 @@ def heat_index(
         rh_da = _ensure_percent(ds["hurs"])
         td_da = xr.apply_ufunc(
             tf.calculate_dew_point_from_relative_humidity,
-            t2_da,
             rh_da,
+            t2_da,
             dask="parallelized",
             output_dtypes=[float],
         )
