@@ -137,12 +137,12 @@ def _ensure_radiation_mj(da: xr.DataArray) -> xr.DataArray:
     try:
         return convert_units(da, "MJ m-2 d-1")
     except Exception:
-        u_clean = units.replace("²", "2").replace("^2", "2").replace("**2", "2").replace("/", " ")
-        if "w" in u_clean:
+        clean_units = units.replace("²", "2").replace("^2", "2").replace("**2", "2").replace("/", " ")
+        if "w" in clean_units:
             out = da * 0.0864
             out.attrs["units"] = "MJ m-2 d-1"
             return out
-        if "j" in u_clean and "mj" not in u_clean:
+        if "j" in clean_units and "mj" not in clean_units:
             out = da * 1e-6
             out.attrs["units"] = "MJ m-2 d-1"
             return out
@@ -173,10 +173,7 @@ def _resolve_latitude_rad(
     """
     lat_val: float | xr.DataArray | np.ndarray
     if lat is not None:
-        if isinstance(lat, str):
-            lat_val = _resolve_dataarray(lat, ds, "lat")
-        else:
-            lat_val = lat
+        lat_val = _resolve_dataarray(lat, ds, "lat") if isinstance(lat, str) else lat
     elif "lat" in da.coords:
         lat_val = da.coords["lat"]
     elif "latitude" in da.coords:
@@ -215,7 +212,9 @@ def _resolve_latitude_rad(
 
     if "rad" in units:
         return lat_val
-    return np.deg2rad(lat_val)
+    lat_rad_da: xr.DataArray = lat_val * (np.pi / 180.0)
+    lat_rad_da.attrs["units"] = "rad"
+    return lat_rad_da
 
 
 def _resolve_elevation(
