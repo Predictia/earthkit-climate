@@ -243,3 +243,133 @@ def test_dask_parallelization(sample_evap_dataset: xr.Dataset) -> None:
     computed = res_lazy.compute()
     assert isinstance(computed, xr.DataArray)
     assert not hasattr(computed.data, "dask")
+
+
+def test_regression_fao56_resolves_tmax_tmin_from_dataset(sample_evap_dataset: xr.Dataset) -> None:
+    """
+    Verify that FAO-56 resolves tasmax and tasmin from dataset if not explicitly passed.
+
+    Parameters
+    ----------
+    sample_evap_dataset : xr.Dataset
+        Sample meteorological dataset.
+
+    Returns
+    -------
+    None
+    """
+    res_implicit = potential_evapotranspiration_fao56(ds=sample_evap_dataset)
+    res_explicit = potential_evapotranspiration_fao56(
+        ds=sample_evap_dataset,
+        tasmax="tasmax",
+        tasmin="tasmin",
+    )
+    np.testing.assert_allclose(res_implicit.values, res_explicit.values)
+
+
+def test_regression_equatorial_latitude_conversion(sample_evap_dataset: xr.Dataset) -> None:
+    """
+    Verify that equatorial latitudes near zero in degrees are correctly converted to radians.
+
+    Parameters
+    ----------
+    sample_evap_dataset : xr.Dataset
+        Sample meteorological dataset.
+
+    Returns
+    -------
+    None
+    """
+    ds_eq = sample_evap_dataset.copy(deep=True)
+    ds_eq = ds_eq.assign_coords(lat=np.array([0.5, 1.0]))
+    res = potential_evapotranspiration_fao56(ds=ds_eq)
+    assert not np.isnan(res.values).any()
+    assert np.all(res.values > 0.0)
+
+
+def test_regression_numpy_array_latitude(sample_evap_dataset: xr.Dataset) -> None:
+    """
+    Verify that passing a raw numpy array as lat does not raise AttributeError.
+
+    Parameters
+    ----------
+    sample_evap_dataset : xr.Dataset
+        Sample meteorological dataset.
+
+    Returns
+    -------
+    None
+    """
+    lat_arr = np.array([40.0, 45.0])
+    res = potential_evapotranspiration_fao56(ds=sample_evap_dataset, lat=lat_arr)
+    assert not np.isnan(res.values).any()
+
+
+def test_regression_radiation_unicode_units_conversion(sample_evap_dataset: xr.Dataset) -> None:
+    """
+    Verify that radiation with unicode units W/m² is converted to MJ m-2 d-1.
+
+    Parameters
+    ----------
+    sample_evap_dataset : xr.Dataset
+        Sample meteorological dataset.
+
+    Returns
+    -------
+    None
+    """
+    ds_unicode = sample_evap_dataset.copy(deep=True)
+    ds_unicode["rsds"].attrs["units"] = "W/m²"
+    res_unicode = potential_evapotranspiration_fao56(ds=ds_unicode)
+
+    ds_std = sample_evap_dataset.copy(deep=True)
+    ds_std["rsds"].attrs["units"] = "W m-2"
+    res_std = potential_evapotranspiration_fao56(ds=ds_std)
+
+    np.testing.assert_allclose(res_unicode.values, res_std.values)
+
+
+def test_regression_hargreaves_negative_trange(sample_evap_dataset: xr.Dataset) -> None:
+    """
+    Verify that inverted tasmax < tasmin does not produce NaNs in Hargreaves.
+
+    Parameters
+    ----------
+    sample_evap_dataset : xr.Dataset
+        Sample meteorological dataset.
+
+    Returns
+    -------
+    None
+    """
+    ds_inverted = sample_evap_dataset.copy(deep=True)
+    # Set tasmax lower than tasmin
+    ds_inverted["tasmax"] = ds_inverted["tasmin"] - 2.0
+    res = potential_evapotranspiration_hargreaves(ds=ds_inverted)
+    assert not np.isnan(res.values).any()
+    assert np.all(res.values == 0.0)
+
+
+def test_regression_geopotential_height_elevation(sample_evap_dataset: xr.Dataset) -> None:
+    """
+    Verify that geopotential z in m2 s-2 is converted to elevation in metres.
+
+    Parameters
+    ----------
+    sample_evap_dataset : xr.Dataset
+        Sample meteorological dataset.
+
+    Returns
+    -------
+    None
+    """
+    ds_z = sample_evap_dataset.copy(deep=True)
+    # 980.665 m2 s-2 corresponds to ~100 m elevation
+    ds_z["z"] = xr.DataArray(
+        np.full((2, 2), 980.665),
+        dims=["lat", "lon"],
+        coords={"lat": ds_z.lat, "lon": ds_z.lon},
+        attrs={"units": "m2 s-2"},
+    )
+    res_z = potential_evapotranspiration_fao56(ds=ds_z)
+    assert not np.isnan(res_z.values).any()

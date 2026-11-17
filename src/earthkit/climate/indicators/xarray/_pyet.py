@@ -82,7 +82,7 @@ def _ensure_celsius(da: xr.DataArray) -> xr.DataArray:
     try:
         return convert_units(da, "degC")
     except Exception:
-        if float(da.mean()) > 150.0:
+        if not hasattr(da.data, "dask") and float(da.mean()) > 150.0:
             out = da - 273.15
             out.attrs["units"] = "degC"
             return out
@@ -104,7 +104,13 @@ def _ensure_percent(da: xr.DataArray) -> xr.DataArray:
         Relative humidity DataArray in percentage.
     """
     units = str(da.attrs.get("units", "")).strip().lower()
-    if units in {"1", "fraction", "ratio"} or (units == "" and float(da.max()) <= 1.0):
+    if units in {"1", "fraction", "ratio"}:
+        out = da * 100.0
+        out.attrs["units"] = "%"
+        return out
+    if units in {"%", "percent", "percentage"}:
+        return da
+    if units == "" and not hasattr(da.data, "dask") and float(da.max()) <= 1.0:
         out = da * 100.0
         out.attrs["units"] = "%"
         return out
@@ -126,21 +132,27 @@ def _ensure_radiation_mj(da: xr.DataArray) -> xr.DataArray:
         Radiation DataArray in MJ m-2 d-1.
     """
     units = str(da.attrs.get("units", "")).strip().lower()
-    if units in {"w m-2", "w/m2", "w m**-2"}:
-        out = da * 0.0864
-        out.attrs["units"] = "MJ m-2 d-1"
-        return out
-    if units in {"j m-2", "j/m2", "j m**-2"}:
-        out = da * 1e-6
-        out.attrs["units"] = "MJ m-2 d-1"
-        return out
-    return da
+    if units in {"mj m-2 d-1", "mj m-2 day-1", "mj/m2/d", "mj/m2/day"}:
+        return da
+    try:
+        return convert_units(da, "MJ m-2 d-1")
+    except Exception:
+        u_clean = units.replace("²", "2").replace("^2", "2").replace("**2", "2").replace("/", " ")
+        if "w" in u_clean:
+            out = da * 0.0864
+            out.attrs["units"] = "MJ m-2 d-1"
+            return out
+        if "j" in u_clean and "mj" not in u_clean:
+            out = da * 1e-6
+            out.attrs["units"] = "MJ m-2 d-1"
+            return out
+        return da
 
 
 def _resolve_latitude_rad(
     da: xr.DataArray,
     ds: xr.Dataset | None,
-    lat: float | xr.DataArray | str | None,
+    lat: float | xr.DataArray | np.ndarray | str | None,
 ) -> float | xr.DataArray:
     """
     Resolve latitude coordinate and convert to radians if given in degrees.
@@ -151,7 +163,7 @@ def _resolve_latitude_rad(
         Primary temperature DataArray.
     ds : xr.Dataset | None
         Optional Dataset containing coordinates or variables.
-    lat : float | xr.DataArray | str | None
+    lat : float | xr.DataArray | numpy.ndarray | str | None
         Explicit latitude value, coordinate name, or None to infer.
 
     Returns
@@ -159,7 +171,7 @@ def _resolve_latitude_rad(
     float | xr.DataArray
         Latitude in radians.
     """
-    lat_val: float | xr.DataArray
+    lat_val: float | xr.DataArray | np.ndarray
     if lat is not None:
         if isinstance(lat, str):
             lat_val = _resolve_dataarray(lat, ds, "lat")
@@ -169,22 +181,41 @@ def _resolve_latitude_rad(
         lat_val = da.coords["lat"]
     elif "latitude" in da.coords:
         lat_val = da.coords["latitude"]
-    elif ds is not None and "lat" in ds.coords:
-        lat_val = ds.coords["lat"]
-    elif ds is not None and "latitude" in ds.coords:
-        lat_val = ds.coords["latitude"]
+    elif ds is not None and "lat" in ds:
+        lat_val = ds["lat"]
+    elif ds is not None and "latitude" in ds:
+        lat_val = ds["latitude"]
     else:
         raise ValueError("Latitude is required. Provide 'lat' or ensure a latitude coordinate exists.")
 
-    if isinstance(lat_val, (int, float)):
-        if abs(lat_val) > 1.6:
-            return float(np.deg2rad(lat_val))
-        return float(lat_val)
+    units = str(getattr(lat_val, "attrs", {}).get("units", "")).lower()
 
-    units = str(lat_val.attrs.get("units", "")).lower()
-    if "deg" in units or float(np.abs(lat_val).max()) > 1.6:
-        return np.deg2rad(lat_val)
-    return lat_val
+    if isinstance(lat_val, (int, float)) or (isinstance(lat_val, (np.ndarray, xr.DataArray)) and lat_val.ndim == 0):
+        if "rad" in units:
+            return float(lat_val)
+        return float(np.deg2rad(lat_val))
+
+    if isinstance(lat_val, np.ndarray):
+        lat_rad = np.deg2rad(lat_val)
+        if "lat" in da.coords and lat_rad.size == da.coords["lat"].size:
+            return xr.DataArray(lat_rad, dims=["lat"], coords={"lat": da.coords["lat"]})
+        if "latitude" in da.coords and lat_rad.size == da.coords["latitude"].size:
+            return xr.DataArray(lat_rad, dims=["latitude"], coords={"latitude": da.coords["latitude"]})
+        if lat_rad.shape == da.shape:
+            return xr.DataArray(lat_rad, dims=da.dims, coords=da.coords)
+        return xr.DataArray(lat_rad)
+
+    if isinstance(lat_val, xr.DataArray) and lat_val.ndim > 0:
+        if "lat" in da.coords and "lat" not in lat_val.dims and lat_val.size == da.coords["lat"].size:
+            lat_val = xr.DataArray(lat_val.values, dims=["lat"], coords={"lat": da.coords["lat"]}, attrs=lat_val.attrs)
+        elif "latitude" in da.coords and "latitude" not in lat_val.dims and lat_val.size == da.coords["latitude"].size:
+            lat_val = xr.DataArray(
+                lat_val.values, dims=["latitude"], coords={"latitude": da.coords["latitude"]}, attrs=lat_val.attrs
+            )
+
+    if "rad" in units:
+        return lat_val
+    return np.deg2rad(lat_val)
 
 
 def _resolve_elevation(
@@ -211,9 +242,15 @@ def _resolve_elevation(
             return _resolve_dataarray(elevation, ds, "elevation")
         return elevation
     if ds is not None:
-        for z_name in ("elevation", "orog", "z", "altitude"):
+        for z_name in ("elevation", "orog", "altitude"):
             if z_name in ds:
                 return ds[z_name]
+        if "z" in ds:
+            z_var = ds["z"]
+            z_units = str(getattr(z_var, "attrs", {}).get("units", "")).lower()
+            if "m2" in z_units or "m**2" in z_units or "s-2" in z_units or "s**-2" in z_units:
+                return z_var / 9.80665
+            return z_var
     return 0.0
 
 
@@ -269,12 +306,29 @@ def potential_evapotranspiration_fao56(
     lat_rad = _resolve_latitude_rad(t_da, ds, lat)
     elev_val = _resolve_elevation(ds, elevation)
 
-    tmax_da = _ensure_celsius(_resolve_dataarray(tasmax, ds, "tasmax")) if tasmax is not None else None
-    tmin_da = _ensure_celsius(_resolve_dataarray(tasmin, ds, "tasmin")) if tasmin is not None else None
-    rh_da = _ensure_percent(_resolve_dataarray(hurs, ds, "hurs")) if hurs is not None else None
+    tmax_da: xr.DataArray | None
+    if tasmax is not None:
+        tmax_da = _ensure_celsius(_resolve_dataarray(tasmax, ds, "tasmax"))
+    elif ds is not None and "tasmax" in ds:
+        tmax_da = _ensure_celsius(ds["tasmax"])
+    else:
+        tmax_da = None
 
-    if rh_da is None and ds is not None and "hurs" in ds:
+    tmin_da: xr.DataArray | None
+    if tasmin is not None:
+        tmin_da = _ensure_celsius(_resolve_dataarray(tasmin, ds, "tasmin"))
+    elif ds is not None and "tasmin" in ds:
+        tmin_da = _ensure_celsius(ds["tasmin"])
+    else:
+        tmin_da = None
+
+    rh_da: xr.DataArray | None
+    if hurs is not None:
+        rh_da = _ensure_percent(_resolve_dataarray(hurs, ds, "hurs"))
+    elif ds is not None and "hurs" in ds:
         rh_da = _ensure_percent(ds["hurs"])
+    else:
+        rh_da = None
 
     res = pyet.pm_fao56(
         t_da,
@@ -345,12 +399,29 @@ def potential_evapotranspiration_priestley_taylor(
     lat_rad = _resolve_latitude_rad(t_da, ds, lat)
     elev_val = _resolve_elevation(ds, elevation)
 
-    tmax_da = _ensure_celsius(_resolve_dataarray(tasmax, ds, "tasmax")) if tasmax is not None else None
-    tmin_da = _ensure_celsius(_resolve_dataarray(tasmin, ds, "tasmin")) if tasmin is not None else None
-    rh_da = _ensure_percent(_resolve_dataarray(hurs, ds, "hurs")) if hurs is not None else None
+    tmax_da: xr.DataArray | None
+    if tasmax is not None:
+        tmax_da = _ensure_celsius(_resolve_dataarray(tasmax, ds, "tasmax"))
+    elif ds is not None and "tasmax" in ds:
+        tmax_da = _ensure_celsius(ds["tasmax"])
+    else:
+        tmax_da = None
 
-    if rh_da is None and ds is not None and "hurs" in ds:
+    tmin_da: xr.DataArray | None
+    if tasmin is not None:
+        tmin_da = _ensure_celsius(_resolve_dataarray(tasmin, ds, "tasmin"))
+    elif ds is not None and "tasmin" in ds:
+        tmin_da = _ensure_celsius(ds["tasmin"])
+    else:
+        tmin_da = None
+
+    rh_da: xr.DataArray | None
+    if hurs is not None:
+        rh_da = _ensure_percent(_resolve_dataarray(hurs, ds, "hurs"))
+    elif ds is not None and "hurs" in ds:
         rh_da = _ensure_percent(ds["hurs"])
+    else:
+        rh_da = None
 
     res = pyet.priestley_taylor(
         t_da,
@@ -415,7 +486,8 @@ def potential_evapotranspiration_hargreaves(
     if not isinstance(ra, xr.DataArray):
         ra = xr.DataArray(ra, dims=["time"], coords={"time": t_da.time})
 
-    res = 0.0023 * (t_da + 17.8) * np.sqrt(tmax_da - tmin_da) * (ra / lambd)
+    trange = np.maximum(tmax_da - tmin_da, 0.0)
+    res = 0.0023 * (t_da + 17.8) * np.sqrt(trange) * (ra / lambd)
     res = res.where(res >= 0.0, 0.0)
 
     res.attrs["units"] = "mm d-1"
@@ -566,12 +638,29 @@ def potential_evapotranspiration_penman(
     lat_rad = _resolve_latitude_rad(t_da, ds, lat)
     elev_val = _resolve_elevation(ds, elevation)
 
-    tmax_da = _ensure_celsius(_resolve_dataarray(tasmax, ds, "tasmax")) if tasmax is not None else None
-    tmin_da = _ensure_celsius(_resolve_dataarray(tasmin, ds, "tasmin")) if tasmin is not None else None
-    rh_da = _ensure_percent(_resolve_dataarray(hurs, ds, "hurs")) if hurs is not None else None
+    tmax_da: xr.DataArray | None
+    if tasmax is not None:
+        tmax_da = _ensure_celsius(_resolve_dataarray(tasmax, ds, "tasmax"))
+    elif ds is not None and "tasmax" in ds:
+        tmax_da = _ensure_celsius(ds["tasmax"])
+    else:
+        tmax_da = None
 
-    if rh_da is None and ds is not None and "hurs" in ds:
+    tmin_da: xr.DataArray | None
+    if tasmin is not None:
+        tmin_da = _ensure_celsius(_resolve_dataarray(tasmin, ds, "tasmin"))
+    elif ds is not None and "tasmin" in ds:
+        tmin_da = _ensure_celsius(ds["tasmin"])
+    else:
+        tmin_da = None
+
+    rh_da: xr.DataArray | None
+    if hurs is not None:
+        rh_da = _ensure_percent(_resolve_dataarray(hurs, ds, "hurs"))
+    elif ds is not None and "hurs" in ds:
         rh_da = _ensure_percent(ds["hurs"])
+    else:
+        rh_da = None
 
     res = pyet.penman(
         t_da,
